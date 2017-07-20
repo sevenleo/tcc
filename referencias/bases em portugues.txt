@@ -1,0 +1,12 @@
+Caros,
+
+Não achei o trabalho da orientada da Puc que tinha os textos em português, mas achei esse link, http://www.nltk.org/howto/portuguese_en.html, que tem citações de bases de dados que acompanham o NLTK e respectivos links.
+
+Um abraço,
+Valeria
+
+
+
+
+
+www.nltk.org/howto/portuguese_en.html
