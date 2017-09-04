@@ -37,14 +37,14 @@ http://docs.huihoo.com/nltk/0.9.5/guides/portuguese_en.html
 http://www.nltk.org/howto/portuguese_en.html
 
 Feedback:
-
-import nltk; nltk.download(); 
-O dowloader não está baixando arquivos de todos os módulos necessários, tentei baixar alguns manualmente mas nem todos estão online.
+Primeiro tentei o fácil:
+- import nltk; nltk.download(); 
+Mas o dowloader não está baixando arquivos de todos os módulos necessários, tive que baixar alguns manualmente.
 
 Encontrei 3 pacotes em portugues:
-mac_morpho (sao carlos)
-machado (obras de machado de assis)
-floresta (...)
+- mac_morpho (sao carlos)
+- machado (obras de machado de assis)
+- floresta (...)
 
 Tive que baixar atraves dos links que estavam no xml :
 https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/index.xml
@@ -55,7 +55,11 @@ Empaquei neste erro:
 Resource 'tokenizers/punkt/english.pickle' not found.  Please use the NLTK Downloader to obtain the resource
 
 Há o arquivo english.pickle na pasta e até mesmo o portugues.pickle
+
+
 ![Erro1](https://github.com/sevenleo/tcc/blob/master/nltk_error.jpg)
+
+
 ![Erro2](https://github.com/sevenleo/tcc/blob/master/nltk_error2.jpg)
 
 ------------------------------------------------------------------------------------
@@ -110,8 +114,9 @@ Demorou horas a instalação do docker e da sua imagem. Veio cheio de erros e não 
 
 ## **3) NLPNET**
 natural Language Processing with neural networks
-ainda não testei este
-https://pypi.python.org/pypi/nlpnet/
+
+Ainda não testei este
+fonte: https://pypi.python.org/pypi/nlpnet/
 
 ------------------------------------------------------------------------------------
 
