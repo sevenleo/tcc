@@ -1,8 +1,6 @@
 **Tratando um texto:**
 
-Repassando para saber se entendi bem o passo a passo e não inverti a ordem das coisas.**\
-**
-
+Repassando para saber se entendi bem o passo a passo e não inverti a ordem das coisas.
 -   Quebrar em tokens (parser)
 
 -   Criar um dicionario para aquele contexto ou continuar utilizando um já existente (com python ex.:[link](http://orion.lcg.ufrj.br/python/_06%20-%20Programando%20em%20Python%20-%20Dicionarios.pdf))
