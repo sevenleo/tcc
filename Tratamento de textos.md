@@ -56,6 +56,7 @@ Resource 'tokenizers/punkt/english.pickle' not found.  Please use the NLTK Downl
 
 Há o arquivo english.pickle na pasta e até mesmo o portugues.pickle
 ![Erro1](https://github.com/sevenleo/tcc/blob/master/nltk_error.jpg)
+![Erro2](https://github.com/sevenleo/tcc/blob/master/nltk_error2.jpg)
 
 ------------------------------------------------------------------------------------
 
