@@ -1,4 +1,9 @@
+#A
+##B
+###C
+####D
 
+#**AA**
 
 **Tratando um texto:**
 
@@ -31,7 +36,7 @@ A parser takes the stream of tokens from the lexer and turns it into an abstract
 
 
 
-PARSER: nlpnet 
+**** PARSER: nlpnet ****
 natural Language Processing with neural networks
 ainda não testei este
 https://pypi.python.org/pypi/nlpnet/
@@ -49,7 +54,8 @@ http://docs.huihoo.com/nltk/0.9.5/guides/portuguese_en.html
 http://www.nltk.org/howto/portuguese_en.html
 
 Feedback:
-## import nltk; nltk.download(); 
+
+import nltk; nltk.download(); 
 O dowloader não está baixando arquivos de todos os módulos necessários, tentei baixar alguns manualmente mas nem todos estão online.
 
 Encontrei 3 pacotes em portugues:
@@ -63,13 +69,11 @@ e colocar na pasta
 C:\Users\Leo\AppData\Roaming\nltk_data\
 
 Empaquei neste erro:
-Resource 'tokenizers/punkt/english.pickle' not found.  Please
-  use the NLTK Downloader to obtain the resource:  >>>
-  nltk.download()
+Resource 'tokenizers/punkt/english.pickle' not found.  Please use the NLTK Downloader to obtain the resource
 
-  Hà o arquivo 'english.pickle' na pasta e até mesmo o 'portugues.pickle'
-------------------------------------------------------------------------------------
+Há o arquivo english.pickle na pasta e até mesmo o portugues.pickle
 
+=====================================================================================
 
 
 **PARSER: Syntaxnet**
@@ -137,6 +141,7 @@ https://pypi.python.org/pypi/nlpnet/
 Formatação do texto
 -	Instruções
 	-	https://pt.wikipedia.org/wiki/Markdown
+	-	https://guides.github.com/features/mastering-markdown/
 -	Richtext 2 markdown(md)
 	-	http://euangoddard.github.io/clipboard2markdown/
 	-	http://markitdown.medusis.com/
