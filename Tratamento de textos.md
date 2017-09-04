@@ -76,7 +76,6 @@ https://hub.docker.com/r/tensorflow/syntaxnet/
 
 
 
-***LeoNeves***
 
 Formatação do texto
 -	https://pt.wikipedia.org/wiki/Markdown
