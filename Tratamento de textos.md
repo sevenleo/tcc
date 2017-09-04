@@ -1,13 +1,7 @@
-#A
-##B
-###C
-####D
-
-#**AA**
-
-**Tratando um texto:**
+# **Tratando um texto:**
 
 Repassando para saber se entendi bem o passo a passo e não inverti a ordem das coisas.
+
 -   Quebrar em tokens (um bom parser ja faz isso)
 
 -   Criar um dicionario para aquele contexto ou continuar utilizando um já existente (com python ex.:[link](http://orion.lcg.ufrj.br/python/_06%20-%20Programando%20em%20Python%20-%20Dicionarios.pdf))
@@ -22,7 +16,7 @@ Repassando para saber se entendi bem o passo a passo e não inverti a ordem das c
 
 ------------------------------------------------------------------------------------
 
-
+# **Definições**
 
 A tokenizer breaks a stream of text into tokens, usually by looking for whitespace (tabs, spaces, new lines).
 
@@ -33,21 +27,10 @@ A parser takes the stream of tokens from the lexer and turns it into an abstract
 
 
 ------------------------------------------------------------------------------------
+# **I - PARSERs**
 
 
-
-**** PARSER: nlpnet ****
-natural Language Processing with neural networks
-ainda não testei este
-https://pypi.python.org/pypi/nlpnet/
-
-
-
-------------------------------------------------------------------------------------
-
-
-
-**PARSER: NLTK**
+## **1) NLTK**
 
 http://docs.huihoo.com/nltk/0.9.5/guides/portuguese_en.html
 
@@ -72,11 +55,12 @@ Empaquei neste erro:
 Resource 'tokenizers/punkt/english.pickle' not found.  Please use the NLTK Downloader to obtain the resource
 
 Há o arquivo english.pickle na pasta e até mesmo o portugues.pickle
+![Erro1](https://github.com/sevenleo/tcc/blob/master/nltk_error.jpg)
 
-=====================================================================================
+------------------------------------------------------------------------------------
 
 
-**PARSER: Syntaxnet**
+## **2) Syntaxnet**
 
 Um parser do Google/Tensorflow que usa NLTK e python
 
@@ -113,16 +97,26 @@ Imagens em docker
 https://hub.docker.com/r/tensorflow/syntaxnet/
 
 
-Feddback:
+Feedback:
 Demorou horas a instalação do docker e da sua imagem. Veio cheio de erros e não funcionou.
 
+![Erro1](https://github.com/sevenleo/tcc/blob/master/Syntaxnet-error.jpg)
 
 
 ------------------------------------------------------------------------------------
 
 
 
-**Criando dicionários com o python:**
+## **3) NLPNET**
+natural Language Processing with neural networks
+ainda não testei este
+https://pypi.python.org/pypi/nlpnet/
+
+------------------------------------------------------------------------------------
+
+
+
+# **II - Criando dicionários com o python:**
 
 -   http://defpython.blogspot.com.br/2007/01/conhecendo-os-dicionrios.html
 
@@ -131,14 +125,14 @@ Demorou horas a instalação do docker e da sua imagem. Veio cheio de erros e não 
 
 
 ------------------------------------------------------------------------------------
-Outros links importantes:
+# **Outros links importantes:**
 https://pt.slideshare.net/pugpe/nlt
 http://www.fgv.br/emap/logonto-2011/slides/leonel.pdf
 https://github.com/fmaruki/Nltk-Tagger-Portuguese
 https://pypi.python.org/pypi/nlpnet/
 
 ------------------------------------------------------------------------------------
-Formatação do texto
+### *Formatação do texto*
 -	Instruções
 	-	https://pt.wikipedia.org/wiki/Markdown
 	-	https://guides.github.com/features/mastering-markdown/
