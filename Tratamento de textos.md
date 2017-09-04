@@ -15,6 +15,7 @@ Repassando para saber se entendi bem o passo a passo e não inverti a ordem das c
 
 
 
+------------------------------------------------------------------------------------
 
 
 
@@ -26,6 +27,7 @@ http://www.nltk.org/howto/portuguese_en.html
 
 
 
+------------------------------------------------------------------------------------
 
 
 
@@ -67,6 +69,9 @@ https://hub.docker.com/r/tensorflow/syntaxnet/
 
 
 
+------------------------------------------------------------------------------------
+
+
 
 **Criando dicionários com o python:**
 
@@ -76,9 +81,13 @@ https://hub.docker.com/r/tensorflow/syntaxnet/
 
 
 
+------------------------------------------------------------------------------------
+
+
 
 Formatação do texto
--	https://pt.wikipedia.org/wiki/Markdown
+-	Instruções
+	-	https://pt.wikipedia.org/wiki/Markdown
 -	Richtext 2 markdown(md)
--	-	http://euangoddard.github.io/clipboard2markdown/
--	-	http://markitdown.medusis.com/
+	-	http://euangoddard.github.io/clipboard2markdown/
+	-	http://markitdown.medusis.com/
