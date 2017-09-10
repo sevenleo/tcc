@@ -1,0 +1,24 @@
+
+RESUMO:
+Esta semana foi curta e me concentrei para estudar para a prova de fisica3 que terei na segunda, por isso evolui tão pouco. Me concentrei mais em resolver os erros da semana passada e encontrar novas ferramentas.
+
+
+ERROS:
+Contornei os erros da ultima semana utilizando python 2.7 e linux.
+Os erros não apareceram mais, ainda não sei o que houve, mas por enquanto esta solucão me satisfaz.
+
+
+TOKENIZER :
+Funciona +-, ou seja, as palavras são separadas porém caracteres especiais não soa reconhecidos ",ç~" carateres estes que são comuns no portugues.
+
+STEMMING :
+O nltk faz isso, mas não estou confiando muito na precisão dele
+
+TAGG & POS-TAGG :
+Encontrei este (https://pypkg.com/pypi/ptbr-postag/f/ptbr_postag/ptbr_postag.py)
+Ainda não aprendi a usar, mas ele treina e testa com o mac_morpho do nltk, mac_morpho que foi criado a apartir da universidade de sao carlos. Parece confiavel.
+
+WIKI:
+Nao consegui alterar, na verdade não tentei muito pois fiquei com receio de modificar os dados já existentes por lá.
+
+
