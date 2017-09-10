@@ -1,5 +1,4 @@
 import nltk
-<<<<<<< HEAD
 sentence = "As seis da manha desta terca-feira, Arthur nao se sentia bem. Porem ainda eram 6 da manha";
 #sentence = """At eight o'clock on Thursday morning
 #... Arthur didn't feel very good."""
@@ -17,16 +16,3 @@ tokenizer=nltk.data.load('tokenizers/punkt/portuguese.pickle')
 frases = tokenizer.tokenize(sentence);
 for frase in frases:
 	print("[Frase]:  "+frase)
-=======
-
-sentence = """At eight o'clock on Thursday morning
-... Arthur didn't feel very good."""
-tokens = nltk.word_tokenize(sentence)
-tokens
-# ['At', 'eight', "o'clock", 'on', 'Thursday', 'morning',
-# 'Arthur', 'did', "n't", 'feel', 'very', 'good', '.']
-tagged = nltk.pos_tag(tokens)
-tagged[0:6]
-# [('At', 'IN'), ('eight', 'CD'), ("o'clock", 'JJ'), ('on', 'IN'),
-# ('Thursday', 'NNP'), ('morning', 'NN')]
->>>>>>> 686af604c6698692ae3961f690567aec9018d8ef
