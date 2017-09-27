@@ -178,3 +178,6 @@ print("\n\n** Palavras nao classificadas: **")
 for t in tagged:
     if t[1] == "unk":
         print(t[0])
+
+
+print(stopwords.words(lang))

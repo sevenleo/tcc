@@ -37,7 +37,7 @@ tag3 = nltk.TrigramTagger(train, backoff=tag2)
 
 
 
-
+#https://streamhacker.com/2008/11/03/part-of-speech-tagging-with-nltk-part-1/
 #verficar a precisao no NLTK
 #nltk.tag.accuracy(tag3, test)
 #verficar a precisao no NLTK 2.0
