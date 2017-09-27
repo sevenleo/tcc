@@ -1,0 +1,45 @@
+
+INSTALAR
+	linux
+	python 2.7 com pip
+
+	pip install nltk
+	pip install unidecode
+
+	import nltk
+	nltk.download('mac_morpho')
+	nltk.download('floresta')
+	nltk.download('machado')
+	nltk.download('punkt')
+	nltk.download('averaged_perceptron_tagger')
+	nltk.download('stopwords')
+
+
+
+
+
+TESTAR:
+	https://github.com/fmaruki/Nltk-Tagger-Portug
+
+
+
+PASSO 1
+	baixar um texto
+	dar uma classificacao 
+	tokenizar
+	fazer stemming nos tokens
+	classificar gramaticalmente os tokens_stemmizados (usando o mac_morpho de preferencia ou usando a api de um dicionario gratis qualquer)
+		(https://github.com/ibichara/ptbr_postag)
+	salvar em um dicionario usando python
+
+ 
+
+PASSO 2
+	selecionar varios textos da web do mesmo assunto
+	e adicionar ao dicionario daquele assunto
+
+
+
+PASSO N
+	pegar textos de blogs de acordo com as hashtags e adicionar aos dicionarios em que a hashtag se classificar
+
