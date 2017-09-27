@@ -12,6 +12,11 @@ train = mac_morpho.tagged_sents()
 #test = mac_morpho.tagged_sents()[:100]
 
 
+# http://nlpforhackers.io/training-pos-tagger/
+# DefaultTagger that simply tags everything with the same tag
+# RegexpTagger that applies tags according to a set of regular expressions
+# UnigramTagger that picks the most frequent tag for a known word
+# BigramTagger, TrigramTagger working similarly to the UnigramTagger but also taking some of the context into consideration
 tag0 = None
 tag1 = None
 tag2 = None
@@ -20,6 +25,7 @@ tag0 = nltk.DefaultTagger('unk')
 tag1 = nltk.UnigramTagger(train, backoff=tag0)
 tag2 = nltk.BigramTagger(train, backoff=tag1)
 tag3 = nltk.TrigramTagger(train, backoff=tag2)
+
 
 
 
