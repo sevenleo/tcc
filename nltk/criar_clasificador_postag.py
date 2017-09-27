@@ -6,10 +6,17 @@ import nltk
 from nltk.corpus import mac_morpho, stopwords
 
 
+
+
+
 lang = 'portuguese'
 train = mac_morpho.tagged_sents()
-#rain = mac_morpho.tagged_sents()[100:]
+#train = mac_morpho.tagged_sents()[100:]
 #test = mac_morpho.tagged_sents()[:100]
+
+
+
+
 
 
 # http://nlpforhackers.io/training-pos-tagger/
@@ -27,6 +34,14 @@ tag2 = nltk.BigramTagger(train, backoff=tag1)
 tag3 = nltk.TrigramTagger(train, backoff=tag2)
 
 
+
+
+
+
+#verficar a precisao no NLTK
+#nltk.tag.accuracy(tag3, test)
+#verficar a precisao no NLTK 2.0
+#tag3.evaluate(test)
 
 
 '''
