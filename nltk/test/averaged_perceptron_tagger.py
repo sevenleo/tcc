@@ -1,4 +1,6 @@
 import nltk
+nltk.download('averaged_perceptron_tagger')
+
 sentence = "As seis da manha desta terca-feira, Arthur nao se sentia bem. Porem ainda eram 6 da manha";
 #sentence = """At eight o'clock on Thursday morning
 #... Arthur didn't feel very good."""
