@@ -33,6 +33,12 @@ definitions = {
     'PCP': 'participio',
     'PDEN': 'palavra denotativa',
     'CUR': 'simbolo de moeda corrente'
+
+    #devo retirar isso daqui e adicionar como stopword
+    #,',' :   'virgula',
+    #'.' :   'ponto',
+    #'!' :   'exclamacao',
+    #'?' :   'interrogacao'
 }
 
 complement = {
@@ -56,7 +62,7 @@ connectors = {
 
 lang = 'portuguese'
 #train = mac_morpho.tagged_sents()[100:]
-test = mac_morpho.tagged_sents()[:1]
+#test = mac_morpho.tagged_sents()[:100]
 
 
 #__________________________________________________________________________
@@ -151,17 +157,24 @@ pensamento="Pensamento e pensar sao respectivamente uma forma de processo mental
 #        #print ("\n"+str(a)+"  "+str(b))
 
 
+tagged = tag_text(pensamento_sem_acentos)
 
 print("Palavra / Classificacao:")
-for t in tag_text(pensamento):
+for t in tagged:
     if t[1] != "unk":
-        print(t)
+        if t[1].split("|")[0] in definitions:
+            classification = definitions[t[1].split("|")[0]]
+        
+        else:
+            classification = "Simbolo ou pontuacao"
+        
+        print(t[0].upper()+"  ("+classification +")\n")
 
 
 
 
 #CLASSIFICACAO DESCONHECIDA
-print("** Palavras nao classificadas: **")
-for t in tag_text(pensamento):
+print("\n\n** Palavras nao classificadas: **")
+for t in tagged:
     if t[1] == "unk":
         print(t[0])
