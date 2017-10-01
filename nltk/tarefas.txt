@@ -4,6 +4,7 @@ INSTALAR
 	python 2.7 com pip
 
 	pip install nltk
+	pip install setuptools
 	pip install unidecode
 
 	import nltk
