@@ -97,17 +97,6 @@ def relevant_words(text, RemoveStopwords = False):
     return relevant
 
 
-#def tag_tokens(tokens,RemoveStopwords = False):
-#    sws = stopwords.words(lang)
-#    if RemoveStopwords:
-#        relevant = []
-#        for word in tokens:
-#            if word not in sws:
-#                relevant.append(word)
-#    else:
-#        relevant = tokens
-#
-#    return tag3.tag(relevant)
 
 def tag_text(text, RemoveStopwords = False):
     words = relevant_words(text,RemoveStopwords)
@@ -130,54 +119,36 @@ pensamento_sem_acentos="Pensamento e pensar sao, respectivamente, uma forma de p
 pensamento="Pensamento e pensar sao respectivamente uma forma de processo mental ou faculdade do sistema mental. Pensar permite aos seres modelarem sua percepcao do mundo ao redor de si e com isso lidar com ele de uma forma efetiva e de acordo com suas metas planos e desejos. Palavras que se referem a conceitos e processos similares incluem cognicao senciencia consciencia ideia e imaginacao. O pensamento e considerado a expressao mais palpavel do espirito humano pois atraves de imagens e ideias revela justamente a vontade deste. O pensamento e fundamental no processo de aprendizagem. O pensamento e construto e construtivo do conhecimento. O principal veiculo do processo de conscientizacao e o pensamento. A atividade de pensar confere ao homem asas para mover-se no mundo e raizes para aprofundar-se na realidade. Etimologicamente pensar significa avaliar o peso de alguma coisa. Em sentido amplo podemos dizer que o pensamento tem como missao tornar-se avaliador da realidade."
 
 
-
-
-#TOKENIZAR FORA DA FUNCAO TAG
-#frases = nltk.data.load("tokenizers/punkt/portuguese.pickle").tokenize(pensamento)
-#tokens_frases = [ nltk.word_tokenize(frase) for frase in frases]
-#for token in tokens_frases:
-#   printC("\n"+str(token))
-
-
-
-#TAGEAR TOKENS
-#for tkf in tokens_frases:
-#    print (tkf)
-#    tag_tokens(tkf)
+print("Exemplo:\n"+pensamento+"\n")
+while (True):
+    print("___________________________________________")
+    entrada = raw_input("Digite o texto que deseja classificar:\n")
+    if entrada=="":
+        break
+    tagged = tag_text(entrada)
 
 
 
-#SEPARANDO CLASSIFICADO DE CLASSIFICACAO
-#for t in test:
-#    for s in t:
-#        a,b=s[0],s[1]
-#        print(a)
-#        print(b)
-#        print("\n")
-#        #print ("\n"+str(a)+"  "+str(b))
-
-
-tagged = tag_text(pensamento_sem_acentos)
-
-print("Palavra / Classificacao:")
-for t in tagged:
-    if t[1] != "unk":
-        if t[1].split("|")[0] in definitions:
-            classification = definitions[t[1].split("|")[0]]
-        
-        else:
-            classification = "Simbolo ou pontuacao"
-        
-        print(t[0].upper()+"  ("+classification +")\n")
+    #CLASSIFICADAS
+    print("\n\n* Palavra / Classificacao: *")
+    for t in tagged:
+        if t[1] != "unk":
+            if t[1].split("|")[0] in definitions:
+                classification = definitions[t[1].split("|")[0]]
+            
+            else:
+                classification = "Simbolo ou pontuacao"
+            
+            print(t[0].upper()+"  ("+classification +")\n")
 
 
 
 
-#CLASSIFICACAO DESCONHECIDA
-print("\n\n** Palavras nao classificadas: **")
-for t in tagged:
-    if t[1] == "unk":
-        print(t[0])
+    #CLASSIFICACAO DESCONHECIDA
+    print("\n\n** Palavras nao classificadas: **")
+    for t in tagged:
+        if t[1] == "unk":
+            print(t[0])
 
 
-print(stopwords.words(lang))
+    #print(stopwords.words(lang))
