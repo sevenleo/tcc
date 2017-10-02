@@ -1,4 +1,5 @@
 commit:
+	clear
 	@echo ..
 	@cd ..
 	@echo add
@@ -8,4 +9,4 @@ commit:
 	@echo push
 	@git push
 	@echo ready
-	@cd nltk
+	#@cd nltk
