@@ -1,5 +1,5 @@
 commit:
-	clear
+	#clear
 	@echo ..
 	@cd ..
 	@echo add
