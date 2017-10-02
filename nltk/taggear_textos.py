@@ -69,8 +69,8 @@ lang = 'portuguese'
 
 
 #LOAD TRAINED FILE
-file_tag3 = open('tag3.obj', 'r') 
-tag3 = pickle.load(file_tag3) 
+file_tag3_mac = open('tag3_mac.obj', 'r') 
+tag3_mac = pickle.load(file_tag3_mac) 
 
 
 
@@ -100,12 +100,12 @@ def relevant_words(text, RemoveStopwords = False):
 
 def tag_text(text, RemoveStopwords = False):
     words = relevant_words(text,RemoveStopwords)
-    return tag3.tag(words)
+    return tag3_mac.tag(words)
 
 
 
 def tag_word(word):
-    return tag3.tag([word])
+    return tag3_mac.tag([word])
 
 
 #__________________________________________________________________________
