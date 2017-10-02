@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*- 
 
 #import unidecode
 #unaccented_string = unidecode.unidecode(txt)
@@ -10,7 +12,9 @@ from nltk.corpus import mac_morpho, stopwords
 
 
 lang = 'portuguese'
-train = mac_morpho.tagged_sents()
+#train = mac_morpho.tagged_sents()
+train = nltk.corpus.floresta.tagged_sents()
+
 #train = mac_morpho.tagged_sents()[100:]
 #test = mac_morpho.tagged_sents()[:100]
 
@@ -70,5 +74,5 @@ dataset2 = [[w[0] for w in sent] for sent in nltk.corpus.mac_morpho.tagged_paras
 
 
 #SAVE TRAIN FILE
-file_tag3 = open('tag3.obj', 'w') 
+file_tag3 = open('tag3_floresta.obj', 'w') 
 pickle.dump(tag3, file_tag3) 

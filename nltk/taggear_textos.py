@@ -10,7 +10,7 @@ from nltk.corpus import mac_morpho, stopwords
 
 #__________________________________________________________________________
 
-definitions = {
+definitions_mac = {
     'ART': 'artigo',
     'ADJ': 'adjetivo',
     'N': 'nome',
@@ -32,16 +32,17 @@ definitions = {
     'VAUX': 'verbo auxiliar',
     'PCP': 'participio',
     'PDEN': 'palavra denotativa',
-    'CUR': 'simbolo de moeda corrente'
+    'CUR': 'simbolo de moeda corrente',
+    '.' :   'ponto',
 
     #devo retirar isso daqui e adicionar como stopword
-    #,',' :   'virgula',
     #'.' :   'ponto',
+    #,',' :   'virgula',
     #'!' :   'exclamacao',
     #'?' :   'interrogacao'
 }
 
-complement = {
+complement_mac = {
     'EST': 'estrangeirismo',
     'AP': 'apostos',
     'DAD': 'dados',
@@ -51,11 +52,70 @@ complement = {
 
 }
 
-connectors = {
+connectors_mac = {
     '|': 'complemento',
     '|+': 'contracoes e eclises',
     '|!': 'mesoclise',
 }
+
+
+
+definitions_floresta = {
+    'n': "NOUN",
+    'num': "NUM",
+    'v-fin': "VERB",
+    'v-inf': "VERB",
+    'v-ger': "VERB",
+    'v-pcp': "VERB",
+    'pron-det': "PRON",
+    'pron-indp': "PRON",
+    'pron-pers': "PRON",
+    'art': "DET",
+    'adv': "ADV",
+    'conj-s': "CONJ",
+    'conj-c': "CONJ",
+    'conj-p': "CONJ",
+    'adj': "ADJ",
+    'ec': "PRT",
+    'pp': "ADP",
+    'prp': "ADP",
+    'prop': "NOUN",
+    'pro-ks-rel': "PRON",
+    'proadj': "PRON",
+    'prep': "ADP",
+    'nprop': "NOUN",
+    'vaux': "VERB",
+    'propess': "PRON",
+    'v': "VERB",
+    'vp': "VERB",
+    'in': "X",
+    'prp-': "ADP",
+    'adv-ks': "ADV",
+    'dad': "NUM",
+    'prosub': "PRON",
+    'tel': "NUM",
+    'ap': "NUM",
+    'est': "NOUN",
+    'cur': "X",
+    'pcp': "VERB",
+    'pro-ks': "PRON",
+    'hor': "NUM",
+    'pden': "ADV",
+    'dat': "NUM",
+    'kc': "ADP",
+    'ks': "ADP",
+    'adv-ks-rel': "ADV",
+    'npro': "NOUN",
+    '.' : 'ponto',
+
+    'N|AP' :'NUM',
+    'N|DAD' :'NUM',
+    'N|DAT' :'NUM',
+    'N|HOR' :'NUM',
+    'N|TEL' :'NUM'
+}
+
+
 
 #__________________________________________________________________________
 
@@ -67,10 +127,29 @@ lang = 'portuguese'
 
 #__________________________________________________________________________
 
+mac_floresta = raw_input("Escolha o dataset:\n* MAC\t\tou\n* FLORESTA [default]\n")
+if mac_floresta.lower() == "mac":
+    mac=True
+    floresta=False
+else:
+    mac=False
+    floresta=True
 
-#LOAD TRAINED FILE
-file_tag3_mac = open('tag3_mac.obj', 'r') 
-tag3_mac = pickle.load(file_tag3_mac) 
+
+
+
+#LOAD MAC_MORPHO TRAINED FILE
+if mac==True:
+    file_tag3_mac = open('tag3_mac.obj', 'r') 
+    tag3_mac = pickle.load(file_tag3_mac) 
+
+
+
+
+#LOAD FLORESTA TRAINED FILE
+if floresta==True:
+    file_tag3_floresta = open('tag3_floresta.obj', 'r') 
+    tag3_floresta = pickle.load(file_tag3_floresta) 
 
 
 
@@ -100,13 +179,20 @@ def relevant_words(text, RemoveStopwords = False):
 
 def tag_text(text, RemoveStopwords = False):
     words = relevant_words(text,RemoveStopwords)
-    return tag3_mac.tag(words)
-
+    if mac==True:
+        result = tag3_mac.tag(words)
+    if floresta==True:
+        result = tag3_floresta.tag(words)
+    return result
+ 
 
 
 def tag_word(word):
-    return tag3_mac.tag([word])
-
+    if mac==True:
+        result = tag3_mac.tag([word])
+    if floresta==True:
+        result = tag3_floresta.tag([word])
+    return result
 
 #__________________________________________________________________________
 
@@ -119,10 +205,19 @@ pensamento_sem_acentos="Pensamento e pensar sao, respectivamente, uma forma de p
 pensamento="Pensamento e pensar sao respectivamente uma forma de processo mental ou faculdade do sistema mental. Pensar permite aos seres modelarem sua percepcao do mundo ao redor de si e com isso lidar com ele de uma forma efetiva e de acordo com suas metas planos e desejos. Palavras que se referem a conceitos e processos similares incluem cognicao senciencia consciencia ideia e imaginacao. O pensamento e considerado a expressao mais palpavel do espirito humano pois atraves de imagens e ideias revela justamente a vontade deste. O pensamento e fundamental no processo de aprendizagem. O pensamento e construto e construtivo do conhecimento. O principal veiculo do processo de conscientizacao e o pensamento. A atividade de pensar confere ao homem asas para mover-se no mundo e raizes para aprofundar-se na realidade. Etimologicamente pensar significa avaliar o peso de alguma coisa. Em sentido amplo podemos dizer que o pensamento tem como missao tornar-se avaliador da realidade."
 
 
+
+
+
+
+
+
+
+
 print("Exemplo:\n"+pensamento+"\n")
-while (True):
+while (mac==True and floresta==False):
     print("___________________________________________")
-    entrada = raw_input("Digite o texto que deseja classificar:\n")
+    entrada = raw_input("[mac]Digite o texto que deseja classificar:\n")
+
     if entrada=="":
         break
     tagged = tag_text(entrada)
@@ -133,13 +228,18 @@ while (True):
     print("\n\n* Palavra / Classificacao: *")
     for t in tagged:
         if t[1] != "unk":
-            if t[1].split("|")[0] in definitions:
-                classification = definitions[t[1].split("|")[0]]
+            classification = t[1]
+            if "+" in t[1]: classification = t[1].split("+")[1]
+            if "|" in t[1]: classification = t[1].split("|")[1]
+            if "#" in t[1]: classification = t[1].split("#")[0]
             
+            if classification in definitions_mac:
+                classification = definitions_mac[classification]                
             else:
                 classification = "Simbolo ou pontuacao"
-            
-            print(t[0].upper()+"  ("+classification +")\n")
+
+            print(t[0].upper()+"  ("+ classification+")\n")
+
 
 
 
@@ -151,4 +251,40 @@ while (True):
             print(t[0])
 
 
-    #print(stopwords.words(lang))
+while (floresta==True and mac==False):
+    print("___________________________________________")
+    entrada = raw_input("[floresta]Digite o texto que deseja classificar:\n")
+    if entrada=="":
+        break
+    tagged = tag_text(entrada)
+
+
+
+    #CLASSIFICADAS
+    print("\n\n* Palavra / Classificacao: *")
+    for t in tagged:
+        if t[1] != "unk":
+            
+            classification = t[1]
+            if "+" in t[1]: classification = t[1].split("+")[1]
+            if "|" in t[1]: classification = t[1].split("|")[1]
+            if "#" in t[1]: classification = t[1].split("#")[0]
+            
+            if classification in definitions_floresta:
+                classification = definitions_floresta[classification]                
+            else:
+                classification = "Simbolo ou pontuacao"
+
+            print(t[0].upper()+"  ("+ classification+")\n")
+
+ 
+
+
+    #CLASSIFICACAO DESCONHECIDA
+    print("\n\n** Palavras nao classificadas: **")
+    for t in tagged:
+        if t[1] == "unk":
+            print(t[0])
+
+
+
