@@ -1,24 +1,4 @@
 
-INSTALAR
-	linux
-	python 2.7 com pip
-
-	pip install nltk
-	pip install setuptools
-	pip install unidecode
-
-	import nltk
-	nltk.download('mac_morpho')
-	nltk.download('floresta')
-	nltk.download('machado')
-	nltk.download('punkt')
-	nltk.download('averaged_perceptron_tagger')
-	nltk.download('stopwords')
-
-
-
-
-
 TESTAR:
 	https://github.com/fmaruki/Nltk-Tagger-Portug
 

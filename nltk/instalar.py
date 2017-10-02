@@ -1,3 +1,9 @@
+import os
+os.system("sudo pip install --upgrade pip")  
+os.system("sudo pip install setuptools")  
+os.system("sudo pip install nltk")  
+os.system("sudo pip install unidecode")  
+
 import nltk
 nltk.download('mac_morpho')
 nltk.download('floresta')
