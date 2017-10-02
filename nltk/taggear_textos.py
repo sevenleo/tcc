@@ -127,12 +127,15 @@ lang = 'portuguese'
 
 #__________________________________________________________________________
 
-mac_floresta = raw_input("Escolha o dataset:\n* MAC\t\tou\n* FLORESTA [default]\n")
-if mac_floresta.lower() == "mac":
+dataset = raw_input("Escolha o dataset:\n* [MAC]_morpho\n* [FLOR]esta\n* AMBOS\t[default]\n")
+if dataset=="0" or dataset.lower() == "mac":
     mac=True
     floresta=False
-else:
+elif dataset=="1" or dataset.lower() == "flor":
     mac=False
+    floresta=True
+else:
+    mac=True
     floresta=True
 
 
@@ -214,6 +217,8 @@ pensamento="Pensamento e pensar sao respectivamente uma forma de processo mental
 
 
 print("Exemplo:\n"+pensamento+"\n")
+
+
 while (mac==True and floresta==False):
     print("___________________________________________")
     entrada = raw_input("[mac]Digite o texto que deseja classificar:\n")
@@ -241,14 +246,15 @@ while (mac==True and floresta==False):
             print(t[0].upper()+"  ("+ classification+")\n")
 
 
-
-
-
     #CLASSIFICACAO DESCONHECIDA
     print("\n\n** Palavras nao classificadas: **")
     for t in tagged:
         if t[1] == "unk":
             print(t[0])
+
+
+
+
 
 
 while (floresta==True and mac==False):
@@ -288,3 +294,54 @@ while (floresta==True and mac==False):
 
 
 
+
+
+while (floresta==True and mac==True):
+    print("___________________________________________")
+    entrada = raw_input("[ambos]Digite o texto que deseja classificar:\n")
+    if entrada=="":
+        break
+    
+    mac=True
+    floresta=False
+    tagged_m = tag_text(entrada)
+    
+    mac=False
+    floresta=True
+
+    m_c=0
+    m_nc=0
+
+    for t in tagged_m:
+        if t[1] != "unk":
+            m_c = m_c + 1
+        else:
+            m_nc = m_nc + 1
+            
+    print("\nmac -> classificados : "+str(m_c))        
+    print("\nmac -> n-classificados : "+str(m_nc))
+                        
+
+
+
+    tagged_f = tag_text(entrada)
+
+    mac=False
+    floresta=True
+
+    f_c=0
+    f_nc=0
+
+    for t in tagged_f:
+        if t[1] != "unk":
+            f_c = f_c + 1
+        else:
+            f_nc = f_nc + 1
+            
+    print("\nflr -> classificados : "+str(f_c))        
+    print("\nflr -> n-classificados : "+str(f_nc))
+
+    
+
+    mac=True
+    floresta=True
