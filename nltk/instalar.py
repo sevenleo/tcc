@@ -1,4 +1,5 @@
 import os
+os.system("sudo apt-get install python-pip")  
 os.system("sudo pip install --upgrade pip")  
 os.system("sudo pip install setuptools")  
 os.system("sudo pip install nltk")  
