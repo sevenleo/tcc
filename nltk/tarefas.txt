@@ -1,3 +1,10 @@
+Salvar senha do git
+git config credential.helper store
+git add *
+git commit -m "blabla"
+git push
+#senha e login salvos
+
 
 TESTAR:
 	https://github.com/fmaruki/Nltk-Tagger-Portug
