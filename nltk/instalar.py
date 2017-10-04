@@ -1,4 +1,8 @@
 import os
+os.system("sudo pip install BeautifulSoup4")
+os.system("sudo pip install beautifulsoup")
+
+
 os.system("sudo apt-get install python-pip")  
 os.system("sudo pip install --upgrade pip")  
 os.system("sudo pip install setuptools")  
