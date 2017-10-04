@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*- 
+# -*- coding: latin-1 -*- 
 
 #import unidecode
 #unaccented_string = unidecode.unidecode(txt)
@@ -127,16 +127,19 @@ lang = 'portuguese'
 
 #__________________________________________________________________________
 
-dataset = raw_input("Escolha o dataset:\n* [MAC]_morpho\n* [FLOR]esta\n* AMBOS\t[default]\n")
+dataset = raw_input("Escolha o dataset:\n* [MAC]_morpho\n* [FLOR]esta\n* AMBOS[2]\n* Test\t[default]\n")
 if dataset=="0" or dataset.lower() == "mac":
     mac=True
     floresta=False
 elif dataset=="1" or dataset.lower() == "flor":
     mac=False
     floresta=True
-else:
+elif dataset=="2":
     mac=True
     floresta=True
+else:
+    mac=False
+    floresta=False
 
 
 
@@ -154,6 +157,11 @@ if floresta==True:
     file_tag3_floresta = open('tag3_floresta.obj', 'r') 
     tag3_floresta = pickle.load(file_tag3_floresta) 
 
+
+#LOAD TESTE FILE
+if floresta==False and mac==False:
+    file_tag3_test = open('tag3_test.obj', 'r') 
+    tag3_test = pickle.load(file_tag3_test) 	
 
 
 #__________________________________________________________________________
@@ -184,8 +192,10 @@ def tag_text(text, RemoveStopwords = False):
     words = relevant_words(text,RemoveStopwords)
     if mac==True:
         result = tag3_mac.tag(words)
-    if floresta==True:
+    elif floresta==True:
         result = tag3_floresta.tag(words)
+    else:
+    	result = tag3_test.tag(words)
     return result
  
 
@@ -193,8 +203,10 @@ def tag_text(text, RemoveStopwords = False):
 def tag_word(word):
     if mac==True:
         result = tag3_mac.tag([word])
-    if floresta==True:
+    elif floresta==True:
         result = tag3_floresta.tag([word])
+    else:
+    	result = tag3_test.tag([word])
     return result
 
 #__________________________________________________________________________
@@ -225,7 +237,7 @@ while (mac==True and floresta==False):
 
     if entrada=="":
         break
-    tagged = tag_text(entrada)
+    tagged = tag_text(entrada.decode('latin-1'))
 
 
 
@@ -251,7 +263,6 @@ while (mac==True and floresta==False):
     for t in tagged:
         if t[1] == "unk":
             print(t[0])
-
 
 
 
@@ -345,3 +356,48 @@ while (floresta==True and mac==True):
 
     mac=True
     floresta=True
+
+
+
+
+
+while (mac==False and floresta==False):
+    print("___________________________________________")
+    entrada = raw_input("[test]Digite o texto que deseja classificar:\n")
+
+    if entrada=="":
+        break
+    
+    print("latin-1")
+    print(entrada.decode('latin-1').encode('latin-1'))
+    print("\nutf-8\n")
+    print(entrada.decode('latin-1').encode('utf-8'))
+    '''
+    tagged = tag_text(entrada)
+
+
+
+    #CLASSIFICADAS
+    print("\n\n* Palavra / Classificacao: *")
+    for t in tagged:
+        if t[1] != "unk":
+            classification = t[1]
+            if "+" in t[1]: classification = t[1].split("+")[1]
+            if "|" in t[1]: classification = t[1].split("|")[1]
+            if "#" in t[1]: classification = t[1].split("#")[0]
+            
+            if classification in definitions_mac:
+                classification = definitions_mac[classification]                
+            #else:
+            #    classification = "Simbolo ou pontuacao"
+
+            print(t[0].upper()+"  ("+ classification+")\n")
+
+
+    #CLASSIFICACAO DESCONHECIDA
+    print("\n\n** Palavras nao classificadas: **")
+    for t in tagged:
+        if t[1] == "unk":
+            print(t[0])
+
+	'''
