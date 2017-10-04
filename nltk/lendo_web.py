@@ -1,3 +1,5 @@
+#https://www.crummy.com/software/BeautifulSoup/bs3/documentation.html
+
 import urllib2
 from bs4 import BeautifulSoup
 
