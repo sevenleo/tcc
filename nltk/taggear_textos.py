@@ -127,14 +127,14 @@ lang = 'portuguese'
 
 #__________________________________________________________________________
 
-dataset = raw_input("Escolha o dataset:\n* [MAC]_morpho\n* [FLOR]esta\n* AMBOS[2]\n* Test\t[default]\n")
-if dataset=="0" or dataset.lower() == "mac":
+dataset = raw_input("Escolha o dataset:\n* [MAC]_morpho\n* [FLOR]esta\n* AMBOS [2]\n* Test\t[default]\n")
+if dataset.lower() == "mac":
     mac=True
     floresta=False
-elif dataset=="1" or dataset.lower() == "flor":
+elif dataset.lower() == "flor":
     mac=False
     floresta=True
-elif dataset=="2":
+elif dataset=="3" or dataset=="2":
     mac=True
     floresta=True
 else:
@@ -159,7 +159,7 @@ if floresta==True:
 
 
 #LOAD TESTE FILE
-if floresta==False and mac==False:
+if (floresta==False and mac==False) or (floresta==True and mac==True):
     file_tag3_test = open('tag3_test.obj', 'r') 
     tag3_test = pickle.load(file_tag3_test) 	
 
@@ -317,9 +317,6 @@ while (floresta==True and mac==True):
     floresta=False
     tagged_m = tag_text(entrada)
     
-    mac=False
-    floresta=True
-
     m_c=0
     m_nc=0
 
@@ -335,10 +332,10 @@ while (floresta==True and mac==True):
 
 
 
-    tagged_f = tag_text(entrada)
 
     mac=False
     floresta=True
+    tagged_f = tag_text(entrada)
 
     f_c=0
     f_nc=0
@@ -354,25 +351,64 @@ while (floresta==True and mac==True):
 
     
 
+    mac=False
+    floresta=False
+    tagged_t = tag_text(entrada)
+
+    t_c=0
+    t_nc=0
+
+    for t in tagged_t:
+        if t[1] != "unk":
+            t_c = t_c + 1
+        else:
+            t_nc = t_nc + 1
+            
+    print("\ntst -> classificados : "+str(t_c))        
+    print("\ntst -> n-classificados : "+str(t_nc))
+
+    
+
     mac=True
     floresta=True
 
 
 
 
-
 while (mac==False and floresta==False):
-    print("___________________________________________")
+    #print("____EX ENCODE DECODE USANDO AS STOPWORDS_______")
+    #print( stopwords.words(lang)[36:40] )
+
+    print("________________________________________________")
     entrada = raw_input("[test]Digite o texto que deseja classificar:\n")
 
     if entrada=="":
         break
     
-    print("latin-1")
-    print(entrada.decode('latin-1').encode('latin-1'))
-    print("\nutf-8\n")
-    print(entrada.decode('latin-1').encode('utf-8'))
-    '''
+    #print("\n")
+    #print("\n         ->")
+    #print(entrada)
+    
+    #print("\n ISO 8859-1 ->")
+    #print(entrada.decode('ISO 8859-1'))
+
+    #print("\n latin-1 ->")
+    #print(entrada.decode('latin-1'))
+    #print("\n utf-8 ->")
+    #print(entrada.decode('utf-8'))
+    #print("\n       ->  latin-1 ")
+    #print(entrada.encode('latin-1'))
+    #print("\n       ->  utf-8")
+    #print(entrada.encode('utf-8'))
+    #print("\n latin-1 -> utf-8")
+    #print(entrada.decode('latin-1').encode('utf-8'))
+    #print("\n latin-1 -> latin-1")
+    #print(entrada.decode('latin-1').encode('latin-1'))
+    #print("\n utf-8   -> latin-1")
+    #print(entrada.decode('latin-1').encode('utf-8'))
+
+
+
     tagged = tag_text(entrada)
 
 
@@ -400,4 +436,4 @@ while (mac==False and floresta==False):
         if t[1] == "unk":
             print(t[0])
 
-	'''
+	

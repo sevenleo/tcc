@@ -21,12 +21,17 @@ train = mac_morpho.tagged_sents()
 
 insert = [ 
     [ (u'Uma', u'ART'), (u'ideia', u'ADJ'), (u'é', u'V'), (u'um', u'ART'), (u'veículo', u'N '), (u'de', u'PREP'), (u'motivação', u'N '), (u'para', u'PREP'), (u'a', u'ART'), (u'mudança', u'N'), (u'e', u'KC'), (u'várias', u'PRO'), (u'ideias', u'N'), (u'formam', u'V'), (u'raizes', u'N'), (u'para', u'PREP'), (u'a', u'ART'), (u'conscientização', u'N'), (u'.', u'.'), (u'(', u'('), (u'leonardo', u'NPROP'), (u'neves', u'NPROP'), (u'silva', u'NPROP'), (u')', u')') ] 
-    [(Eu sou morador novo da rua de baixo)]
 ]
 
 
 
-
+regex = [
+    (r"^[A-Z0-9._%+-]+\@[A-Z0-9.-]+\.[A-Z]{2,}$", "email"),
+    (r"^[01]?[0-9]\:[012345]\d", "hora"),
+    (r"^[2][0-4]\:[012345]\d", "hora"),
+    (r"\$\d+", "dinheiro"),
+    (r"\d+", "NUM"),
+]
 
 
 
@@ -34,7 +39,8 @@ insert = [
 file_tag3_mac = open('tag3_mac.obj', 'r') 
 tag0 = pickle.load(file_tag3_mac) 
 tag1 = nltk.UnigramTagger(insert, backoff=tag0)
-tag2 = nltk.BigramTagger(insert, backoff=tag1)
+tagr1 = nltk.RegexpTagger(regex,backoff=tag1)
+tag2 = nltk.BigramTagger(insert, backoff=tagr1)
 tag3 = nltk.TrigramTagger(insert, backoff=tag2)
 
 
