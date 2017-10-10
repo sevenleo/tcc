@@ -145,3 +145,20 @@ pickle.dump(wiki, file)
 #print ("\nORIGINAL:")
 #print (mac_morpho.tagged_sents()[sents-1])
 #print ("\nWIKI:")
+
+
+
+
+"""
+Estou prestes a escrever um arquivo muito grande, pretendo manipula-lo com pickle:
+#SAVE
+file = open('dicio_tag.obj', 'wb') 
+pickle.dump(wiki, file) 
+
+#LOAD
+file = open('dicio_tag.obj', 'rb') 
+wiki = pickle.load(file) 
+
+Existem bibliotecas melhores que a pickle?
+Qual o melhor método para salva-lo e para lê-lo da forma mais rápida, sem consumir muitos recursos e com que ele fique do menor tamanho possivel.
+"""
