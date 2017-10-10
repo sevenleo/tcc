@@ -1,8 +1,7 @@
 from nltk.corpus import mac_morpho
 from collections import defaultdict
 import pickle
-
-
+import json
 
 translate = {
     #'N|AP' :'NUM',
@@ -103,14 +102,18 @@ sents = 10#random.randint(0,100)
 
 
 print ("=============LOADING==============================\n...")
+#try:
+#    file = open('dicio_tag.obj', 'rb') 
+#    wiki = pickle.load(file) 
+#except EOFError:#open('dicio_tag.obj', 'r')
+#    wiki = []
+#except IOError:#open('dicio_tag.obj', 'rb')
+#    wiki = []
 try:
-    file = open('dicio_tag.obj', 'rb') 
-    wiki = pickle.load(file) 
-except EOFError:#open('dicio_tag.obj', 'r')
+    json_data=open('wiki.json').read()
+    wiki = json.loads(json_data)
+except IOError:
     wiki = []
-except IOError:#open('dicio_tag.obj', 'rb')
-    wiki = []
-
 
 print ("=============PROCESSANDO=============================")
 for sent in mac_morpho.tagged_sents():
@@ -128,13 +131,15 @@ for sent in mac_morpho.tagged_sents():
 print ("=============FINAL==============================")
 print (wiki)
 print ("\nTotal de frases: "+str(len(wiki)))
-
+with open('wiki.log', 'w') as outfile:
+    json.dump("\nTotal de frases: "+str(len(wiki)), outfile)
 
 print ("=============SAVING==============================\n...")
 
-file = open('dicio_tag.obj', 'wb') 
-pickle.dump(wiki, file) 
-
+#file = open('dicio_tag.obj', 'wb') 
+#pickle.dump(wiki, file) 
+with open('wiki.json', 'w') as outfile:
+    json.dump(wiki, outfile)
 
 
 
@@ -145,20 +150,3 @@ pickle.dump(wiki, file)
 #print ("\nORIGINAL:")
 #print (mac_morpho.tagged_sents()[sents-1])
 #print ("\nWIKI:")
-
-
-
-
-"""
-Estou prestes a escrever um arquivo muito grande, pretendo manipula-lo com pickle:
-#SAVE
-file = open('dicio_tag.obj', 'wb') 
-pickle.dump(wiki, file) 
-
-#LOAD
-file = open('dicio_tag.obj', 'rb') 
-wiki = pickle.load(file) 
-
-Existem bibliotecas melhores que a pickle?
-Qual o melhor método para salva-lo e para lê-lo da forma mais rápida, sem consumir muitos recursos e com que ele fique do menor tamanho possivel.
-"""
