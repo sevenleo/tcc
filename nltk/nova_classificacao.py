@@ -1,6 +1,6 @@
 from nltk.corpus import mac_morpho
 from collections import defaultdict
-import pickle
+#import pickle
 import json
 
 translate = {
@@ -93,22 +93,10 @@ translate = defaultdict(lambda: "__", translate)
 ##############################################################
 
 
-i=0;
-
-import random
-sents = 10#random.randint(0,100)
-
-
+#i=0;
 
 
 print ("=============LOADING==============================\n...")
-#try:
-#    file = open('dicio_tag.obj', 'rb') 
-#    wiki = pickle.load(file) 
-#except EOFError:#open('dicio_tag.obj', 'r')
-#    wiki = []
-#except IOError:#open('dicio_tag.obj', 'rb')
-#    wiki = []
 try:
     json_data=open('wiki.json').read()
     wiki = json.loads(json_data)
@@ -124,20 +112,15 @@ for sent in mac_morpho.tagged_sents():
         palavra = word[0]
         newsent.append((palavra,newclass))
     wiki.append(newsent)
-    i=i+1
-    if i>=sents:
-        break
+
 
 print ("=============FINAL==============================")
-print (wiki)
-print ("\nTotal de frases: "+str(len(wiki)))
+#print (wiki)
+#print ("\nTotal de frases: "+str(len(wiki)))
 with open('wiki.log', 'w') as outfile:
     json.dump("\nTotal de frases: "+str(len(wiki)), outfile)
 
 print ("=============SAVING==============================\n...")
-
-#file = open('dicio_tag.obj', 'wb') 
-#pickle.dump(wiki, file) 
 with open('wiki.json', 'w') as outfile:
     json.dump(wiki, outfile)
 
