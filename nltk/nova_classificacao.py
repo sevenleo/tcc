@@ -1,4 +1,5 @@
 from nltk.corpus import mac_morpho
+from nltk.corpus import floresta
 from collections import defaultdict
 #import pickle
 import json
@@ -93,18 +94,19 @@ translate = defaultdict(lambda: "__", translate)
 ##############################################################
 
 
-#i=0;
+i=0;
 
 
 print ("=============LOADING==============================\n...")
 try:
-    json_data=open('wiki.json').read()
+    json_data=open('wiki.floresta.json').read()
     wiki = json.loads(json_data)
 except IOError:
     wiki = []
 
 print ("=============PROCESSANDO=============================")
-for sent in mac_morpho.tagged_sents():
+#for sent in mac_morpho.tagged_sents():
+for sent in floresta.tagged_sents():
     newsent=[]
     for word in sent:
         baseclass = word[1].split('|')[0]
@@ -112,16 +114,20 @@ for sent in mac_morpho.tagged_sents():
         palavra = word[0]
         newsent.append((palavra,newclass))
     wiki.append(newsent)
+    i=i+1
+    if i>= 10:
+        break
+
 
 
 print ("=============FINAL==============================")
 #print (wiki)
 #print ("\nTotal de frases: "+str(len(wiki)))
-with open('wiki.log', 'w') as outfile:
+with open('wiki.floresta.log', 'w') as outfile:
     json.dump("\nTotal de frases: "+str(len(wiki)), outfile)
 
 print ("=============SAVING==============================\n...")
-with open('wiki.json', 'w') as outfile:
+with open('wiki.floresta.json', 'w') as outfile:
     json.dump(wiki, outfile)
 
 
@@ -129,7 +135,9 @@ with open('wiki.json', 'w') as outfile:
 
 
 
-#print ("=============TEST==============================")
-#print ("\nORIGINAL:")
-#print (mac_morpho.tagged_sents()[sents-1])
-#print ("\nWIKI:")
+print ("=============TEST==============================")
+print ("\nORIGINAL:")
+print (floresta.tagged_sents()[0])
+print ("\nWIKI:")
+print (wiki[0])
+
