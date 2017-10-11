@@ -1,6 +1,7 @@
 print ("==========================INICIANDO\n")
 
 import json
+import sys
 import os
 import nltk
 import pickle
@@ -8,9 +9,10 @@ from nltk.corpus import mac_morpho, floresta, stopwords
 lang = 'portuguese'
 
 
-
-
-DEBUG = False
+if len(sys.argv) >=2:
+    DEBUG = False
+else:
+    DEBUG = True
 
 
 
@@ -162,33 +164,36 @@ while(True):
     tags = tag_text(entrada)
 
     
-    #CLASSIFICACOES
-    print("\n\nPalavra:\t(mac_morpho)\t(floresta)\t(wiki_pessoal)")
-    print    ("        \t------------\t----------\t--------------")
-    for w in range(0,len(tokens)):
-        linha = tokens[w].upper()
-        #for tagged_sent in tags:
-        #    linha+="\t\t("+tagged_sent[w][1].lower()+") "
-        if mac:
-            linha+="\t\t("+tags[0][w][1].lower()+")"
-        else:
-            linha+="\t\t( )"
-        if floresta:
-            linha+="\t\t("+tags[1][w][1].lower()+")"
-        else:
-            linha+="\t\t( )"   
-        if wiki:
-            linha+="\t\t("+tags[2][w][1].lower()+")"
-        else:
-            linha+="\t\t( )"
+    #tabela
+    from terminaltables import AsciiTable
+    table_data = []
+ 
 
-        print(linha)
+
+
+
+    #CLASSIFICACOES
+    table_data.append(["Palavra:","(mac_morpho)","(floresta)","(wiki_pessoal)"])
+    for w in range(0,len(tokens)):
+        linha = [tokens[w].upper()]
+        if mac:
+            linha.append(tags[0][w][1].lower())
+        else:
+            linha.append(" ")  
+        if floresta:
+            linha.append(tags[1][w][1].lower())
+        else:
+            linha.append(" ")  
+        if wiki:
+            linha.append(tags[2][w][1].lower())
+        else:
+            linha.append(" ")  
+
+        #print(linha)
+        table_data.append(linha)
+
+    table = AsciiTable(table_data)
+    print table.table
 
     if DEBUG:
         break
-'''
-oi amigos, voltei
-[('oi', 'unk'), ('amigos', u'N'), (',', u','), ('voltei', u'V')]
-[('oi', 'unk'), ('amigos', u'H+n'), (',', u','), ('voltei', 'unk')]
-[('oi', u'INT'), ('amigos', u'SUBSTANTIVO'), (',', u'VIRGULA'), ('voltei', u'VERBO')]
-'''

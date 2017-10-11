@@ -6,6 +6,7 @@ os.system("sudo pip install nltk")
 os.system("sudo pip install unidecode")
 os.system("sudo pip install BeautifulSoup4")
 os.system("sudo pip install beautifulsoup")
+os.system("sudo pip install terminaltables")
 
 
 import nltk

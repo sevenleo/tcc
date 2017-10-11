@@ -19,7 +19,7 @@ translate = {
     'ADV': 'ADVERBIO',
     'ADV-KS': 'ADVERBIO',
     'ADV-KS-REL': 'ADVERBIO',
-    'AP': 'APOSTO',
+    'AP': 'NUMERO',
     'ART': 'ARTIGO',
     'CONJ-C': 'CONJUNCAO',
     'CONJ-P': 'CONJUNCAO',
