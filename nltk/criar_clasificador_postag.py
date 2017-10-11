@@ -38,7 +38,7 @@ tag0 = None
 tag1 = None
 tag2 = None
 tag3 = None
-tag0 = nltk.DefaultTagger('unk')
+tag0 = nltk.DefaultTagger('__')
 tag1 = nltk.UnigramTagger(train, backoff=tag0)
 tag2 = nltk.BigramTagger(train, backoff=tag1)
 tag3 = nltk.TrigramTagger(train, backoff=tag2)
