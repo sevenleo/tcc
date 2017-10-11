@@ -29,7 +29,7 @@ translate = {
     #'DAD': 'DAD',
     #'DAT': 'NUMERO',
     'DAT': 'DATA',
-    'EC': 'PRT',  ############
+    'EC': '?PRT?PREFIXO',  ############
     'EST': 'SUBSTANTIVO',
     #'EST': 'EST',  ############
     #'HOR': 'NUMERO',
