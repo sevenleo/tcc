@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: latin-1 -*- 
+import time
+start = time.time()
 
 print("Incializando")
 #import unidecode
@@ -295,13 +297,13 @@ tag0 = nltk.DefaultTagger('__')
 print("criando tagf...")
 tagf = nltk.AffixTagger(train,backoff=tag0)
 print("criando tag1...")
-tag1 = nltk.UnigramTagger(train, backoff=tag0)
-print("criando tagr...")
-tagr = nltk.RegexpTagger(regular, backoff=tag1)
-#print("criando tag2...")
-#tag2 = nltk.BigramTagger(train, backoff=tagr)
+tag1 = nltk.UnigramTagger(train, backoff=tagf)
+print("criando tag2...")
+tag2 = nltk.BigramTagger(train, backoff=tag1)
 #print("criando tag3...")
 #tag3 = nltk.TrigramTagger(train, backoff=tag2)
+print("criando tagr...")
+tagr = nltk.RegexpTagger(regular, backoff=tag2)
 
 #templates = nltk.brill.fntbl37()
 #tagger = nltk.BrillTaggerTrainer(tagger, templates)
@@ -320,11 +322,11 @@ print("Salvando arquivo "+filename)
 file_tag = open(filename, 'w') 
 pickle.dump(tag, file_tag) 
 
-try:
-    with open("wiki.tag.json", 'w') as outfile:
-        json.dump(tag, outfile)
-except: 
-    print("erro ao salvar em json")
+#try:
+#    with open("wiki.tag.json", 'w') as outfile:
+#        json.dump(tag, outfile)
+#except: 
+#    print("erro ao salvar em json")
 
 
 
@@ -337,3 +339,5 @@ print("Verificando acuracia")
 
 
 print("Base finalizada")
+end = time.time()
+print("\nTempo de execucao: "+str(end - start)+" seg")

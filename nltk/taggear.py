@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*- 
 
+import time
+start = time.time()
+
 
 print ("==========================INICIANDO\n")
 
@@ -79,7 +82,7 @@ if wiki==True:
     file='wiki.tag.obj'
     tag_wiki = pickle.load(open(file, 'r'))     
     print(file)
-    
+
     #o json nao esta sendo salvo, logo carrega vazio
     #filejson=open('wiki_tag.json').read()
     #tag_wiki = json.loads(filejson)
@@ -137,6 +140,7 @@ if DEBUG==False:
     #FRASE
     pensamento="Pensamento e pensar sao respectivamente uma forma de processo mental ou faculdade do sistema mental. Pensar permite aos seres modelarem sua percepcao do mundo ao redor de si e com isso lidar com ele de uma forma efetiva e de acordo com suas metas planos e desejos. Palavras que se referem a conceitos e processos similares incluem cognicao senciencia consciencia ideia e imaginacao. O pensamento e considerado a expressao mais palpavel do espirito humano pois atraves de imagens e ideias revela justamente a vontade deste. O pensamento e fundamental no processo de aprendizagem. O pensamento e construto e construtivo do conhecimento. O principal veiculo do processo de conscientizacao e o pensamento. A atividade de pensar confere ao homem asas para mover-se no mundo e raizes para aprofundar-se na realidade. Etimologicamente pensar significa avaliar o peso de alguma coisa. Em sentido amplo podemos dizer que o pensamento tem como missao tornar-se avaliador da realidade."
     print("Exemplo:\n"+pensamento+"\n")
+
 
 
 while(True):
@@ -199,3 +203,5 @@ while(True):
 
     if DEBUG:
         break
+end = time.time()
+print("\nTempo de execucao: "+str(end - start)+" seg")
