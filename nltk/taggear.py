@@ -79,6 +79,10 @@ if wiki==True:
     file='wiki.tag.obj'
     tag_wiki = pickle.load(open(file, 'r'))     
     print(file)
+    
+    #o json nao esta sendo salvo, logo carrega vazio
+    #filejson=open('wiki_tag.json').read()
+    #tag_wiki = json.loads(filejson)
 
 
 
