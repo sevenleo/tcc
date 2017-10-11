@@ -151,17 +151,18 @@ if mac==True:
 
 
 
-
 #LOAD FLORESTA TRAINED FILE
 if floresta==True:
     file_tag3_floresta = open('tag3_floresta.obj', 'r') 
     tag3_floresta = pickle.load(file_tag3_floresta) 
 
 
+
 #LOAD TESTE FILE
 if (floresta==False and mac==False) or (floresta==True and mac==True):
-    file_tag3_test = open('tag3_test.obj', 'r') 
+    file_tag3_test = open('tag3_wiki.obj', 'r') 
     tag3_test = pickle.load(file_tag3_test) 	
+
 
 
 #__________________________________________________________________________
@@ -376,42 +377,13 @@ while (floresta==True and mac==True):
 
 
 while (mac==False and floresta==False):
-    #print("____EX ENCODE DECODE USANDO AS STOPWORDS_______")
-    #print( stopwords.words(lang)[36:40] )
-
     print("________________________________________________")
     entrada = raw_input("[test]Digite o texto que deseja classificar:\n")
 
     if entrada=="":
         break
-    
-    #print("\n")
-    #print("\n         ->")
-    #print(entrada)
-    
-    #print("\n ISO 8859-1 ->")
-    #print(entrada.decode('ISO 8859-1'))
-
-    #print("\n latin-1 ->")
-    #print(entrada.decode('latin-1'))
-    #print("\n utf-8 ->")
-    #print(entrada.decode('utf-8'))
-    #print("\n       ->  latin-1 ")
-    #print(entrada.encode('latin-1'))
-    #print("\n       ->  utf-8")
-    #print(entrada.encode('utf-8'))
-    #print("\n latin-1 -> utf-8")
-    #print(entrada.decode('latin-1').encode('utf-8'))
-    #print("\n latin-1 -> latin-1")
-    #print(entrada.decode('latin-1').encode('latin-1'))
-    #print("\n utf-8   -> latin-1")
-    #print(entrada.decode('latin-1').encode('utf-8'))
-
-
 
     tagged = tag_text(entrada)
-
-
 
     #CLASSIFICADAS
     print("\n\n* Palavra / Classificacao: *")

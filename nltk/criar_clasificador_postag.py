@@ -6,6 +6,7 @@ print("Incializando")
 #unaccented_string = unidecode.unidecode(txt)
 import pickle
 import nltk
+import json
 from nltk.corpus import mac_morpho, stopwords
 lang = 'portuguese'
 

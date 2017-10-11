@@ -14,79 +14,60 @@ translate = {
     ',' :   'VIRGULA',
     '.' :   'PONTO',  
     '?' :   'INTERROGACAO', 
-    'adj': "ADJ",
-    'ADJ': 'ADJ',
-    'adv': "ADV",
-    'ADV': 'ADV',
-    'adv-ks': "ADV",
-    'ADV-KS': 'ADV',
-    'adv-ks-rel': "ADV",
-    'ADV-KS-REL': 'ADV',
-    'ap': "NUM",
-    'AP': 'AP',
-    'art': "ART",
-    'ART': 'ART',
-    'conj-c': "CONJ",
-    'conj-p': "CONJ",
-    'conj-s': "CONJ",
-    'cur': "MOEDA",
+    'ADJ': 'ADJETIVO',
+    'ADV': 'ADVERBIO',
+    'ADV-KS': 'ADVERBIO',
+    'ADV-KS-REL': 'ADVERBIO',
+    'AP': 'APOSTO',
+    'ART': 'ARTIGO',
+    'CONJ-C': 'CONJUNCAO',
+    'CONJ-P': 'CONJUNCAO',
+    'CONJ-S': 'CONJUNCAO',
     'CUR': 'MOEDA',
-    'dad': "NUM",
-    'DAD': 'DAD',
-    'dat': "NUM",
-    'DAT': 'DAT',
-    'ec': "PRT",  ############
-    'est': "SUBST",
-    'EST': 'EST',  ############
-    'hor': "NUM",
-    'HOR': 'HOR',
-    'in': "X",  ############
+    'DAD': 'NUMERO',
+    #'DAD': 'DAD',
+    'DAT': 'NUMERO',
+    #'DAT': 'DAT',
+    'EC': 'PRT',  ############
+    'EST': 'SUBSTANTIVO',
+    #'EST': 'EST',  ############
+    'HOR': 'NUMERO',
+    #'HOR': 'HOR',
+    #'IN': 'X',  ############
     'IN': 'INT',
-    'kc': "ADP",
-    'KC': 'CONJ',
-    'ks': "ADP",
-    'KS': 'CONJ',
-    'n': "SUBST",
-    'N': 'SUBST',
-    'npro': "NOUN",
-    'nprop': "NPROP",
-    'NPROP': 'NPROP',
-    'num': "NUM",
-    'NUM': 'NUM',
-    'pcp': "V",
-    'PCP': 'V',
-    'pden': "ADV",
-    'PDEN': 'DENOTATIVA',  ############
-    'pp': "PREP",
-    'prep': "PREP",
-    'PREP': 'PREP',
-    'pro-ks': "PRON",
-    'PRO-KS': 'PRON',
-    'pro-ks-rel': "PRON",
-    'PRO-KS-REL': 'PRON',
-    'proadj': "PRON",
-    'PROADJ': 'PRON',
-    'pron-det': "PRON",
-    'pron-indp': "PRON",
-    'pron-pers': "PRON",
-    'prop': "NPROP",
-    'propess': "PRON",
-    'PROPESS': 'PRON',
-    'prosub': "PRON",
-    'PROSUB': 'PRON',
-    'prp': "PREP",
-    'prp-': "NPROP",
-    'tel': "NUM",
-    'TEL': 'TEL',
-    'v': "V",
-    'V': 'V',
-    'v-fin': "V",
-    'v-ger': "V",
-    'v-inf': "V",
-    'v-pcp': "V",
-    'vaux': "V",
-    'VAUX': 'V',
-    'vp': "V",
+    'KC': 'ADP',
+    'KC': 'CONJUNCAO',
+    'KS': 'ADP',
+    'KS': 'CONJUNCAO',
+    'N': 'SUBSTANTIVO',
+    'NPRO': 'NPROPRIO',
+    'NPROP': 'NPROPRIO',
+    'NUM': 'NUMERO',
+    'PCP': 'VERBO',
+    'PDEN': 'ADVERBIO',
+    #'PDEN': 'DENOTATIVA',  ############
+    'PP': 'PREPOSICAO',
+    'PREP': 'PREPOSICAO',
+    'PRO-KS': 'PRONOME',
+    'PRO-KS-REL': 'PRONOME',
+    'PROADJ': 'PRONOME',
+    'PRON-DET': 'PRONOME',
+    'PRON-INDP': 'PRONOME',
+    'PRON-PERS': 'PRONOME',
+    'PROP': 'NPROPRIO',
+    'PROPESS': 'PRONOME',
+    'PROSUB': 'PRONOME',
+    'PRP': 'PREPOSICAO',
+    'PRP-': 'NPROPRIO',
+    'TEL': 'NUMERO',
+    #'TEL': 'TEL',
+    'V': 'VERBO',
+    'V-FIN': 'VERBO',
+    'V-GER': 'VERBO',
+    'V-INF': 'VERBO',
+    'V-PCP': 'VERBO',
+    'VAUX': 'VERBO',
+    'VP': 'VERBO',
 }
 
 translate = defaultdict(lambda: "__", translate)
@@ -94,40 +75,56 @@ translate = defaultdict(lambda: "__", translate)
 ##############################################################
 
 
-i=0;
+test = True
+if test:
+    i=0
+    testfrases = 20
+    
+filejson = 'wiki.floresta.json'
+filelog = 'wiki.floresta.log'
 
+base = mac_morpho.tagged_sents()
+#base = floresta.tagged_sents()
 
 print ("=============LOADING==============================\n...")
 try:
-    json_data=open('wiki.floresta.json').read()
+    json_data=open(filejson).read()
     wiki = json.loads(json_data)
 except IOError:
     wiki = []
 
+
 print ("=============PROCESSANDO=============================")
-#for sent in mac_morpho.tagged_sents():
-for sent in floresta.tagged_sents():
+for sent in base:
     newsent=[]
     for word in sent:
-        baseclass = word[1].split('|')[0]
-        newclass = translate[baseclass]
-        palavra = word[0]
-        newsent.append((palavra,newclass))
+        if len(word[1].split("|")) == 1:
+            baseclass = word[1].upper()
+            newclass = translate[baseclass]
+            palavra = word[0].lower()
+            newsent.append( (palavra, newclass) )
+        else:
+            #baseclass = word[1].split('|')[0].upper()
+            newclass = translate[baseclass]
+            palavra = word[0].lower()
+            newsent.append((palavra, "CONTRACAO".decode("utf8")))
+
     wiki.append(newsent)
-    i=i+1
-    if i>= 10:
-        break
+    if test:
+        i=i+1
+        if i>= testfrases:
+            break
 
 
 
 print ("=============FINAL==============================")
-#print (wiki)
-#print ("\nTotal de frases: "+str(len(wiki)))
-with open('wiki.floresta.log', 'w') as outfile:
-    json.dump("\nTotal de frases: "+str(len(wiki)), outfile)
+totalfrases = str(len(wiki))
+print ("\nTotal de frases processadas: "+totalfrases)
+with open(filelog, 'w') as outfile:
+    json.dump("\nTotal de frases: "+totalfrases, outfile)
 
 print ("=============SAVING==============================\n...")
-with open('wiki.floresta.json', 'w') as outfile:
+with open(filejson, 'w') as outfile:
     json.dump(wiki, outfile)
 
 
@@ -137,7 +134,7 @@ with open('wiki.floresta.json', 'w') as outfile:
 
 print ("=============TEST==============================")
 print ("\nORIGINAL:")
-print (floresta.tagged_sents()[0])
+print (base[0])
 print ("\nWIKI:")
 print (wiki[0])
 
