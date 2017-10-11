@@ -77,9 +77,7 @@ if floresta==True:
 if wiki==True:
     file='wiki.tag.obj'
     tag_wiki = pickle.load(open(file, 'r'))     
-    print(file) 
-
-
+    print(file)
 
 
 print ("==========================CARREGANDO FUNCOES\n")
@@ -138,7 +136,7 @@ if DEBUG==False:
 while(True):
     print ("==========================ENTRADA DE TEXTO\n")
     if DEBUG:
-        entrada = "oi amigos, estou de volta"
+        entrada = "oi amigos, estou de volta da casa da minha avo"
         print("Modo Debug:")
         print(entrada)
     else:
@@ -191,7 +189,7 @@ while(True):
         table_data.append(linha)
 
     table = AsciiTable(table_data)
-    print table.table
+    print (table.table)
 
     if DEBUG:
         break

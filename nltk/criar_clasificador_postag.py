@@ -290,11 +290,17 @@ tag2 = None
 tag3 = None
 tagf = None
 tagr = None
+print("criando tag0...")
 tag0 = nltk.DefaultTagger('__')
-#tagf = nltk.AffixTagger(train,backoff=tag0)
+print("criando tagf...")
+tagf = nltk.AffixTagger(train,backoff=tag0)
+print("criando tag1...")
 tag1 = nltk.UnigramTagger(train, backoff=tag0)
+print("criando tagr...")
 tagr = nltk.RegexpTagger(regular, backoff=tag1)
+print("criando tag2...")
 tag2 = nltk.BigramTagger(train, backoff=tagr)
+print("criando tag3...")
 tag3 = nltk.TrigramTagger(train, backoff=tag2)
 
 #templates = nltk.brill.fntbl37()
@@ -304,12 +310,6 @@ tag3 = nltk.TrigramTagger(train, backoff=tag2)
 tag=tag3
 
 
-print("Verificando acuracia")
-#https://streamhacker.com/2008/11/03/part-of-speech-tagging-with-nltk-part-1/
-#verficar a precisao no NLTK
-print(nltk.tag.accuracy(tag, test))
-#verficar a precisao no NLTK 2.0
-#tag.evaluate(test)
 
 
 
@@ -320,7 +320,20 @@ print("Salvando arquivo "+filename)
 file_tag = open(filename, 'w') 
 pickle.dump(tag, file_tag) 
 
+try:
+    with open("wiki.tag.json", 'w') as outfile:
+        json.dump(tag_wiki, outfile)
+except: 
+    print("erro ao salvar em json")
 
+
+
+print("Verificando acuracia")
+#https://streamhacker.com/2008/11/03/part-of-speech-tagging-with-nltk-part-1/
+#verficar a precisao no NLTK
+#print(nltk.tag.accuracy(tag, test))
+#verficar a precisao no NLTK 2.0
+#tag.evaluate(test)
 
 
 print("Base finalizada")
