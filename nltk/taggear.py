@@ -1,3 +1,7 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*- 
+
+
 print ("==========================INICIANDO\n")
 
 import json
@@ -24,8 +28,6 @@ mac=False
 floresta=False
 wiki=False
 test = False
-ambos=False
-todos=False
 
 if DEBUG:
     dataset="DEBUG"
@@ -48,14 +50,13 @@ elif dataset.lower() == "flor":
 elif dataset=="2":
     mac=True
     floresta=True
-    ambos=True
 elif dataset=="3":
     mac=True
     floresta=True
     wiki=True
-    todos=True
 else:
     wiki=True
+
 
 
 
@@ -78,6 +79,7 @@ if wiki==True:
     file='wiki.tag.obj'
     tag_wiki = pickle.load(open(file, 'r'))     
     print(file)
+
 
 
 print ("==========================CARREGANDO FUNCOES\n")
@@ -136,7 +138,7 @@ if DEBUG==False:
 while(True):
     print ("==========================ENTRADA DE TEXTO\n")
     if DEBUG:
-        entrada = "oi amigos, estou de volta da casa da minha avo"
+        entrada = "Oi amigos, todos vocês irão viajar na viagem da semana que vem ?"
         print("Modo Debug:")
         print(entrada)
     else:

@@ -298,16 +298,16 @@ print("criando tag1...")
 tag1 = nltk.UnigramTagger(train, backoff=tag0)
 print("criando tagr...")
 tagr = nltk.RegexpTagger(regular, backoff=tag1)
-print("criando tag2...")
-tag2 = nltk.BigramTagger(train, backoff=tagr)
-print("criando tag3...")
-tag3 = nltk.TrigramTagger(train, backoff=tag2)
+#print("criando tag2...")
+#tag2 = nltk.BigramTagger(train, backoff=tagr)
+#print("criando tag3...")
+#tag3 = nltk.TrigramTagger(train, backoff=tag2)
 
 #templates = nltk.brill.fntbl37()
 #tagger = nltk.BrillTaggerTrainer(tagger, templates)
 #tagger = tagger.train(traindata, max_rules=100)
 
-tag=tag3
+tag=tagr
 
 
 
@@ -322,7 +322,7 @@ pickle.dump(tag, file_tag)
 
 try:
     with open("wiki.tag.json", 'w') as outfile:
-        json.dump(tag_wiki, outfile)
+        json.dump(tag, outfile)
 except: 
     print("erro ao salvar em json")
 
