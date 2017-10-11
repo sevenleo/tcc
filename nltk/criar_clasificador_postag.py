@@ -24,7 +24,7 @@ train = json.loads(json_data)
 
 print("Separando arquivos test/treino")
 #train = mac_morpho.tagged_sents()[100:]
-#test = mac_morpho.tagged_sents()[:100]
+test = mac_morpho.tagged_sents()[:100]
 
 
 
@@ -148,7 +148,7 @@ tag=tag3
 print("Verificando acuracia")
 #https://streamhacker.com/2008/11/03/part-of-speech-tagging-with-nltk-part-1/
 #verficar a precisao no NLTK
-#nltk.tag.accuracy(tag, test)
+print(nltk.tag.accuracy(tag, test))
 #verficar a precisao no NLTK 2.0
 #tag.evaluate(test)
 

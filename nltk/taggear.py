@@ -9,6 +9,7 @@ from nltk.corpus import mac_morpho, floresta, stopwords
 lang = 'portuguese'
 
 
+
 if len(sys.argv) >=2:
     DEBUG = False
 else:
