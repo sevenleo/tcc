@@ -76,7 +76,7 @@ translate = defaultdict(lambda: "__", translate)
 ##############################################################
 
 
-test = True
+test = False
 if test:
     i=0
     testfrases = 20
