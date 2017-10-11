@@ -27,13 +27,13 @@ translate = {
     'CUR': 'MOEDA',
     'DAD': 'NUMERO',
     #'DAD': 'DAD',
-    'DAT': 'NUMERO',
-    #'DAT': 'DAT',
+    #'DAT': 'NUMERO',
+    'DAT': 'DATA',
     'EC': 'PRT',  ############
     'EST': 'SUBSTANTIVO',
     #'EST': 'EST',  ############
-    'HOR': 'NUMERO',
-    #'HOR': 'HOR',
+    #'HOR': 'NUMERO',
+    'HOR': 'HORA',
     #'IN': 'X',  ############
     'IN': 'INTERJEICAO',
     #'IN': 'INT',
@@ -59,8 +59,8 @@ translate = {
     'PROSUB': 'PRONOME',
     'PRP': 'PREPOSICAO',
     'PRP-': 'NPROPRIO',
-    'TEL': 'NUMERO',
-    #'TEL': 'TEL',
+    #'TEL': 'NUMERO',
+    'TEL': 'TELEFONE',
     'V': 'VERBO',
     'V-FIN': 'VERBO',
     'V-GER': 'VERBO',
@@ -75,8 +75,9 @@ translate = defaultdict(lambda: "__", translate)
 ##############################################################
 
 
-test = False
-if test:
+DEBUG = False
+
+if DEBUG:
     i=0
     testfrases = 20
 
@@ -111,7 +112,7 @@ for sent in base:
             #newsent.append((palavra, "CONTRACAO".decode("utf8")))
 
     wiki.append(newsent)
-    if test:
+    if DEBUG:
         i=i+1
         if i>= testfrases:
             break
@@ -132,7 +133,7 @@ with open(filejson, 'w') as outfile:
 
 
 
-if test:
+if DEBUG:
     print ("==========================TESTANDO")
     from random import randint
     checksent = randint(0,testfrases)
