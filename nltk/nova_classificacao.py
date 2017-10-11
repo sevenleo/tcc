@@ -1,3 +1,4 @@
+print ("==========================INICIALIZANDO AMBIENTE\n...")
 from nltk.corpus import mac_morpho
 from nltk.corpus import floresta
 from collections import defaultdict
@@ -86,7 +87,7 @@ filelog = 'wiki.log'
 base = mac_morpho.tagged_sents()
 #base = floresta.tagged_sents()
 
-print ("=============LOADING==============================\n...")
+print ("==========================CAREGANDO ARQUIVO\n...")
 try:
     json_data=open(filejson).read()
     wiki = json.loads(json_data)
@@ -94,7 +95,7 @@ except IOError:
     wiki = []
 
 
-print ("=============PROCESSANDO=============================")
+print ("==========================PROCESSANDO\n...")
 for sent in base:
     newsent=[]
     for word in sent:
@@ -118,13 +119,13 @@ for sent in base:
 
 
 
-print ("=============FINAL==============================")
+print ("==========================FINALIZANDO\n...")
 totalfrases = str(len(wiki))
-print ("\nTotal de frases processadas: "+totalfrases)
+print ("Total de frases processadas: "+totalfrases)
 with open(filelog, 'w') as outfile:
     json.dump("\nTotal de frases: "+totalfrases, outfile)
 
-print ("=============SAVING==============================\n...")
+print ("==========================SALVANDO RESULTADO\n...")
 with open(filejson, 'w') as outfile:
     json.dump(wiki, outfile)
 
@@ -133,10 +134,10 @@ with open(filejson, 'w') as outfile:
 
 
 if test:
-    print ("=============TEST==============================")
+    print ("==========================TESTANDO")
     from random import randint
     checksent = randint(0,testfrases)
-    print ("\nFRASE:")
+    print ("FRASE:")
     frase = ""
     for w in base[checksent]:
         frase += w[0]+" "
