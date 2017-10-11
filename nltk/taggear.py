@@ -34,8 +34,8 @@ else:
         * [MAC]_morpho\n \
         * [FLOR]esta\n \
         * Ambos [2]\n \
-        * [WIKI]\n \
-        * TODOS [3]\t[default]\n \
+        * [WIKI]\t[default]\n \
+        * TODOS [3]\n \
     ")
 
 if dataset.lower() == "mac":
@@ -54,10 +54,7 @@ elif dataset=="3":
     wiki=True
     todos=True
 else:
-    mac=True
-    floresta=True
     wiki=True
-    todos=True
 
 
 
