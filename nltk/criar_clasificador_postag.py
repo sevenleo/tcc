@@ -13,7 +13,7 @@ lang = 'portuguese'
 
 
 
-print("Carregango base")
+print("Carregando base")
 #train = mac_morpho.tagged_sents()
 #train = nltk.corpus.floresta.tagged_sents()
 json_data=open('wiki.json').read()

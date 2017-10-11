@@ -87,7 +87,7 @@ filelog = 'wiki.log'
 base = mac_morpho.tagged_sents()
 #base = floresta.tagged_sents()
 
-print ("==========================CAREGANDO ARQUIVO\n...")
+print ("==========================CARREGANDO ARQUIVO\n...")
 try:
     json_data=open(filejson).read()
     wiki = json.loads(json_data)
