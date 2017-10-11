@@ -79,9 +79,9 @@ test = True
 if test:
     i=0
     testfrases = 20
-    
-filejson = 'wiki.floresta.json'
-filelog = 'wiki.floresta.log'
+
+filejson = 'wiki.json'
+filelog = 'wiki.log'
 
 base = mac_morpho.tagged_sents()
 #base = floresta.tagged_sents()
@@ -104,10 +104,11 @@ for sent in base:
             palavra = word[0].lower()
             newsent.append( (palavra, newclass) )
         else:
-            #baseclass = word[1].split('|')[0].upper()
+            baseclass = word[1].split('|')[0].upper()
             newclass = translate[baseclass]
             palavra = word[0].lower()
-            newsent.append((palavra, "CONTRACAO".decode("utf8")))
+            newsent.append( (palavra, newclass) )
+            #newsent.append((palavra, "CONTRACAO".decode("utf8")))
 
     wiki.append(newsent)
     if test:
@@ -131,10 +132,18 @@ with open(filejson, 'w') as outfile:
 
 
 
-
-print ("=============TEST==============================")
-print ("\nORIGINAL:")
-print (base[0])
-print ("\nWIKI:")
-print (wiki[0])
+if test:
+    print ("=============TEST==============================")
+    from random import randint
+    checksent = randint(0,testfrases)
+    print ("\nFRASE:")
+    frase = ""
+    for w in base[checksent]:
+        frase += w[0]+" "
+    
+    print (frase)
+    print ("\nORIGINAL:")
+    print (base[checksent])
+    print ("\nWIKI:")
+    print (wiki[checksent])
 
