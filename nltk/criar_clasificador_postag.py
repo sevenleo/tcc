@@ -35,33 +35,54 @@ print("Treinando taggers")
 # RegexpTagger that applies tags according to a set of regular expressions
 # UnigramTagger that picks the most frequent tag for a known word
 # BigramTagger, TrigramTagger working similarly to the UnigramTagger but also taking some of the context into consideration
+
+regular = [
+    (r"^[nN][ao]s?$", "PRONOME"),
+    (r"^[dD][ao]s?$", "PRONOME"),
+    (r"^[pP]el[ao]s?$", "PRONOME"),
+    (r"^[nN]est[ae]s?$", "PRONOME"),
+    (r"^[nN]um$", "PRONOME"),
+    (r"^[nN]ess[ae]s?$", "PRONOME"),
+    (r"^[nN]aquel[ae]s?$", "PRONOME"),
+    (r"^\xe0$", "PRONOME"),
+]
+
+
 tag0 = None
 tag1 = None
 tag2 = None
 tag3 = None
+tagf = None
+tagr = None
 tag0 = nltk.DefaultTagger('__')
-tag1 = nltk.UnigramTagger(train, backoff=tag0)
-tag2 = nltk.BigramTagger(train, backoff=tag1)
+tagf = nltk.AffixTagger(train,backoff=tag0)
+tag1 = nltk.UnigramTagger(train, backoff=tagf)
+tagr = nltk.RegexpTagger(regular, backoff=tag1)
+tag2 = nltk.BigramTagger(train, backoff=tagr)
 tag3 = nltk.TrigramTagger(train, backoff=tag2)
 
+#templates = nltk.brill.fntbl37()
+#tagger = nltk.BrillTaggerTrainer(tagger, templates)
+#tagger = tagger.train(traindata, max_rules=100)
 
+tag=tag3
 
 
 print("Verificando acuracia")
 #https://streamhacker.com/2008/11/03/part-of-speech-tagging-with-nltk-part-1/
 #verficar a precisao no NLTK
-#nltk.tag.accuracy(tag3, test)
+#nltk.tag.accuracy(tag, test)
 #verficar a precisao no NLTK 2.0
-#tag3.evaluate(test)
+#tag.evaluate(test)
 
 
 
 
 #SAVE TRAIN FILE
-filename = 'wiki.tag3.obj'
+filename = 'wiki.tag.obj'
 print("Salvando arquivo "+filename)
-file_tag3 = open(filename, 'w') 
-pickle.dump(tag3, file_tag3) 
+file_tag = open(filename, 'w') 
+pickle.dump(tag, file_tag) 
 
 
 

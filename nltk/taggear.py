@@ -59,24 +59,24 @@ else:
 
 
 
-print ("==========================CARREGANDO ARQUIVOS TAG3\n")
+print ("==========================CARREGANDO ARQUIVOS tag\n")
 
 #LOAD MAC_MORPHO TRAINED FILE
 if mac==True:
-    file='tag3/tag3_mac.obj'
-    tag3_mac = pickle.load(open(file, 'r'))
+    file='tag/tag_mac.obj'
+    tag_mac = pickle.load(open(file, 'r'))
     print(file) 
 
 #LOAD FLORESTA TRAINED FILE
 if floresta==True:
-    file='tag3/tag3_floresta.obj'
-    tag3_floresta = pickle.load(open(file, 'r')) 
+    file='tag/tag_floresta.obj'
+    tag_floresta = pickle.load(open(file, 'r')) 
     print(file) 
 
 #LOAD TESTE FILE
 if wiki==True:
-    file='wiki.tag3.obj'
-    tag3_wiki = pickle.load(open(file, 'r'))     
+    file='wiki.tag.obj'
+    tag_wiki = pickle.load(open(file, 'r'))     
     print(file) 
 
 
@@ -107,11 +107,11 @@ def tag_text(text, RemoveStopwords = False):
     words = relevant_words(text,RemoveStopwords)
     result = ["","",""]
     if mac==True:
-        result[0] = tag3_mac.tag(words)
+        result[0] = tag_mac.tag(words)
     if floresta==True:
-        result[1] = tag3_floresta.tag(words)
+        result[1] = tag_floresta.tag(words)
     if wiki==True:
-    	result[2] = tag3_wiki.tag(words)
+    	result[2] = tag_wiki.tag(words)
     return result
  
 
@@ -119,11 +119,11 @@ def tag_text(text, RemoveStopwords = False):
 def tag_word(word):
     result = ["","",""]
     if mac==True:
-        result[0] = tag3_mac.tag([word])
+        result[0] = tag_mac.tag([word])
     if floresta==True:
-        result[1] = tag3_floresta.tag([word])
+        result[1] = tag_floresta.tag([word])
     if wiki==True:
-        result[2] = tag3_wiki.tag([word])
+        result[2] = tag_wiki.tag([word])
     return result
  
 
@@ -149,6 +149,8 @@ while(True):
             entrada=entrada.split("---")[1]
             os.system("clear")
 
+    entrada = entrada.decode("utf-8")
+    print(entrada)
     #TOKENIZAR
     tokens=[]
     for word in nltk.word_tokenize(entrada, lang):
