@@ -35,10 +35,9 @@ translate = {
     'HOR': 'NUMERO',
     #'HOR': 'HOR',
     #'IN': 'X',  ############
-    'IN': 'INT',
-    'KC': 'ADP',
+    'IN': 'INTERJEICAO',
+    #'IN': 'INT',
     'KC': 'CONJUNCAO',
-    'KS': 'ADP',
     'KS': 'CONJUNCAO',
     'N': 'SUBSTANTIVO',
     'NPRO': 'NPROPRIO',

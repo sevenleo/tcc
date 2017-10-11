@@ -28,6 +28,7 @@ print("Separando arquivos test/treino")
 
 
 
+
 print("Treinando taggers")
 # http://nlpforhackers.io/training-pos-tagger/
 # DefaultTagger that simply tags everything with the same tag
@@ -53,31 +54,11 @@ print("Verificando acuracia")
 #verficar a precisao no NLTK 2.0
 #tag3.evaluate(test)
 
-'''
-#ADICONAR ESTES TREINOS
-# nltk.corpus.mac_morpho.tagged_sents is incorrect, converting tagged_paras to tagged_sents
-dataset1 = list(nltk.corpus.floresta.tagged_sents())
-dataset2 = [[w[0] for w in sent] for sent in nltk.corpus.mac_morpho.tagged_paras()]
-'''
-'''
-#ADICIONAR LISTA PALAVRAS MANUALMENTE
-	palavras desconhecidas (unk) devem ser adicionadas manualmente
-	devemos treinar novamente
-	adicionar as palavras:
-		(S~ao,Verbo)
-		(ideia,substantivo)
-	adicionar esta linha ao codigo, antes de treinar com o nltk..Tagger:
-		tam=lenght(train)]
-		train[tam].append(["sao",V])
-		train[tam].append(["sao",V])
-	Mas a melhor forma de obter a classificacao ´e, criar uma lista de palavras desconhecidas apos varias classificacoes e procura-las em dicionarios reais
-'''
-
 
 
 
 #SAVE TRAIN FILE
-filename = 'tag3_wiki.obj'
+filename = 'wiki.tag3.obj'
 print("Salvando arquivo "+filename)
 file_tag3 = open(filename, 'w') 
 pickle.dump(tag3, file_tag3) 
