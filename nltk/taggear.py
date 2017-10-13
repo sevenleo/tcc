@@ -1,37 +1,183 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*- 
 
-import time
-start = time.time()
+class postag:
+    def __init__(self,entrada="Você esqueceu da entrada !",mac=False,floresta=False,wiki=True):
+
+        #LINGUAGEM
+        import nltk
+        self.nltk = nltk
+        self.lang = 'portuguese'
+
+        #SAIDA
+        self.tela = '___TELA___\n'
+        self.tabela = ''
+
+        #CONTA TEMPO
+        import time
+        self.time = time
+        self.start = self.time.time()
+
+        #DATASETS
+        self.mac=mac#False
+        self.floresta=floresta#False
+        self.wiki=wiki#True
+
+        #LOAD ARQUIVOS
+        import pickle
+        self.saida("Dataset(s):")
+        if self.mac==True:
+            file='tag/tag_mac.obj'
+            self.tag_mac = pickle.load(open(file, 'r'))
+            self.saida(file)
+            pass
+        if self.floresta==True:
+            file='tag/tag_floresta.obj'
+            self.tag_floresta = pickle.load(open(file, 'r')) 
+            self.saida(file)
+            pass
+        if self.wiki==True:
+            file = 'wiki.tag.obj'
+            self.tag_wiki = pickle.load(open(file, 'rb'))    
+            #teste rapido
+            #tag_wiki = nltk.UnigramTagger(mac_morpho.tagged_sents()[:100])
+            self.saida(file)
+
+        self.tag(entrada)
+        #FIM DO CONSTRUTOR
 
 
-print ("==========================INICIANDO\n")
 
-import json
-import sys
+    def __str__(self):
+
+        return self.tela
+
+
+
+    def saida(self,linha):
+
+        self.tela += str(linha)+"\n"
+
+
+
+    def salvatabela(self,conteudo):
+
+        self.tabela = conteudo
+
+
+
+    def tokenize(self,frase):
+        tokens=[]
+        for word in self.nltk.word_tokenize(frase, self.lang):
+                tokens.append(word.decode("utf-8"))
+        return tokens
+        
+
+
+    def relevant_words(self, frases):
+        frases_t = self.nltk.sent_tokenize(frases, self.lang)
+        stopwords = [] 
+        palavras = []
+        for frase in frases_t:
+            for palavra in self.tokenize(frase):
+                if palavra.lower() in stopwords:
+                    continue
+                palavras.append(palavra)
+        return palavras
+
+
+
+    def tag_word(self, word):
+        result = ["","",""]
+        if self.mac==True:
+            result[0] = self.tag_mac.tag([word])
+        if self.floresta==True:
+            result[1] = self.tag_floresta.tag([word])
+        if self.wiki==True:
+            result[2] = self.tag_wiki.tag([word])
+        return result
+  
+
+
+    def tag_text(self, text):
+        words = self.relevant_words(text)
+        result = ["","",""]
+        if self.mac==True:
+            result[0] = self.tag_mac.tag(words)
+        if self.floresta==True:
+            result[1] = self.tag_floresta.tag(words)
+        if self.wiki==True:
+            result[2] = self.tag_wiki.tag(words)
+        return result
+
+
+
+    def tag(self,entrada):
+
+        import pickle, nltk
+        from terminaltables import AsciiTable
+
+        self.saida("iniciando analise...")
+        self.saida("Entrada")
+        self.saida(entrada)
+
+
+        #TOKENIZAR
+        tokens = self.tokenize(entrada)
+        self.saida("Quantidade de Tokens : ")
+        self.saida(len(tokens))                 
+        self.saida("Tokens relevantes:")
+        self.saida(self.relevant_words(entrada))
+
+        #ANALISE DA PRIMEIRA PALAVRA
+        palavra1 = self.tag_word(tokens[0])
+        self.saida("1a palavra:")
+        self.saida(palavra1)
+
+        #ANALISE DO TEXTO
+        tagged = self.tag_text(entrada)
+
+        self.saida("Classificacao:")
+        self.saida(str(tagged[2]))
+
+        #TABELA DE EXIBICAO
+        table_data = []
+        table_data.append(["Palavra:","(mac_morpho)","(floresta)","(wiki_pessoal)"])
+
+        for w in range(0,len(tokens)):
+            linha = [tokens[w].upper()]
+            if self.mac:
+                linha.append(str(tagged[0][w][1]).lower())
+            else:
+                linha.append("")  
+            if self.floresta:
+                linha.append(str(tagged[1][w][1]).lower())
+            else:
+                linha.append("")  
+            if self.wiki:
+                linha.append(str(tagged[2][w][1]).lower())
+            else:
+                linha.append("")  
+            table_data.append(linha)
+
+
+        table = AsciiTable(table_data)
+        self.salvatabela(table.table)
+        #CONTAGEM DE TEMPO
+        end = self.time.time()
+        self.saida("\nTempo de execucao: "+str(end - self.start)+" seg")
+
+
+
+
+
+
+
+###################################################
+
 import os
-import nltk
-import pickle
-from nltk.corpus import mac_morpho, floresta, stopwords
-lang = 'portuguese'
 
-
-
-if len(sys.argv) >=2:
-    DEBUG = False
-else:
-    DEBUG = True
-
-
-
-
-
-print ("==========================DATASET(S)\n")
-mac=False
-floresta=False
-wiki=False
-test = False
-
+DEBUG = True
 if DEBUG:
     dataset="DEBUG"
 else:
@@ -58,96 +204,16 @@ elif dataset=="3":
     floresta=True
     wiki=True
 else:
+    mac=True
+    floresta=True
     wiki=True
 
 
 
-
-print ("==========================CARREGANDO ARQUIVOS tag\n")
-
-#LOAD MAC_MORPHO TRAINED FILE
-if mac==True:
-    file='tag/tag_mac.obj'
-    tag_mac = pickle.load(open(file, 'r'))
-    print(file) 
-
-#LOAD FLORESTA TRAINED FILE
-if floresta==True:
-    file='tag/tag_floresta.obj'
-    tag_floresta = pickle.load(open(file, 'r')) 
-    print(file) 
-
-#LOAD TESTE FILE
-if wiki==True:
-    file='wiki.tag.obj'
-    tag_wiki = pickle.load(open(file, 'r'))     
-    print(file)
-
-    #o json nao esta sendo salvo, logo carrega vazio
-    #filejson=open('wiki_tag.json').read()
-    #tag_wiki = json.loads(filejson)
-
-
-
-print ("==========================CARREGANDO FUNCOES\n")
-
-def relevant_words(text, RemoveStopwords = False):
-    sentences = nltk.sent_tokenize(text, lang)
-    words = []
-    for sent in sentences:
-        for word in nltk.word_tokenize(sent, lang):
-            words.append(word)
-
-    sws = stopwords.words(lang)
-    if RemoveStopwords:
-        relevant = []
-        for word in words:
-            if word not in sws:
-                relevant.append(word)
-    else:
-        relevant = words
-    return relevant
-
-
-
-def tag_text(text, RemoveStopwords = False):
-    words = relevant_words(text,RemoveStopwords)
-    result = ["","",""]
-    if mac==True:
-        result[0] = tag_mac.tag(words)
-    if floresta==True:
-        result[1] = tag_floresta.tag(words)
-    if wiki==True:
-    	result[2] = tag_wiki.tag(words)
-    return result
- 
-
-
-def tag_word(word):
-    result = ["","",""]
-    if mac==True:
-        result[0] = tag_mac.tag([word])
-    if floresta==True:
-        result[1] = tag_floresta.tag([word])
-    if wiki==True:
-        result[2] = tag_wiki.tag([word])
-    return result
- 
-
-
-if DEBUG==False:
-    print ("==========================EXEMPLO\n")
-    #FRASE
-    pensamento="Pensamento e pensar sao respectivamente uma forma de processo mental ou faculdade do sistema mental. Pensar permite aos seres modelarem sua percepcao do mundo ao redor de si e com isso lidar com ele de uma forma efetiva e de acordo com suas metas planos e desejos. Palavras que se referem a conceitos e processos similares incluem cognicao senciencia consciencia ideia e imaginacao. O pensamento e considerado a expressao mais palpavel do espirito humano pois atraves de imagens e ideias revela justamente a vontade deste. O pensamento e fundamental no processo de aprendizagem. O pensamento e construto e construtivo do conhecimento. O principal veiculo do processo de conscientizacao e o pensamento. A atividade de pensar confere ao homem asas para mover-se no mundo e raizes para aprofundar-se na realidade. Etimologicamente pensar significa avaliar o peso de alguma coisa. Em sentido amplo podemos dizer que o pensamento tem como missao tornar-se avaliador da realidade."
-    print("Exemplo:\n"+pensamento+"\n")
-
-
-
-while(True):
-    print ("==========================ENTRADA DE TEXTO\n")
+while (True):
     if DEBUG:
         entrada = "Oi amigos, todos vocês irão viajar na viagem da semana que vem ?"
-        print("Modo Debug:")
+        print("(Modo Debug)Entrada:")
         print(entrada)
     else:
         entrada = raw_input("Digite o texto que deseja classificar:\n").lower()
@@ -157,51 +223,9 @@ while(True):
             entrada=entrada.split("---")[1]
             os.system("clear")
 
-    entrada = entrada.decode("utf-8")
-    print(entrada)
-    #TOKENIZAR
-    tokens=[]
-    for word in nltk.word_tokenize(entrada, lang):
-            tokens.append(word)
-    print("\n\nTokens  : "+str(len(tokens)))
-            
-
-    #TAGGED SENTS
-    tags = tag_text(entrada)
-
-    
-    #tabela
-    from terminaltables import AsciiTable
-    table_data = []
- 
-
-
-
-
-    #CLASSIFICACOES
-    table_data.append(["Palavra:","(mac_morpho)","(floresta)","(wiki_pessoal)"])
-    for w in range(0,len(tokens)):
-        linha = [tokens[w].upper()]
-        if mac:
-            linha.append(tags[0][w][1].lower())
-        else:
-            linha.append(" ")  
-        if floresta:
-            linha.append(tags[1][w][1].lower())
-        else:
-            linha.append(" ")  
-        if wiki:
-            linha.append(tags[2][w][1].lower())
-        else:
-            linha.append(" ")  
-
-        #print(linha)
-        table_data.append(linha)
-
-    table = AsciiTable(table_data)
-    print (table.table)
-
+    #entrada = entrada.decode("utf-8")
+    analise = postag(entrada,mac,floresta,wiki)  
+    print(analise)
+    print(analise.tabela)
     if DEBUG:
         break
-end = time.time()
-print("\nTempo de execucao: "+str(end - start)+" seg")
