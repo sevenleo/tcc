@@ -23,3 +23,8 @@ from _04_taggear import *
 FINAL = time.time()
 print(" \n-----------------------------------------\
 		\nTEMPO TOTAL: "+str(FINAL - INICIO)+" seg")
+
+
+
+###execucao em um intel core i7 2600 com 8GB de ram
+###TEMPO TOTAL: 77.31026148796082 seg
