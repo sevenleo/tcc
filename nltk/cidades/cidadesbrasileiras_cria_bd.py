@@ -31,68 +31,84 @@ DEBUG = False
 
 
 def executeScriptsFromFile(comandsfilename,dbcursor):
-    # Open and read the file as a single buffer
-    print("Lendo arquivos de comandos")
-    fd = open(comandsfilename, 'r')
-    sqlFile = fd.read()
-    fd.close()
+	# Open and read the file as a single buffer
+	print("Lendo arquivos de comandos\n")
+	fd = open(comandsfilename, 'r')
+	sqlFile = fd.read()
+	fd.close()
 
-    # all SQL commands (split on ';')
-    print("carregando comandos")
-    sqlCommands = sqlFile.split(';')
-
-
-    #TEST
-    if DEBUG:
-       try:
-           cursor.execute("CREATE TABLE clientes (                id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,                nome TEXT NOT NULL,                idade INTEGER,                cpf     VARCHAR(11) NOT NULL,                email TEXT NOT NULL,                fone TEXT,                cidade TEXT,                uf VARCHAR(2) NOT NULL,                criado_em DATE NOT NULL        ); ")
-           print ("\n* done")
-       except Exception as e:
-           print ("\n***** skipped: "+ str(e))
-    else:
-        # Execute every command from the input file
-        print("realizando comandos")
-        error=0
-        done=0
-        for command in sqlCommands:
-            # This will skip and report errors
-            # For example, if the tables do not yet exist, this will skip over
-            # the DROP TABLE commands
-            
-            #print((command))
-            #print(type(command))   
-            #commando=command.decode("latin-1")
-            #print((commando))
-            #print(type(commando))
-
-            #print("Command: "+command)
-            try:
-                dbcursor.execute(command)
-                done=done+1
-                print ("\n** done")
-            except Exception as e:
-                print(command[:50])
-                print ("\n***** skipped: "+ str(e))
-                error=error+1
-
-        print("fim das tarefas")
-        print("sucessos : "+str(done))
-        print("falhas : "+str(error))
+	# all SQL commands (split on ';')
+	print("carregando comandos\n")
+	sqlCommands = sqlFile.split(';')
 
 
-print("iniciando")
+	#TEST
+	if DEBUG:
+		try:
+			cursor.execute("CREATE TABLE clientes (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,					 nome TEXT NOT NULL,					 idade INTEGER,					 cpf	  VARCHAR(11) NOT NULL,					 email TEXT NOT NULL,					 fone TEXT,					 cidade TEXT,					 uf VARCHAR(2) NOT NULL,					 criado_em DATE NOT NULL		  ); ")
+			print ("** done\n")
+		except Exception as e:
+			if "UNIQUE constraint failed" in str(e):
+				print(command[:50]+"...")
+				print("*** tabela ja existe\n")
+			else:
+				print ("***** skipped: "+ str(e)+"\n")
+	else:
+		# Execute every command from the input file
+		print("realizando comandos\n")
+		error=0
+		done=0
+		for command in sqlCommands:
+			# This will skip and report errors
+			# For example, if the tables do not yet exist, this will skip over
+			# the DROP TABLE commands
+			try:
+				dbcursor.execute(command)
+				done=done+1
+				#print ("** done\n")
+			except Exception as e:
+				if "UNIQUE constraint failed" in str(e):
+					print(command[:50]+"...")
+					print("*** tabela ja existe\n")
+				else:
+					print ("***** skipped: "+ str(e)+"\n")
+					error=error+1
+
+		print("fim das tarefas\n")
+		print("sucessos : "+str(done))
+		print("falhas : "+str(error))
+
+
+print("iniciando\n")
 # connect_db.py
-print("conectando bd")
+print("conectando bd\n")
 conn = sqlite3.connect('cidadesbrasileiras.db')
 cursor = conn.cursor()
 executeScriptsFromFile('cidadesbrasileiras.sql',cursor)
-#result = cursor.execute("SELECT * FROM table");
-print("finalizando")
+print("finalizando\n")
 # gravando no bd
 conn.commit()
-print('Dados inseridos com sucesso.')
+print('Dados gravados com sucesso.\n')
 
-#ler no windows com o software
-#sqlitestudio
-#ou
-#SQLiteDatabaseBrowser
+
+
+
+tabela='pais'
+tabela='cidade'
+tabela='estado'
+
+print("Print da tabela:\n\t"+tabela)
+cursor.execute("SELECT * FROM "+tabela);
+try:
+	for linha in cursor.fetchall():
+		print(linha)
+except:
+	#caso a tabela tenha somente uma linha
+	pass
+
+
+
+# Para visualizar/ler no windows com o software
+# sqlitestudio
+# ou
+# SQLiteDatabaseBrowser
