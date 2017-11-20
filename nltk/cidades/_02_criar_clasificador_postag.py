@@ -197,7 +197,7 @@ regular = [
 	(r'(AONDE)$', 'PREPOSICAO+ADVERBIO'),
 	(r'(DONDE)$', 'PREPOSICAO+ADVERBIO'),
 
-		(r'(Cum)$', 'PREPOSICAO+ARTIGO'),
+	(r'(Cum)$', 'PREPOSICAO+ARTIGO'),
 	(r'(Do)$', 'PREPOSICAO+ARTIGO'),
 	(r'(Da)$', 'PREPOSICAO+ARTIGO'),
 	(r'(Dos)$', 'PREPOSICAO+ARTIGO'),

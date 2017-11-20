@@ -25,10 +25,9 @@ regex = [
 ]
 
 #TRAIN_STORE
-tag = pickle.load(open('wiki.tag.objb', 'rb')) 
 tag0 = nltk.UnigramTagger(insert)
-#tag0 = nltk.DefaultTagger('__')
-tag1 = nltk.UnigramTagger(insert, backoff=tag0)
+tag  = pickle.load(open('wiki.tag.objb', 'rb')) 
+tag1 = nltk.UnigramTagger(insert, backoff=tag)
 tag2 = nltk.BigramTagger(insert, backoff=tag1)
 tag3 = nltk.TrigramTagger(insert, backoff=tag2)
 tagr = nltk.RegexpTagger(regex,backoff=tag3)
@@ -36,28 +35,23 @@ tagr = nltk.RegexpTagger(regex,backoff=tag3)
 
 
 
+def testa_palavra(palavra):
+	print(palavra.upper())
+	print( "tag0: "	+ 	str(	tag0.tag(	[palavra]	)[0][1]	)	)
+	print( " tag: "	+ 	str(	 tag.tag(	[palavra]	)[0][1]	)	)
+	print( "tag1: "	+ 	str(	tag1.tag(	[palavra]	)[0][1]	)	)
+	print( "tag2: "	+ 	str(	tag2.tag(	[palavra]	)[0][1]	)	)
+	print( "tag3: "	+ 	str(	tag3.tag(	[palavra]	)[0][1]	)	)
+	print( "tagr: "	+	str(	tagr.tag(	[palavra]	)[0][1]	)	)
+	print("\n")
+
 
 #teste
 palavra='rolandia'
-print( " tag: "	+ 	str(	 tag.tag(	[palavra]	)	)	)
-print( "tag0: "	+ 	str(	tag0.tag(	[palavra]	)	)	)
-print( "tag1: "	+ 	str(	tag1.tag(	[palavra]	)	)	)
-print( "tag2: "	+ 	str(	tag2.tag(	[palavra]	)	)	)
-print( "tag3: "	+ 	str(	tag3.tag(	[palavra]	)	)	)
-print( "tagr: "	+	str(	tagr.tag(	[palavra]	)	)	)
+testa_palavra(palavra)
 
 palavra='barrolandia'
-print( " tag: "	+ 	str(	 tag.tag(	[palavra]	)	)	)
-print( "tag0: "	+ 	str(	tag0.tag(	[palavra]	)	)	)
-print( "tag1: "	+ 	str(	tag1.tag(	[palavra]	)	)	)
-print( "tag2: "	+ 	str(	tag2.tag(	[palavra]	)	)	)
-print( "tag3: "	+ 	str(	tag3.tag(	[palavra]	)	)	)
-print( "tagr: "	+	str(	tagr.tag(	[palavra]	)	)	)
+testa_palavra(palavra)
 
-palavra='barolandia'
-print( " tag: "	+ 	str(	 tag.tag(	[palavra]	)	)	)
-print( "tag0: "	+ 	str(	tag0.tag(	[palavra]	)	)	)
-print( "tag1: "	+ 	str(	tag1.tag(	[palavra]	)	)	)
-print( "tag2: "	+ 	str(	tag2.tag(	[palavra]	)	)	)
-print( "tag3: "	+ 	str(	tag3.tag(	[palavra]	)	)	)
-print( "tagr: "	+	str(	tagr.tag(	[palavra]	)	)	)
+palavra='landia'
+testa_palavra(palavra)
