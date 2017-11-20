@@ -28,12 +28,12 @@ class postag:
         self.saida("Dataset(s):")
         if self.mac==True:
             file="tag/tag_mac.obj"
-            self.tag_mac = pickle.load(open(file, "r"))
+            self.tag_mac = pickle.load(open(file, "rb"))
             self.saida(file)
             pass
         if self.floresta==True:
             file="tag/tag_floresta.obj"
-            self.tag_floresta = pickle.load(open(file, "r")) 
+            self.tag_floresta = pickle.load(open(file, "rb")) 
             self.saida(file)
             pass
         if self.wiki==True:
