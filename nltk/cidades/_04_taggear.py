@@ -105,7 +105,6 @@ class postag:
         return palavras
 
 
-
     def tag_word(self, word):
         result = ["","",""]
         if self.mac==True:
@@ -231,7 +230,7 @@ else:
 
 while (True):
     if DEBUG:
-        entrada = "Oi amigos, todos vocês irão viajar na viagem da semana que vem ?"
+        entrada = "Oi amigos, todos vocês irão viajar na viagem da semana que vem para florianopolis, anopolis, rolandia ou Imagilandia ?"
         print("(Modo Debug)Entrada:")
         print(entrada)
     else:
