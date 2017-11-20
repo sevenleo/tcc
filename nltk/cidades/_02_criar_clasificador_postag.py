@@ -323,25 +323,34 @@ try:
 	file_tag = open(filename, 'w') 
 	pickle.dump(tag, file_tag) 
 	print("Tag salvo como: "+filename)
-except:
-	print("** NAO FOI POSSIVEL SALVAR O ARQUIVO TAG COM O PICKLE COMUM")
+except Exception as e:
+	print("** NAO FOI POSSIVEL SALVAR O ARQUIVO TAG COM O PICKLE COMUM\n"+str(e))
 	try:
 		filename = 'wiki.tag.objb'
 		print("Salvando arquivo "+filename)
 		file_tag = open(filename, 'wb') 
 		pickle.dump(tag, file_tag) 
 		print("Tag salvo como: "+filename)
-	except:
-		print("** NAO FOI POSSIVEL SALVAR O ARQUIVO TAG COM O PICKLE BYTES")
+	except Exception as e:
+		print("** NAO FOI POSSIVEL SALVAR O ARQUIVO TAG COM O PICKLE BYTES\n"+str(e))
 		try:
 			filename = 'wiki.tag.json'
 			with open(filename, 'w') as outfile:
 				json.dump(tag, outfile)
 			print("Tag salvo como: "+filename)
-		except: 
-			print("** NAO FOI POSSIVEL SALVAR O ARQUIVO TAG COM O JSON")
+		except Exception as e: 
+			print("** NAO FOI POSSIVEL SALVAR O ARQUIVO TAG COM O JSON\n"+str(e))
 			import sys
-            sys.exit("ERRO AO SALVAR O ARQUIVO!!!!")
+			sys.exit("ERRO AO SALVAR O ARQUIVO!!!!")
+
+
+	##implementar o apagar dos arquivos criados com erro/exception
+	#import os.path
+	#os.path.exists(file_path)
+	#'wiki.tag.json'
+	#'wiki.tag.objb'
+	#'wiki.tag.obj'
+
 
 
 print("Verificando acuracia")

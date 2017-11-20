@@ -40,16 +40,19 @@ class postag:
             try:
                 file = "wiki.tag.obj"
                 self.tag_wiki = pickle.load(open(file, "r"))
+                print("TAG carregado atraves do arquivo: "+file)
             except:
                 try:
                     file = "wiki.tag.objb"
                     self.tag_wiki = pickle.load(open(file, "rb"))
+                    print("TAG carregado atraves do arquivo: "+file)
                 except:
                     try:
                         filename = 'wiki.tag.json'
                         import json
                         with open(filename) as json_data:
                             self.tag_wiki = json.load(json_data)
+                        print("TAG carregado atraves do arquivo: "+file)
                     except:
                         import sys
                         sys.exit("ERRO AO CARREGAR O ARQUIVO!!!!")

@@ -9,8 +9,8 @@ from _01_nova_classificacao import *
 print("\n\n_02_criar_clasificador_postag\n\n")
 from _02_criar_clasificador_postag import *
 
-print("\n\n_03_inserir_novas_frases\n\n")
-from _03_inserir_novas_frases import *
+#print("\n\n_03_inserir_novas_frases\n\n")
+#from _03_inserir_novas_frases import *
 
 print("\n\n_04_taggear\n\n")
 from _04_taggear import *
