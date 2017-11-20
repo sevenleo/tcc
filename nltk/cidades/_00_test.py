@@ -1,3 +1,5 @@
+import time
+INICIO = time.time()
 # Este arquivo _00_tesy.py
 
 # Chamando os proximos em sequencia de producao:
@@ -17,3 +19,7 @@ from _04_taggear import *
 
 #print("\n\n_05_check\n\n")
 #from _05_check import *
+
+FINAL = time.time()
+print(" \n-----------------------------------------\
+		\nTEMPO TOTAL: "+str(FINAL - INICIO)+" seg")
