@@ -1,0 +1,318 @@
+#http://charlezine.com.br/maiores-metropoles-do-mundo/
+
+CIDADE
+
+BRASIL
+São Caetano do Sul
+Águas de São Pedro
+Florianópolis
+Balneário Camboriú
+Vitória
+Santos
+Niterói
+Joaçaba
+Brasília
+Curitiba
+Jundiaí
+Valinhos
+Vinhedo
+Santo André
+Araraquara
+Santana de Parnaíba
+Nova Lima
+Ilha Solteira
+Americana
+Belo Horizonte
+São José
+Joinville
+Maringá
+São José dos Campos
+Blumenau
+Presidente Prudente
+Rio Fortuna
+São Paulo
+Assis
+Campinas
+São Bernardo do Campo
+Porto Alegre
+São Carlos
+Rio Claro
+Jaraguá do Sul
+Rio do Sul
+Bauru
+São Miguel do Oeste
+Pirassununga
+Concórdia
+Vila Velha
+Taubaté
+Ribeirão Preto
+Botucatu
+Goiânia
+Rio de Janeiro
+Marília
+Sorocaba
+Guaratinguetá
+São João da Boa Vista
+São José do Rio Preto
+Fernandópolis
+Carlos Barbosa
+Itapema
+Tubarão
+Brusque
+Iomerê
+Paulínia
+Treze Tílias
+Itajaí
+Holambra
+Quatro Pontes
+Três Arroios
+Nova Odessa
+Ipiranga do Sul
+Saltinho
+Votuporanga
+Santa Cruz da Conceição
+Adamantina
+Chapecó
+Cândido Rodrigues
+Uberlândia
+Barretos
+Luzerna
+Lagoa dos Três Cantos
+Fernando de Noronha
+Palmas
+Araçatuba
+Barra Bonita
+Caçapava
+Cruzeiro
+Indaiatuba
+Mairiporã
+Criciúma
+Itajubá
+Espírito Santo do Pinhal
+Barueri
+Lins
+Pompéia
+Porto União
+Garibaldi
+Amparo
+Catanduva
+Monte Aprazível
+Piracicaba
+Tremembé
+Casca
+Nova Araçá
+Cuiabá
+Campo Grande
+Arujá
+Jaguariúna
+Moji Mirim
+Ribeirão Pires
+Santa Fé do Sul
+Salto Veloso
+Timbó
+Ivoti
+Santa Maria
+
+
+
+
+AMERICASUL
+São Paulo
+Cidade do México
+Lima
+Nova Iorque
+Bogotá
+Rio de Janeiro
+Caracas
+Santiago
+Santo Domingo
+Los Angeles
+Buenos Aires
+Salvador
+Chicago
+Brasília
+Toronto
+Maracaibo
+Fortaleza
+Belo Horizonte
+Guayaquil
+Medellín
+Santiago de Cali
+Cidade da Guatemala
+Havana
+Houston
+Barranquilla
+Manaus
+Quito
+Panamá
+Valência
+Santa Cruz de la Sierra¹
+Curitiba
+Ecatepec
+Guadalajara
+Córdoba
+Montreal
+Phoenix
+Recife
+Puebla
+Tijuana
+Filadélfia
+Belém
+Barquisimeto
+Porto Alegre
+Ciudad Juárez
+Manágua
+San Antonio¹
+San Diego¹
+Santiago de los Caballeros
+Montevidéu¹
+Rosário
+Porto Príncipe
+Goiânia
+Guarulhos
+Dallas
+Léon
+Tegucigalpa
+Cartagena
+Arequipa
+El Alto¹
+Zapopan
+Nezahualcóyotl
+Monterrey
+Mendoza
+Campinas
+San Pedro Sula¹
+Calgary
+São Luís
+São Gonçalo
+San Jose
+La Plata
+Ciudad Guayana
+Concepción
+Maceió
+Cúcuta
+Edmonton
+Detroit
+La Paz¹
+Tucumán
+Duque de Caxias
+Nova Iguaçu
+Ottawa
+Mexicali
+Maracay
+Teresina
+Chihuahua
+Naucalpan
+Trujillo
+Natal
+Jacksonville¹
+São Bernardo do Campo
+São Francisco
+Indianápolis
+Querétaro
+Culiacán
+Santo Domingo Este[3]
+Campo Grande
+Austin
+Columbus
+João Pessoa
+Fort Worth
+
+
+MUNDO
+Tóquio
+Seul
+Xangai
+Deli
+Cidade do México
+Pequim
+São Paulo
+Mumbai
+Jacarta
+Nova York
+Osaka-Kobe-Kyoto
+Cairo
+Calcutá
+Istambul
+Londres
+Los Angeles
+Buenos Aires
+Daca
+Paris
+Rio de Janeiro
+Manila
+Reno-Ruhr
+Lima
+Chicago
+Bogotá
+Nagoia
+Taipei
+Chennai
+Bangalore
+Teerã
+Hyderabad
+Milão
+Hong Kong
+Dallas–Fort Worth
+Santiago
+Madrid
+Ahmedabad
+Houston
+Filadélfia
+Toronto
+Washington, D.C.
+Miami
+Frankfurt
+Belo Horizonte
+Atlanta
+Barcelona
+Singapura
+Munique
+Berlim
+Hamburgo
+Pune
+
+MUNDO
+Xangai
+Lagos
+Karachi
+Istambul
+Mumbai
+Moscou
+São Paulo
+Pequim
+Cantão
+Deli
+Shenzhen
+Seul
+Jacarta
+Kinshasa
+Tianjin
+Tóquio
+Chennai
+Cairo
+Dhaka
+Cidade do México
+Bangalore
+Nova Iorque
+Londres
+Bangkok
+Dongguan
+Teerã
+Bogotá
+Cidade de Ho Chi Minh
+Hong Kong
+Bagdá
+
+
+EUA
+Nova Iorque
+Los Angeles
+Chicago
+Houston
+Filadélfia
+Phoenix
+San Diego
+Dallas
+San Antonio
+Detroit
