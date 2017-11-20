@@ -275,14 +275,14 @@ regular = [
 	(r'(Aonde)$', 'PREPOSICAO+ADVERBIO'),
 	(r'(Donde)$', 'PREPOSICAO+ADVERBIO'),
 
-    (r"^[nN][ao]s?$", "PREPOSICAO+PRONOME"),
-    (r"^[dD][ao]s?$", "PREPOSICAO+PRONOME"),
-    (r"^[pP]el[ao]s?$", "PREPOSICAO+PRONOME"),
-    (r"^[nN]est[ae]s?$", "PREPOSICAO+PRONOME"),
-    (r"^[nN]um$", "PREPOSICAO+PRONOME"),
-    (r"^[nN]ess[ae]s?$", "PREPOSICAO+PRONOME"),
-    (r"^[nN]aquel[ae]s?$", "PREPOSICAO+PRONOME"),
-    (r"^\xe0$", "PREPOSICAO+"),
+	(r"^[nN][ao]s?$", "PREPOSICAO+PRONOME"),
+	(r"^[dD][ao]s?$", "PREPOSICAO+PRONOME"),
+	(r"^[pP]el[ao]s?$", "PREPOSICAO+PRONOME"),
+	(r"^[nN]est[ae]s?$", "PREPOSICAO+PRONOME"),
+	(r"^[nN]um$", "PREPOSICAO+PRONOME"),
+	(r"^[nN]ess[ae]s?$", "PREPOSICAO+PRONOME"),
+	(r"^[nN]aquel[ae]s?$", "PREPOSICAO+PRONOME"),
+	(r"^\xe0$", "PREPOSICAO+"),
 ]
 
 
@@ -317,17 +317,31 @@ tag=tagr
 
 
 #SAVE TRAIN FILE
-filename = 'wiki.tag.obj'
-print("Salvando arquivo "+filename)
-file_tag = open(filename, 'w') 
-pickle.dump(tag, file_tag) 
-
-#try:
-#    with open("wiki.tag.json", 'w') as outfile:
-#        json.dump(tag, outfile)
-#except: 
-#    print("erro ao salvar em json")
-
+try:
+	filename = 'wiki.tag.obj'
+	print("Salvando arquivo "+filename)
+	file_tag = open(filename, 'w') 
+	pickle.dump(tag, file_tag) 
+	print("Tag salvo como: "+filename)
+except:
+	print("** NAO FOI POSSIVEL SALVAR O ARQUIVO TAG COM O PICKLE COMUM")
+	try:
+		filename = 'wiki.tag.objb'
+		print("Salvando arquivo "+filename)
+		file_tag = open(filename, 'wb') 
+		pickle.dump(tag, file_tag) 
+		print("Tag salvo como: "+filename)
+	except:
+		print("** NAO FOI POSSIVEL SALVAR O ARQUIVO TAG COM O PICKLE BYTES")
+		try:
+			filename = 'wiki.tag.json'
+			with open(filename, 'w') as outfile:
+				json.dump(tag, outfile)
+			print("Tag salvo como: "+filename)
+		except: 
+			print("** NAO FOI POSSIVEL SALVAR O ARQUIVO TAG COM O JSON")
+			import sys
+            sys.exit("ERRO AO SALVAR O ARQUIVO!!!!")
 
 
 print("Verificando acuracia")

@@ -37,8 +37,22 @@ class postag:
             self.saida(file)
             pass
         if self.wiki==True:
-            file = "wiki.tag.obj"
-            self.tag_wiki = pickle.load(open(file, "rb"))
+            try:
+                file = "wiki.tag.obj"
+                self.tag_wiki = pickle.load(open(file, "r"))
+            except:
+                try:
+                    file = "wiki.tag.objb"
+                    self.tag_wiki = pickle.load(open(file, "rb"))
+                except:
+                    try:
+                        filename = 'wiki.tag.json'
+                        import json
+                        with open(filename) as json_data:
+                            self.tag_wiki = json.load(json_data)
+                    except:
+                        import sys
+                        sys.exit("ERRO AO CARREGAR O ARQUIVO!!!!")
             #teste rapido
             #from nltk.corpus import mac_morpho
             #self.tag_wiki = nltk.UnigramTagger(mac_morpho.tagged_sents()[:100])
