@@ -1,0 +1,3 @@
+https://github.com/ibichara/ptbr_postag
+
+https://github.com/fmaruki/Nltk-Tagger-Portuguese 
