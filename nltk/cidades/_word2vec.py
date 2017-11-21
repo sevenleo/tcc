@@ -92,13 +92,25 @@ b.most_similar('company', topn=5)
 t.most_similar('company', topn=5)
 '''
 
+
+
+
+
+
+
+
+
+
+
+'''
+
 import word2vec
 
 
 ########## Training
-word2vec.word2phrase('ex_w2v/text8', 'ex_w2v/text8-phrases', verbose=True)
-word2vec.word2vec('ex_w2v/text8-phrases', 'ex_w2v/text8.bin', size=100, verbose=True)
-word2vec.word2clusters('ex_w2v/text8', 'ex_w2v/text8-clusters.txt', 100, verbose=True)
+#word2vec.word2phrase('ex_w2v/text8', 'ex_w2v/text8-phrases', verbose=True)
+#word2vec.word2vec('ex_w2v/text8-phrases', 'ex_w2v/text8.bin', size=100, verbose=True)
+#word2vec.word2clusters('ex_w2v/text8', 'ex_w2v/text8-clusters.txt', 100, verbose=True)
 
 
 
@@ -144,3 +156,18 @@ model.clusters = clusters
 indexes, metrics = model.analogy(pos=['paris', 'germany'], neg=['france'], n=10)
 print ( "model.analogy(pos=['paris', 'germany'], neg=['france'], n=10)" )
 print ( model.generate_response(indexes, metrics).tolist() )
+
+
+'''
+limit=1
+i=0
+insert = []
+with open("ex_w2v/text8", "r") as ins:
+	for line in ins:
+		if i>limit:
+			break
+		line = line.strip()
+		#print(line)
+		insert.append([(line,"CIDADE")])
+		i=i+1
+print(insert)
