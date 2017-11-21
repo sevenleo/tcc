@@ -1,5 +1,11 @@
 # Created by https://www.gitignore.io/api/python
 
+#criados pelo projeto
+*.bin
+*-clusters.txt
+*-phrases
+
+
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
