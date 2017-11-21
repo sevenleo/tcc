@@ -49,6 +49,15 @@ print("___________ sudo pip install scikit-learn ___________")
 os.system("sudo pip install scikit-learn")
 
 
-print("___________ pip freeze > requirements.txt ___________")
-os.system("pip freeze > requirements.txt")
+print("___________ sudo pip install pybrain ___________")
+os.system("sudo pip install pybrain")
+
+
+print("___________ sudo pip install pipreqs ___________")
+os.system("sudo pip install pipreqs")
+
+
+#print("___________ pip freeze > requirements.txt ___________")
+#os.system("pip freeze > requirements.txt")
+#os.system("pipreqs .")
 
