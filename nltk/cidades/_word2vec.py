@@ -102,15 +102,15 @@ t.most_similar('company', topn=5)
 
 
 
-'''
 
 import word2vec
 
 
 ########## Training
-#word2vec.word2phrase('ex_w2v/text8', 'ex_w2v/text8-phrases', verbose=True)
-#word2vec.word2vec('ex_w2v/text8-phrases', 'ex_w2v/text8.bin', size=100, verbose=True)
-#word2vec.word2clusters('ex_w2v/text8', 'ex_w2v/text8-clusters.txt', 100, verbose=True)
+file='text8'
+word2vec.word2phrase('ex_w2v/'+file, 'ex_w2v/'+file+'-phrases', verbose=True)
+word2vec.word2vec('ex_w2v/'+file+'-phrases', 'ex_w2v/'+file+'.bin', size=100, verbose=True)
+word2vec.word2clusters('ex_w2v/'+file, 'ex_w2v/'+file+'-clusters.txt', 100, verbose=True)
 
 
 
@@ -137,7 +137,7 @@ print ( "model.cosine('los_angeles')" )
 print ( model.generate_response(indexes, metrics).tolist() )
 
 
-
+'''
 
 ########## Analogies
 indexes, metrics = model.analogy(pos=['king', 'woman'], neg=['man'], n=10)
@@ -157,6 +157,9 @@ indexes, metrics = model.analogy(pos=['paris', 'germany'], neg=['france'], n=10)
 print ( "model.analogy(pos=['paris', 'germany'], neg=['france'], n=10)" )
 print ( model.generate_response(indexes, metrics).tolist() )
 
+'''
+
+
 
 '''
 limit=1
@@ -171,3 +174,4 @@ with open("ex_w2v/text8", "r") as ins:
 		insert.append([(line,"CIDADE")])
 		i=i+1
 print(insert)
+'''
