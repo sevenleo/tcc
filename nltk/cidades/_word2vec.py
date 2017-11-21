@@ -116,7 +116,7 @@ word2vec.word2clusters('ex_w2v/'+file, 'ex_w2v/'+file+'-clusters.txt', 100, verb
 
 
 ########## Predictions
-model = word2vec.load('ex_w2v/text8.bin')
+model = word2vec.load('ex_w2v/'+file+'.bin')
 #model.vocab
 #model.vectors.shape
 #model.vectors
@@ -165,7 +165,7 @@ print ( model.generate_response(indexes, metrics).tolist() )
 limit=1
 i=0
 insert = []
-with open("ex_w2v/text8", "r") as ins:
+with open("ex_w2v/"+file, "r") as ins:
 	for line in ins:
 		if i>limit:
 			break
