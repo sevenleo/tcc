@@ -96,15 +96,15 @@ import word2vec
 
 
 ########## Training
-word2vec.word2phrase('/Users/drodriguez/Downloads/text8', '/Users/drodriguez/Downloads/text8-phrases', verbose=True)
-word2vec.word2vec('/Users/drodriguez/Downloads/text8-phrases', '/Users/drodriguez/Downloads/text8.bin', size=100, verbose=True)
-word2vec.word2clusters('/Users/drodriguez/Downloads/text8', '/Users/drodriguez/Downloads/text8-clusters.txt', 100, verbose=True)
+word2vec.word2phrase('ex_w2v/text8', 'ex_w2v/text8-phrases', verbose=True)
+word2vec.word2vec('ex_w2v/text8-phrases', 'ex_w2v/text8.bin', size=100, verbose=True)
+word2vec.word2clusters('ex_w2v/text8', 'ex_w2v/text8-clusters.txt', 100, verbose=True)
 
 
 
 
 ########## Predictions
-model = word2vec.load('/Users/drodriguez/Downloads/text8.bin')
+model = word2vec.load('ex_w2v/text8.bin')
 #model.vocab
 #model.vectors.shape
 #model.vectors
@@ -136,7 +136,7 @@ print ( model.generate_response(indexes, metrics).tolist() )
 
 
 ########## Clusters
-clusters = word2vec.load_clusters('/Users/drodriguez/Downloads/text8-clusters.txt')
+clusters = word2vec.load_clusters('ex_w2v/text8-clusters.txt')
 clusters['dog']
 clusters.get_words_on_cluster(90).shape
 clusters.get_words_on_cluster(90)[:10]
