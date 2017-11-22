@@ -195,11 +195,12 @@ class postag:
 
 import os
 
-DEBUG = True
+DEBUG = False
 if DEBUG:
     dataset="DEBUG"
 else:
-    dataset = raw_input(
+    #dataset = raw_input(           #python2
+    dataset = input(                #python3
         "Escolha o dataset:\n \
         * [MAC]_morpho\n \
         * [FLOR]esta\n \
@@ -210,13 +211,20 @@ else:
 
 if dataset.lower() == "mac":
     mac=True
+    wiki=False
+    floresta=False
 elif dataset.lower() == "wiki":
     wiki=True
+    mac=False
+    floresta=False
 elif dataset.lower() == "flor":
     floresta=True
+    wiki=False
+    mac=False
 elif dataset=="2":
     mac=True
     floresta=True
+    wiki=False
 elif dataset=="3":
     mac=True
     floresta=True
@@ -234,7 +242,8 @@ while (True):
         print("(Modo Debug)Entrada:")
         print(entrada)
     else:
-        entrada = raw_input("Digite o texto que deseja classificar:\n").lower()
+        #entrada = raw_input("Digite o texto que deseja classificar:\n").lower()        #python2
+        entrada = input("Digite o texto que deseja classificar:\n").lower()             #python3
         if entrada=="":
             break
         if entrada.startswith("---"):
