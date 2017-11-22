@@ -28,11 +28,11 @@ flor = pickle.load(open('W2V/flor.W2V.objb', "rb"))
 
 
 #USES
-mac.most_similar('São', topn=5)
-mac.most_similar('presidente', topn=5)
-mac.most_similar('cidade', topn=5)
-flor.most_similar('Porto', topn=5)
-flor.most_similar('Estado', topn=5)
-mac.predict_output_word(['presidente'])
-mac.predict_output_word(['Rio','de'])
+print ( mac.most_similar('São', topn=5) )
+print ( mac.most_similar('presidente', topn=5) )
+print ( mac.most_similar('cidade', topn=5) )
+print ( flor.most_similar('Porto', topn=5) )
+print ( flor.most_similar('Estado', topn=5) )
+print ( mac.predict_output_word(['presidente']) )
+print ( mac.predict_output_word(['Rio','de']) )
 
