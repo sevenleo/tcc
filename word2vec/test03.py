@@ -39,10 +39,12 @@ else:
 	w2v = pickle.load(open('W2V/'+file+'.W2V.objb', "rb"))
 
 #USES
-print("_________ EXEMPLOS _________")
+print("_________ SIMILAR _________")
 print("DOG")
 print ( w2v.most_similar('dog', topn=5) )
 print("LOS ANGELES")
-print ( w2v.predict_output_word(['los','angeles']) )
-print("LOS ANGELES")
 print ( w2v.most_similar('chicago', topn=5) )
+
+print("_________ PREDICT _________")
+print("LOS ANGELES")
+print ( w2v.predict_output_word(['los','angeles']) )
