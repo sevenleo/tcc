@@ -5,6 +5,7 @@
 *-clusters.txt
 *-phrases
 *.objb
+*.model
 
 ### Python ###
 # Byte-compiled / optimized / DLL files

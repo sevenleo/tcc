@@ -54,14 +54,14 @@ def search(word):
 
 def saveinfile(obj,_folder,_name,_type):
 	savefilename = _folder+'/'+_name+'.'+_type+'.objb'
-	logs("SAVE FILE",savefilename)
+	logs("SAVE FILE (objb)",savefilename)
 	savefile = open(savefilename, 'wb') 
 	pickle.dump(obj, savefile) 
 
 
 def loadfromfile(_folder,_name,_type):
 	loadfilename = _folder+'/'+_name+'.'+_type+'.objb'
-	logs("LOAD FILE",loadfilename)
+	logs("LOAD FILE (objb)",loadfilename)
 	return pickle.load(open(loadfilename, "rb"))
 
 #IMPORT
@@ -73,12 +73,23 @@ import logging
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 onlinesearch=True
 file = 'text8'
-load = True
+
 
 
 from gensim.models import Word2Vec
 
-if load == False:
+
+try:
+	#LOAD FILES
+	try:
+		loadfilename = 'W2V'+'/'+file+'.model'
+		logs("LOAD FILE (model)",loadfilename)
+		w2v.load(loadfilename)
+	except:
+		print("model FILE NOT EXIST")
+		w2v = loadfromfile('W2V',file,'W2V')
+except:
+	print("FILE CANNOT BE LOADED")
 	#CREATE W2V
 	logs("CREATE W2V",file)
 	
@@ -92,11 +103,13 @@ if load == False:
 
 
 	#SAVE FILES
-	saveinfile(w2v,W2V,file,W2V)
-
-else:
-	#LOAD FILES
-	w2v = loadfromfile('W2V',file,'W2V')
+	try:
+		savefilename = 'W2V'+'/'+file+'.model'
+		logs("SAVE FILE (model)",savefilename)
+		w2v.save(savefilename)
+	except:
+		print("model FILE CANNOT BE SAVED")
+		saveinfile(w2v,W2V,file,W2V)
 
 
 #USES
@@ -134,30 +147,12 @@ else:
 
 #TEST NEW SENTENCES
 logs("TEST NEW SENTENCES",newword)
-
-w2v.build_vocab(new_sentences, update=True)
-w2v.train(new_sentences,total_examples=w2v.corpus_count, epochs=w2v.iter)
-print ( w2v.most_similar(newword, topn=5) )
-print ( w2v.predict_output_word([newword]) )
-
-
-
-#NEW SENTENCES
-logs("NEW SENTENCES","with Wikipedia","http://wikipedia.readthedocs.io/en/latest/quickstart.html")
-newword = 'xuxa'
-
-if True:
-	text = search(newword)
-	text = cleantext(text)
-	new_sentences = sentenizer(text)
+try:
+	w2v.build_vocab(new_sentences, update=True)
+	w2v.train(new_sentences,total_examples=w2v.corpus_count, epochs=w2v.iter)
+	print ( w2v.most_similar(newword, topn=5) )
+	print ( w2v.predict_output_word([newword]) )
+except:
+	pass
 
 
-
-#TEST STRING - TESTE SENTINIZER
-print(len(new_sentences))
-print(new_sentences)
-print(text.find("."))
-for s in new_sentences:
-	print('\n')
-	print(s)
-	print('\n')
