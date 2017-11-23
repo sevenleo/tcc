@@ -6,6 +6,7 @@
 *-phrases
 *.objb
 *.model
+*.npy
 
 ### Python ###
 # Byte-compiled / optimized / DLL files

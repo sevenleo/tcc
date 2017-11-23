@@ -71,10 +71,12 @@ import glob
 import re
 import pickle
 import logging
+import multiprocessing
+
 
 lang='eng'
-file = 'text8.eng'
-
+file = 'teste'
+simple=False
 
 
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
@@ -123,8 +125,65 @@ except:
 	#	for file in files: 
 	#		sentences = sentences + LineSentence('texts/'+file)
 
+
+
+
+
+
+
 	#create model
-	w2v = Word2Vec(sentences)
+	if simple:
+		w2v = Word2Vec(sentences)
+
+	else:
+
+		#https://github.com/llSourcell/word_vectors_game_of_thrones-LIVE/blob/master/Thrones2Vec.ipynb
+		#ONCE we have vectors
+		#step 3 - build model
+		#3 main tasks that vectors help with
+		#DISTANCE, SIMILARITY, RANKING
+
+		# Dimensionality of the resulting word vectors.
+		#more dimensions, more computationally expensive to train
+		#but also more accurate
+		#more dimensions = more generalized
+		num_features = 300
+		# Minimum word count threshold.
+		min_word_count = 3
+
+		# Number of threads to run in parallel.
+		#more workers, faster we train
+		num_workers = multiprocessing.cpu_count()
+
+		# Context window length.
+		context_size = 7
+
+		# Downsample setting for frequent words.
+		#0 - 1e-5 is good for this
+		downsampling = 1e-3
+
+		# Seed for the RNG, to make the results reproducible.
+		#random number generator
+		#deterministic, good for debugging
+		seed = 1
+
+		w2v = Word2Vec(
+		    sg=1,
+		    seed=seed,
+		    workers=num_workers,
+		    size=num_features,
+		    min_count=min_word_count,
+		    window=context_size,
+		    sample=downsampling
+		)
+
+
+		w2v.build_vocab(sentences)
+		#w2v.train(sentences)
+		w2v.train(sentences,total_examples=w2v.corpus_count, epochs=w2v.iter)
+
+
+
 
 	#SAVE FILES
 	try:
