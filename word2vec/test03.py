@@ -67,15 +67,17 @@ def loadfromfile(_folder,_name,_type):
 #IMPORT
 logs("IMPORT")
 import nltk
+import glob
 import re
 import pickle
 import logging
+
+lang='eng'
+file = 'text8.eng'
+
+
+
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
-onlinesearch=True
-file = 'text8'
-
-
-
 from gensim.models import Word2Vec
 
 
@@ -86,9 +88,10 @@ try:
 		logs("LOAD FILE (model)",loadfilename)
 		w2v.load(loadfilename)
 	except:
-		print("model FILE NOT EXIST")
+		print(file+".model FILE NOT EXIST")
 		w2v = loadfromfile('W2V',file,'W2V')
 except:
+	print(file+".objb FILE NOT EXIST")
 	print("FILE CANNOT BE LOADED")
 	#CREATE W2V
 	logs("CREATE W2V",file)
@@ -98,9 +101,30 @@ except:
 	##sentences = LineSentence('compressed_text.txt.bz2')
 	##sentences = LineSentence('compressed_text.txt.gz')
 
-	sentences = LineSentence('texts/'+file)
-	w2v = Word2Vec(sentences)
 
+	#only one file
+	sentences = LineSentence('texts/'+file)
+
+	##all files in language
+	#	sentences = ""
+	#	files = sorted(glob.glob("texts/*."+lang))
+	#	for file in files:
+	#		sentences = sentences+LineSentence('texts/'+file)
+	
+	##especific namefile
+	#	sentences = ""
+	#	files = sorted(glob.glob("texts/*"+file+"*"))
+	#	for file in files: 
+	#		sentences = sentences + LineSentence('texts/'+file)
+	
+	##especific type
+	#	sentences = ""
+	#	files = sorted(glob.glob("texts/*.txt*"))
+	#	for file in files: 
+	#		sentences = sentences + LineSentence('texts/'+file)
+
+	#create model
+	w2v = Word2Vec(sentences)
 
 	#SAVE FILES
 	try:
@@ -108,7 +132,7 @@ except:
 		logs("SAVE FILE (model)",savefilename)
 		w2v.save(savefilename)
 	except:
-		print("model FILE CANNOT BE SAVED")
+		print(file+".model FILE CANNOT BE SAVED")
 		saveinfile(w2v,W2V,file,W2V)
 
 
@@ -127,14 +151,9 @@ print ( w2v.predict_output_word(['los','angeles']) )
 #NEW SENTENCES
 logs("NEW SENTENCES","with Wikipedia","http://wikipedia.readthedocs.io/en/latest/quickstart.html")
 newword = 'xuxa'
-
-if onlinesearch:
-	text = search(newword)
-	text = cleantext(text)
-	new_sentences = sentenizer(text)
-
-else:
-	new_sentences = LineSentence('texts/'+newword)
+text = search(newword)
+text = cleantext(text)
+new_sentences = sentenizer(text)
 
 
 #SHOW
@@ -147,12 +166,11 @@ else:
 
 #TEST NEW SENTENCES
 logs("TEST NEW SENTENCES",newword)
-try:
-	w2v.build_vocab(new_sentences, update=True)
-	w2v.train(new_sentences,total_examples=w2v.corpus_count, epochs=w2v.iter)
-	print ( w2v.most_similar(newword, topn=5) )
-	print ( w2v.predict_output_word([newword]) )
-except:
-	pass
+w2v.build_vocab(new_sentences, update=True)
+w2v.train(new_sentences,total_examples=w2v.corpus_count, epochs=w2v.iter)
+print ( w2v.predict_output_word([newword]) )
+print ( w2v.most_similar(newword, topn=5) )
+
+
 
 
