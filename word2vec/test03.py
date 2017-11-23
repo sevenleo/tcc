@@ -29,8 +29,8 @@ def sentenizer(text):
 	return sentences
 
 def cleantext(text):
-	text = text.replace("\n"," . ")
-	text = re.sub(r'[\.]', '', text)
+	text = text.replace("\n",". ") ##TROCAR POR EXPRESSAO REGULAR, POIS É MAIS RAPIDO
+	#EX.:text = re.sub(r'[\\n]', '.', text)
 	text = re.sub(r"[']", '', text)
 	text = re.sub(r"ˈ", '', text)
 	return text
@@ -72,12 +72,11 @@ import pickle
 import logging
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 onlinesearch=True
-
-from gensim.models import Word2Vec
-
-import pickle
 file = 'text8'
 load = True
+
+
+from gensim.models import Word2Vec
 
 if load == False:
 	#CREATE W2V
@@ -93,7 +92,7 @@ if load == False:
 
 
 	#SAVE FILES
-	saveinfile(w2v,W2V,file,W2V):
+	saveinfile(w2v,W2V,file,W2V)
 
 else:
 	#LOAD FILES
@@ -125,15 +124,40 @@ else:
 	new_sentences = LineSentence('texts/'+newword)
 
 
-#TEST STRINF - TESTE SENTINIZER
-print(text)
-print(len(new_sentences))
-print(new_sentences[0])
-print(text.find("."))
-print(len(new_sentences))
+#SHOW
+#logs("SHOW RESULTS")
+#for s in new_sentences:
+#	print('\n')
+#	print(s)
+#	print('\n')
 
+
+#TEST NEW SENTENCES
+logs("TEST NEW SENTENCES",newword)
 
 w2v.build_vocab(new_sentences, update=True)
 w2v.train(new_sentences,total_examples=w2v.corpus_count, epochs=w2v.iter)
 print ( w2v.most_similar(newword, topn=5) )
 print ( w2v.predict_output_word([newword]) )
+
+
+
+#NEW SENTENCES
+logs("NEW SENTENCES","with Wikipedia","http://wikipedia.readthedocs.io/en/latest/quickstart.html")
+newword = 'xuxa'
+
+if True:
+	text = search(newword)
+	text = cleantext(text)
+	new_sentences = sentenizer(text)
+
+
+
+#TEST STRING - TESTE SENTINIZER
+print(len(new_sentences))
+print(new_sentences)
+print(text.find("."))
+for s in new_sentences:
+	print('\n')
+	print(s)
+	print('\n')
