@@ -92,9 +92,11 @@ try:
 		loadfilename = 'W2V'+'/'+file+'.model'
 		logs("LOAD FILE (model)",loadfilename)
 		w2v= Word2Vec.load(loadfilename)
+		print("FILE LOADED")
 	except:
 		print(file+".model FILE NOT EXIST")
 		w2v = loadfromfile('W2V',file,'W2V')
+		print("FILE LOADED")
 except:
 	print(file+".objb FILE NOT EXIST")
 	print("FILE CANNOT BE LOADED")
@@ -182,7 +184,6 @@ except:
 
 
 		w2v.build_vocab(sentences)
-		#w2v.train(sentences)
 		w2v.train(sentences,total_examples=w2v.corpus_count, epochs=w2v.iter)
 
 
@@ -193,9 +194,12 @@ except:
 		savefilename = 'W2V'+'/'+file+'.model'
 		logs("SAVE FILE (model)",savefilename)
 		w2v.save(savefilename)
+		print("FILE SAVED")
 	except:
 		print(file+".model FILE CANNOT BE SAVED")
 		saveinfile(w2v,W2V,file,W2V)
+		print("FILE SAVED")
+
 
 
 #USES
@@ -228,11 +232,10 @@ new_sentences = sentenizer(text)
 
 #TEST NEW SENTENCES
 logs("TEST NEW SENTENCES",newword)
-w2v.build_vocab(new_sentences, update=True)
+w2v.build_vocab(new_sentences)
 w2v.train(new_sentences,total_examples=w2v.corpus_count, epochs=w2v.iter)
 print ( w2v.predict_output_word([newword]) )
 print ( w2v.most_similar(newword, topn=5) )
-
 
 
 
