@@ -75,7 +75,7 @@ import multiprocessing
 
 
 lang='eng'
-file = 'teste'
+file = 'text8.eng'
 simple=False
 
 
