@@ -80,6 +80,35 @@ def size():
 	print('The vocabulary size of the', model, 'is', len(eval(model).wv.vocab),'\n\n')
 
 
+def checkinmodel(w2v,newword,erros):
+	newwords = [newword, newword.capitalize(), newword.upper(), newword.lower(), newword.title(), newword.casefold()]
+	predicts = []
+	similares = []
+	for word in newwords:
+		try:
+			predicts += w2v.predict_output_word([word])
+			similares += w2v.most_similar(word, topn=5)
+			print("YES FOUND:",word)
+		except:
+			erros += 1
+			print("NOT FOUND:",word)
+			pass
+	logs('predicts',content=predicts)
+	logs('similares',content=similares)
+	return predicts,similares,erros
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #IMPORT
@@ -249,27 +278,8 @@ logs(
 	"http://wikipedia.readthedocs.io/en/latest/quickstart.html\nhttps://github.com/RaRe-Technologies/gensim/blob/develop/docs/notebooks/online_w2v_tutorial.ipynb"
 )
 
-newword = 'xuxa'
-newwords = [newword, newword.capitalize(), newword.upper(), newword.lower(), newword.title(), newword.casefold()]
-
-
-
-
-predicts = []
-similares = []
-for word in newwords:
-	try:
-		predicts += w2v.predict_output_word([word])
-		similares += w2v.most_similar(word, topn=5)
-		print("YES FOUND:",word)
-	except:
-		erros += 1
-		print("NOT FOUND:",word)
-		pass
-logs('predicts',content=predicts)
-logs('similares',content=similares)
-
-
+newword = 'Neymar'
+predicts,similares,erros = checkinmodel(w2v,newword,erros)
 
 
 
@@ -316,21 +326,9 @@ if len(predicts)==0 or len(similares)==0:
 
 
 
-predicts = []
-similares = []
-for word in newwords:
-	try:
-		predicts += w2v.predict_output_word([word])
-		similares += w2v.most_similar(word, topn=5)
-		print("YES FOUND:",word)
-	except:
-		erros += 1
-		print("NOT FOUND:",word)
-		pass
-logs('predicts',content=predicts)
-logs('similares',content=similares)
+predicts,similares,erros = checkinmodel(w2v,newword,erros)
 
 
 
 
-logs("END",str(erros))
+logs("END","erros="+str(erros))
