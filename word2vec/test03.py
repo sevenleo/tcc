@@ -3,15 +3,19 @@
 #https://codesachin.wordpress.com/2015/10/09/generating-a-word2vec-model-from-a-block-of-text-using-gensim-python/
 #https://radimrehurek.com/gensim/models/doc2vec.html
 
-def logs(titulo,texto="",texto2=""):
+def logs(titulo,texto="",texto2="",content=""):
+	titulo = str(titulo).upper()
+	texto = str(texto)
+	texto2 = str(texto2)
 	log = "\n\n"
-	log = "\n\n---------------------------------------\n"
-	log = log + titulo
+	log = "\n\n--------------------------------------------\n"
+	log = log + titulo.upper()
 	log = log + " :\t"+texto
 	if texto2 != "":
 		log = log + "\n"+texto2+""
-	log = log + "\n---------------------------------------\n"
+	log = log + "\n--------------------------------------------\n"
 	print (log)
+	print (content)
 
 def tokenize(frase):
 	tokens=[]
@@ -26,6 +30,7 @@ def sentenizer(text):
 	lang = "portuguese"
 	lang = "english"
 	sentences = nltk.sent_tokenize(text,language=lang)
+	print("Number of senteces:  "+str(len(sentences)))
 	return sentences
 
 def cleantext(text):
@@ -59,12 +64,23 @@ def saveinfile(obj,_folder,_name,_type):
 	logs("SAVE FILE (objb)",savefilename)
 	savefile = open(savefilename, 'wb') 
 	pickle.dump(obj, savefile) 
+	print("FILE SAVED")
+
 
 
 def loadfromfile(_folder,_name,_type):
 	loadfilename = _folder+'/'+_name+'.'+_type+'.objb'
 	logs("LOAD FILE (objb)",loadfilename)
 	return pickle.load(open(loadfilename, "rb"))
+	print("FILE LOADED")
+
+def size():
+	model = 'w2v'
+	logs('SIZE of new vocabulary:', str(w2v.corpus_count) )
+	print('The vocabulary size of the', model, 'is', len(eval(model).wv.vocab),'\n\n')
+
+
+
 
 #IMPORT
 logs("IMPORT")
@@ -74,12 +90,14 @@ import re
 import os
 import pickle
 import logging
-import multiprocessing
+from multiprocessing import cpu_count
+
 
 
 lang='eng'
-file = 'text8.eng'
-simple=False
+file = 'xuxa.eng'
+level=1
+erros = 0
 
 
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
@@ -91,13 +109,14 @@ try:
 	try:
 		loadfilename = 'W2V'+'/'+file+'.model'
 		logs("LOAD FILE (model)",loadfilename)
-		w2v= Word2Vec.load(loadfilename)
+		w2v = Word2Vec.load(loadfilename)
 		print("FILE LOADED")
 	except:
 		print(file+".model FILE NOT EXIST")
 		w2v = loadfromfile('W2V',file,'W2V')
-		print("FILE LOADED")
 except:
+	erros += 1
+	print("**** ERRO = {}".format(erros))
 	print(file+".objb FILE NOT EXIST")
 	print("FILE CANNOT BE LOADED")
 	#CREATE W2V
@@ -131,14 +150,19 @@ except:
 	#		sentences = sentences + LineSentence('texts/'+file)
 
 
-
-
-
-
-
 	#create model
-	if simple:
+	if level==0:
 		w2v = Word2Vec(sentences)
+
+	elif level==1:
+		min_word_count = 0
+		num_workers = cpu_count()
+		w2v = Word2Vec(
+		    workers=num_workers,
+		    min_count=min_word_count
+		)
+		w2v.build_vocab(sentences)
+		w2v.train(sentences,total_examples=w2v.corpus_count, epochs=w2v.iter)
 
 	else:
 
@@ -158,7 +182,7 @@ except:
 
 		# Number of threads to run in parallel.
 		#more workers, faster we train
-		num_workers = multiprocessing.cpu_count()
+		num_workers = cpu_count()
 
 		# Context window length.
 		context_size = 7
@@ -189,6 +213,7 @@ except:
 
 
 
+
 	#SAVE FILES
 	try:
 		savefilename = 'W2V'+'/'+file+'.model'
@@ -196,46 +221,110 @@ except:
 		w2v.save(savefilename)
 		print("FILE SAVED")
 	except:
+		erros += 1
+		print("**** ERRO = {}".format(erros))
 		print(file+".model FILE CANNOT BE SAVED")
 		saveinfile(w2v,W2V,file,W2V)
-		print("FILE SAVED")
 
+size()
 
 
 #USES
-logs("SIMILAR")
-print("DOG")
-print ( w2v.most_similar('dog', topn=5) )
-print("LOS ANGELES")
-print ( w2v.most_similar('chicago', topn=5) )
-
-logs("PREDICT")
-print("LOS ANGELES")
-print ( w2v.predict_output_word(['los','angeles']) )
-
+try:
+	logs("SIMILAR")
+	print("DOG")
+	print ( w2v.most_similar('dog', topn=5) )
+	print("LOS ANGELES")
+	print ( w2v.most_similar('chicago', topn=5) )
+	logs("PREDICT")
+	print("LOS ANGELES")
+	print ( w2v.predict_output_word(['los','angeles']) )
+except:
+	pass
 
 #NEW SENTENCES
-logs("NEW SENTENCES","with Wikipedia","http://wikipedia.readthedocs.io/en/latest/quickstart.html")
-newword = 'xuxa'
-text = search(newword)
-text = cleantext(text)
-new_sentences = sentenizer(text)
+logs(
+	"NEW SENTENCES",
+	"with Wikipedia",
+	"http://wikipedia.readthedocs.io/en/latest/quickstart.html\nhttps://github.com/RaRe-Technologies/gensim/blob/develop/docs/notebooks/online_w2v_tutorial.ipynb"
+)
+
+newword = 'Xuxa'
 
 
-#SHOW
-#logs("SHOW RESULTS")
-#for s in new_sentences:
-#	print('\n')
-#	print(s)
-#	print('\n')
+predicts = []
+similares = []
+
+try:
+	predicts.append(	w2v.predict_output_word([newword])	)
+	similares.append(	w2v.most_similar(newword, topn=5)	)
+except:
+	pass
+try:
+	predicts.append(	w2v.predict_output_word([newword.lower()])	)
+	similares.append(	w2v.most_similar(newword.lower(), topn=5)	)
+except:
+	pass
+
+logs('predicts',content=predicts)
+logs('similares',content=similares)
 
 
-#TEST NEW SENTENCES
-logs("TEST NEW SENTENCES",newword)
-w2v.build_vocab(new_sentences)
-w2v.train(new_sentences,total_examples=w2v.corpus_count, epochs=w2v.iter)
-print ( w2v.predict_output_word([newword]) )
-print ( w2v.most_similar(newword, topn=5) )
+if len(predicts)==0 or len(similares)==0:
+	erros += 1
+	print("**** ERRO = {}".format(erros))
+	logs("WORD NOT FOUND","WE NEED TRAIN","Start trainning...")
+	print()
+
+	text = search(newword)
+	text = cleantext(text)
+	new_sentences = sentenizer(text.lower())
+
+
+	#SHOW
+	#logs("SHOW RESULTS")
+	#for s in new_sentences:
+	#	print('\n')
+	#	print(s)
+	#	print('\n')
+
+	#TEST NEW SENTENCES
+	logs("TEST NEW SENTENCES",newword)
+
+	w2v.build_vocab(new_sentences,update=True)
+	w2v.train(new_sentences,total_examples=w2v.corpus_count, epochs=w2v.iter)
+
+	size()
+
+#	try:
+#		savefilename = 'W2V'+'/'+file+'.model'
+#		logs("SAVE FILE (model)",savefilename)
+#		w2v.save(savefilename)
+#		print("FILE SAVED")
+#	except:
+#		erros += 1
+#		print("**** ERRO = {}".format(erros))
+#		print('FILE NOT SAVED')
+
+	try:
+		print ( w2v.predict_output_word([newword]) )
+		print ( w2v.most_similar(newword, topn=5) )
+	except:
+		erros += 1
+		logs("WORD NOT FOUND")
+		print("**** ERRO = {}".format(erros))
+		pass
+
+
+	try:
+		print ( w2v.predict_output_word([newword.lower()]) )
+		print ( w2v.most_similar(newword.lower(), topn=5) )
+	except:
+		erros += 1
+		logs("WORD NOT FOUND")
+		print("\n**** ERRO = {}".format(erros))
+		pass
 
 
 
+logs("END",str(erros))
