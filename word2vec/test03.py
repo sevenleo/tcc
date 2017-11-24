@@ -249,25 +249,29 @@ logs(
 	"http://wikipedia.readthedocs.io/en/latest/quickstart.html\nhttps://github.com/RaRe-Technologies/gensim/blob/develop/docs/notebooks/online_w2v_tutorial.ipynb"
 )
 
-newword = 'Xuxa'
+newword = 'xuxa'
+newwords = [newword, newword.capitalize(), newword.upper(), newword.lower(), newword.title(), newword.casefold()]
+
+
 
 
 predicts = []
 similares = []
-
-try:
-	predicts.append(	w2v.predict_output_word([newword])	)
-	similares.append(	w2v.most_similar(newword, topn=5)	)
-except:
-	pass
-try:
-	predicts.append(	w2v.predict_output_word([newword.lower()])	)
-	similares.append(	w2v.most_similar(newword.lower(), topn=5)	)
-except:
-	pass
-
+for word in newwords:
+	try:
+		predicts += w2v.predict_output_word([word])
+		similares += w2v.most_similar(word, topn=5)
+		print("YES FOUND:",word)
+	except:
+		erros += 1
+		print("NOT FOUND:",word)
+		pass
 logs('predicts',content=predicts)
 logs('similares',content=similares)
+
+
+
+
 
 
 if len(predicts)==0 or len(similares)==0:
@@ -294,8 +298,9 @@ if len(predicts)==0 or len(similares)==0:
 	w2v.build_vocab(new_sentences,update=True)
 	w2v.train(new_sentences,total_examples=w2v.corpus_count, epochs=w2v.iter)
 
-	size()
 
+
+	size()
 #	try:
 #		savefilename = 'W2V'+'/'+file+'.model'
 #		logs("SAVE FILE (model)",savefilename)
@@ -306,24 +311,25 @@ if len(predicts)==0 or len(similares)==0:
 #		print("**** ERRO = {}".format(erros))
 #		print('FILE NOT SAVED')
 
-	try:
-		print ( w2v.predict_output_word([newword]) )
-		print ( w2v.most_similar(newword, topn=5) )
-	except:
-		erros += 1
-		logs("WORD NOT FOUND")
-		print("**** ERRO = {}".format(erros))
-		pass
+	
 
 
+
+
+predicts = []
+similares = []
+for word in newwords:
 	try:
-		print ( w2v.predict_output_word([newword.lower()]) )
-		print ( w2v.most_similar(newword.lower(), topn=5) )
+		predicts += w2v.predict_output_word([word])
+		similares += w2v.most_similar(word, topn=5)
+		print("YES FOUND:",word)
 	except:
 		erros += 1
-		logs("WORD NOT FOUND")
-		print("\n**** ERRO = {}".format(erros))
+		print("NOT FOUND:",word)
 		pass
+logs('predicts',content=predicts)
+logs('similares',content=similares)
+
 
 
 
