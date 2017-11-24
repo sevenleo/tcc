@@ -53,6 +53,8 @@ def search(word):
 		return text
 
 def saveinfile(obj,_folder,_name,_type):
+	if not os.path.exists(_folder):
+		os.makedirs(_folder)
 	savefilename = _folder+'/'+_name+'.'+_type+'.objb'
 	logs("SAVE FILE (objb)",savefilename)
 	savefile = open(savefilename, 'wb') 
@@ -69,6 +71,7 @@ logs("IMPORT")
 import nltk
 import glob
 import re
+import os
 import pickle
 import logging
 import multiprocessing
@@ -88,7 +91,7 @@ try:
 	try:
 		loadfilename = 'W2V'+'/'+file+'.model'
 		logs("LOAD FILE (model)",loadfilename)
-		w2v.load(loadfilename)
+		w2v= Word2Vec.load(loadfilename)
 	except:
 		print(file+".model FILE NOT EXIST")
 		w2v = loadfromfile('W2V',file,'W2V')
