@@ -6,65 +6,88 @@ from gensim.models.word2vec import Word2Vec, LineSentence
 from pprint import pprint
 from copy import deepcopy
 from multiprocessing import cpu_count
+import time
+start = time.time()
+
+end = time.time()
+print("\nTempo de execucao: "+str(time.time() - start)+" seg")
 
 
+debug = 0
+
+print(debug)
+print("\nTempo de execucao: "+str(time.time() - start)+" seg")
+debug+=1
 
 
-#old, new = [  WikiCorpus('enwiki-{}-pages-articles.xml.bz2'.format(ymd)) for ymd in ['20101011', '20160820']  ]
-new = WikiCorpus('enwiki-{}-pages-articles.xml.bz2'.format('latest'))
+#latest = WikiCorpus('ptwiki-{}-pages-articles.xml.bz2'.format('latest'))
+latest = WikiCorpus('texts/wikipedia/ptwiki-{}-pages-articles1.xml.bz2'.format('latest'))
+
+print(debug)
+print("\nTempo de execucao: "+str(time.time() - start)+" seg")
+debug+=1
 
 def write_wiki(wiki, name, titles = []):
-    with open('{}.wiki'.format(name), 'wb') as f:
+    with open('texts/wikipedia/{}.wiki'.format(name), 'w') as f:
         wiki.metadata = True
         for text, (page_id, title) in wiki.get_texts():
             if title not in titles:
-                f.write(b' '.join(text)+b'\n')
+                #f.write(b' '.join(text)+b'\n')
+                f.write(' '.join(text)+'\n')
+                #f.write(text)
+                #f.write('\n')
                 titles.append(title)
     return titles
 
 
-old_titles = write_wiki(old, 'old')
-all_titles = write_wiki(new, 'new', old_titles)
+
+print(debug)
+print("\nTempo de execucao: "+str(time.time() - start)+" seg")
+debug+=1
+
+wikipt_titles = write_wiki(latest, 'latest')
 
 
-oldwiki, newwiki = [LineSentence(f+'.wiki') for f in ['old', 'new']]
+print(debug)
+print("\nTempo de execucao: "+str(time.time() - start)+" seg")
+debug+=1
+
+latestwiki = LineSentence('texts/wikipedia/latest.wiki')
 
 
 
 
-%%time
-model = Word2Vec(oldwiki, min_count = 0, workers=cpu_count())
+print(debug)
+print("\nTempo de execucao: "+str(time.time() - start)+" seg")
+debug+=1
+
+
+model = Word2Vec(latestwiki, min_count = 0, workers=cpu_count())
+
+print(debug)
+print("\nTempo de execucao: "+str(time.time() - start)+" seg")
+debug+=1
+
 # model = Word2Vec.load('oldmodel')
-oldmodel = deepcopy(model)
-oldmodel.save('oldmodel')
+latestwiki = deepcopy(model)
+print(debug)
+print("\nTempo de execucao: "+str(time.time() - start)+" seg")
+debug+=1
+
+latestwiki.save('texts/wikipedia/latestwiki')
+
+print(debug)
+print("\nTempo de execucao: "+str(time.time() - start)+" seg")
+debug+=1
 
 
 try:
-    print(oldmodel.most_similar('babymetal'))
+    print(latestwiki.most_similar('babymetal'))
 except KeyError as e:
     print(e)
 
+print(debug)
+print("\nTempo de execucao: "+str(time.time() - start)+" seg")
+debug+=1
 
-%%time
-model.build_vocab(newwiki, update=True)
-model.train(newwiki)
-model.save('newmodel')
-# model = Word2Vec.load('newmodel')
-
-
-for m in ['oldmodel', 'model']:
-    print('The vocabulary size of the', m, 'is', len(eval(m).vocab))
-
-
-try:
-    pprint(model.most_similar('babymetal'))
-except KeyError as e:
-    print(e)
-
-
-w = 'zootopia'
-for m in ['oldmodel', 'model']:
-    print('The count of the word,'+w+', is', eval(m).vocab[w].count, 'in', m)
-    pprint(eval(m).most_similar(w))
-    print('')
-
+print('fim')
