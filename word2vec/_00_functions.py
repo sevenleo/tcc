@@ -1,3 +1,5 @@
+#import nltk
+from nltk.corpus import stopwords
 import sys
 import os
 import wikipedia
@@ -60,7 +62,7 @@ def cleantext(text):
 			string += ". "
 		return string
 
-def search(word):
+def search(word,lang="pt"):
 	_type = 'string'
 	folder = 'SEARCH'
 	name = word
@@ -69,7 +71,7 @@ def search(word):
 		return text
 	except:
 		import wikipedia
-		#wikipedia.set_lang("pt")
+		wikipedia.set_lang(lang)
 		results = wikipedia.search(word)
 		page = wikipedia.page(results[0])
 		#text = wikipedia.summary(newword)
@@ -94,7 +96,7 @@ def loadfromfile(_folder,_name,_type):
 	return pickle.load(open(loadfilename, "rb"))
 	print("FILE LOADED")
 
-def size():
+def size(w2v):
 	model = 'w2v'
 	logs('SIZE of new vocabulary:', str(w2v.corpus_count) )
 	print('The vocabulary size of the', model, 'is', len(eval(model).wv.vocab),'\n\n')
@@ -107,13 +109,24 @@ def checkinmodel(w2v,newword,erros):
 	similares = []
 	for word in newwords:
 		try:
-			predicts += w2v.predict_output_word([word])
-			similares += w2v.most_similar(word, topn=5)
-			print("YES FOUND:",word)
+			if ' ' in word:
+				predicts += w2v.predict_output_word(word.split(' '))
+				predicts += w2v.predict_output_word([word.split(' ')[0]])
+				predicts += w2v.predict_output_word([word.split(' ')[1]])
+				similares += w2v.most_similar(word.split(' ')[0], topn=5)
+				similares += w2v.most_similar(word.split(' ')[1], topn=5)
+				print("YES FOUND 2:",word)
+			else:
+				predicts += w2v.predict_output_word([word])
+				similares += w2v.most_similar(word, topn=5)
+				print("YES FOUND:",word)
 		except:
-			erros += 1
-			print("NOT FOUND:",word)
-			pass
+			if ' ' in word:
+				print("NOT FOUND 2:",word)
+			else:
+				erros += 1
+				print("NOT FOUND:",word)
+				pass
 	logs('predicts',content=predicts)
 	logs('similares',content=similares)
 	return predicts,similares,erros
@@ -122,7 +135,13 @@ def checkinmodel(w2v,newword,erros):
 
 
 def formatword(newword):
-	return [newword, newword.capitalize(), newword.upper(), newword.lower(), newword.title(), newword.casefold()]
+	if '_' in newword:
+		newword = newword.replace('_',' ')
+	formats = [newword, newword.capitalize(), newword.upper(), newword.lower()]#, newword.title(), newword.casefold()]
+	if normalize('NFKD', newword).encode('ASCII','ignore').decode('ASCII').lower() != newword.lower():
+		newword = normalize('NFKD', newword).encode('ASCII','ignore').decode('ASCII')
+		formats += [newword, newword.capitalize(), newword.upper(), newword.lower()]#, newword.title(), newword.casefold()]
+	return formats
 
 
 
@@ -155,7 +174,7 @@ def create_stopwords():
 	#words =['a','o','e','i','o','u','um','uma','uns','umas','que','mas']
 	#for word in words:
 #		stopw.add(word.lower())
-	for word in set(nltk.corpus.stopwords.words('portuguese')):
+	for word in set(stopwords.words('portuguese')):
 		stopw.add(word.lower())
 		stopw.add(normalize('NFKD', word).encode('ASCII','ignore').decode('ASCII'))
 	return stopw

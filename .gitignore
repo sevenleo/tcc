@@ -8,6 +8,7 @@
 *.model
 *.npy
 *.wiki
+wikipedia/
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
