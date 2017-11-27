@@ -7,6 +7,7 @@
 *.objb
 *.model
 *.npy
+*.wiki
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
