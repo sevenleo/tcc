@@ -1,6 +1,4 @@
 #https://markroxor.github.io/gensim/static/notebooks/online_w2v_tutorial.html
-
-
 from gensim.corpora.wikicorpus import WikiCorpus
 from gensim.models.word2vec import Word2Vec, LineSentence
 from pprint import pprint
@@ -8,24 +6,8 @@ from copy import deepcopy
 from multiprocessing import cpu_count
 import time
 start = time.time()
-
-end = time.time()
-print("\nTempo de execucao: "+str(time.time() - start)+" seg")
-
-
-debug = 0
-
-print(debug)
-print("\nTempo de execucao: "+str(time.time() - start)+" seg")
-debug+=1
-
-
-#latest = WikiCorpus('ptwiki-{}-pages-articles.xml.bz2'.format('latest'))
-latest = WikiCorpus('texts/wikipedia/ptwiki-{}-pages-articles1.xml.bz2'.format('latest'))
-
-print(debug)
-print("\nTempo de execucao: "+str(time.time() - start)+" seg")
-debug+=1
+DEBUG=True
+debugcount = 0
 
 def write_wiki(wiki, name, titles = []):
     with open('texts/wikipedia/{}.wiki'.format(name), 'w') as f:
@@ -40,54 +22,55 @@ def write_wiki(wiki, name, titles = []):
     return titles
 
 
+def showtime():
+    if DEBUG:
+        debugcount+=1
+        print('Passo:',debug)
+        print("\nTempo de execucao: "+str(time.time() - start)+" seg")
 
-print(debug)
-print("\nTempo de execucao: "+str(time.time() - start)+" seg")
-debug+=1
+
+
+
+
+
+
+
+
+latest = WikiCorpus('texts/wikipedia/ptwiki-{}-pages-articles1.xml.bz2'.format('latest'))
+showtime()
+
+
 
 wikipt_titles = write_wiki(latest, 'latest')
+showtime()
 
 
-print(debug)
-print("\nTempo de execucao: "+str(time.time() - start)+" seg")
-debug+=1
 
 latestwiki = LineSentence('texts/wikipedia/latest.wiki')
+showtime()
 
-
-
-
-print(debug)
-print("\nTempo de execucao: "+str(time.time() - start)+" seg")
-debug+=1
 
 
 model = Word2Vec(latestwiki, min_count = 0, workers=cpu_count())
+showtime()
 
-print(debug)
-print("\nTempo de execucao: "+str(time.time() - start)+" seg")
-debug+=1
+
 
 # model = Word2Vec.load('oldmodel')
 latestwiki = deepcopy(model)
-print(debug)
-print("\nTempo de execucao: "+str(time.time() - start)+" seg")
-debug+=1
+showtime()
+
+
 
 latestwiki.save('texts/wikipedia/latestwiki')
+showtime()
 
-print(debug)
-print("\nTempo de execucao: "+str(time.time() - start)+" seg")
-debug+=1
 
 
 try:
     print(latestwiki.most_similar('babymetal'))
 except KeyError as e:
     print(e)
+showtime()
 
-print(debug)
-print("\nTempo de execucao: "+str(time.time() - start)+" seg")
-debug+=1
 
-print('fim')
