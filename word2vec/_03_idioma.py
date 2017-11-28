@@ -38,7 +38,6 @@ stopw = create_stopwords()
 
 
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
-from gensim.models import Word2Vec
 
 
 try:
