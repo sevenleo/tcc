@@ -72,12 +72,12 @@ latestwiki = deepcopy(model)
 showtime()
 
 
-latestwiki.save('texts/wikipedia/latestwiki')
+latestwiki.save('W2V/wikipedia.model')
 showtime()
 
 
-#try:
-#    print(latestwiki.most_similar('babymetal'))
-#except KeyError as e:
-#    print(e)
-#showtime()
+try:
+    print(latestwiki.most_similar('Ronaldo'))
+except KeyError as e:
+    print(e)
+showtime()
