@@ -20,8 +20,6 @@ DEBUG=True
 debugcount = 0
 
 
-
-
 def write_wiki(wiki, name, titles = []):
     with open('texts/wikipedia/{}.wiki'.format(name), 'w') as f:
         wiki.metadata = True
@@ -35,13 +33,16 @@ def write_wiki(wiki, name, titles = []):
     return titles
 
 
-def showtime():
+def showtime(debugcount):
     if DEBUG:
         debugcount+=1
-        print('Passo:',debug)
+        print('Passo:',debugcount)
         print("\nTempo de execucao: "+str(time.time() - start)+" seg")
+    return debugcount
 
 
+
+debugcount = showtime(debugcount)
 
 
 #test with a small part
@@ -50,34 +51,34 @@ def showtime():
 
 #latest = WikiCorpus('texts/wikipedia/ptwiki-{}-pages-articles1.xml.bz2'.format('latest'))
 latest = WikiCorpus('texts/wikipedia/ptwiki-{}-pages-articles.xml.bz2'.format('latest'))
-showtime()
+debugcount = showtime(debugcount)
 
 
 #wikipt_titles = write_wiki(latest, 'latest1')
 wikipt_titles = write_wiki(latest, 'latest')
-showtime()
+debugcount = showtime(debugcount)
 
 
 #latestwiki = LineSentence('texts/wikipedia/latest1.wiki')
 latestwiki = LineSentence('texts/wikipedia/latest.wiki')
-showtime()
+debugcount = showtime(debugcount)
 
 
 model = Word2Vec(latestwiki, min_count = 0, workers=cpu_count())
-showtime()
+debugcount = showtime(debugcount)
 
 
 # model = Word2Vec.load('oldmodel')
 latestwiki = deepcopy(model)
-showtime()
+debugcount = showtime(debugcount)
 
 
 latestwiki.save('W2V/wikipedia.model')
-showtime()
+debugcount = showtime(debugcount)
 
 
 try:
     print(latestwiki.most_similar('Ronaldo'))
 except KeyError as e:
     print(e)
-showtime()
+debugcount = showtime(debugcount)
