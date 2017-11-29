@@ -111,20 +111,44 @@ def checkinmodel(w2v,newword,erros):
 	similares = []
 	for word in newwords:
 		try:
+#			if ' ' in word:
+#				predicts += w2v.predict_output_word(word.split(' '))
+#				predicts += w2v.predict_output_word([word.split(' ')[0]])
+#				predicts += w2v.predict_output_word([word.split(' ')[-1]])
+#				similares += w2v.most_similar(word.split(' ')[0], topn=5)
+#				similares += w2v.most_similar(word.split(' ')[-1], topn=5)
+#				print("YES FOUND 2:",word)
+#			if ' ' in word:
+#				predicts += w2v.predict_output_word(word.split(' '))
+#				stopw = create_stopwords()
+#				parts =[]
+#				for w in word.split(' '):
+#					if w in stopw:
+#						pass
+#					else:
+#						parts.append(w)
+#				for part in parts:
+#					predicts += w2v.predict_output_word([part])
+#					similares += w2v.most_similar(part, topn=5)
+#					print("YES FOUND PART:",part)
 			if ' ' in word:
-				predicts += w2v.predict_output_word(word.split(' '))
-				predicts += w2v.predict_output_word([word.split(' ')[0]])
-				predicts += w2v.predict_output_word([word.split(' ')[1]])
-				similares += w2v.most_similar(word.split(' ')[0], topn=5)
-				similares += w2v.most_similar(word.split(' ')[1], topn=5)
-				print("YES FOUND 2:",word)
+				validwords = []
+				stopw = create_stopwords()
+				for w in word.split(' '):
+					if w in stopw:
+						print("IGNORING: "+w)
+					else:
+						validwords.append(w)
+				predicts += w2v.predict_output_word(validwords)
+				similares += w2v.most_similar(validwords)
+				print("YES FOUND:",list2string(validwords))
 			else:
 				predicts += w2v.predict_output_word([word])
 				similares += w2v.most_similar(word, topn=5)
 				print("YES FOUND:",word)
 		except:
 			if ' ' in word:
-				print("NOT FOUND 2:",word)
+				print("NOT FOUND:",word)
 			else:
 				erros += 1
 				print("NOT FOUND:",word)
@@ -182,6 +206,12 @@ def create_stopwords():
 	return stopw
 
 
+
+def list2string(list):
+	string = ''
+	for item in list:
+		string +=str(item)+" "
+	return string
 
 
 
