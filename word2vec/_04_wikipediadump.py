@@ -82,3 +82,35 @@ try:
 except KeyError as e:
     print(e)
 debugcount = showtime(debugcount)
+
+
+
+
+#Core i5-2500 10GB de Ram
+#python _04_wikipediadump.py
+#Passo: 1
+#
+#Tempo de execucao: 0.0003809928894042969 seg
+#Passo: 2
+#
+#Tempo de execucao: 1179.525761127472 seg
+#^[[B
+#Passo: 3
+#
+#Tempo de execucao: 12752.977465629578 seg
+#Passo: 4
+#
+#Tempo de execucao: 12752.986975431442 seg
+#Passo: 5
+#
+#Tempo de execucao: 14142.166020870209 seg
+#Passo: 6
+#
+#Tempo de execucao: 14196.124321699142 seg
+#Passo: 7
+#
+#Tempo de execucao: 14214.564305067062 seg
+#"word 'Ronaldo' not in vocabulary"
+#Passo: 8
+#
+#Tempo de execucao: 14218.143342256546 seg
