@@ -24,7 +24,7 @@ except:
 size(w2v)
 
 args = sys.argv
-words =['rio de janeiro','rio janeiro']
+words =['rio de janeiro','homem','recife','flamengo','Temer','praia','UFRJ']
 #words =[]
 
 if len(sys.argv) < 3:
