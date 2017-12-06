@@ -160,6 +160,37 @@ def checkinmodel(w2v,newword,erros):
 
 
 
+
+def checkinmodel_without_prints(w2v,newword,erros,n=1):
+	newwords = formatword(newword)
+	predicts = []
+	similares = []
+	for word in newwords:
+		try:
+			if ' ' in word:
+				validwords = []
+				stopw = create_stopwords()
+				for w in word.split(' '):
+					if w in stopw:
+						pass
+					else:
+						validwords.append(w)
+				predicts += w2v.predict_output_word(validwords, topn=n)
+				similares += w2v.most_similar(validwords, topn=n)
+			else:
+				predicts += w2v.predict_output_word([word], topn=n)
+				similares += w2v.most_similar(word, topn=n)
+		except:
+			if ' ' in word:
+				pass
+			else:
+				erros += 1
+				pass
+	return predicts,similares,erros
+
+
+
+
 def formatword(newword):
 	if '_' in newword:
 		newword = newword.replace('_',' ')
