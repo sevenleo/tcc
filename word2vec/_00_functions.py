@@ -7,6 +7,7 @@ import re
 from nltk.corpus import stopwords
 from unicodedata import normalize
 from gensim.models import Word2Vec
+from inspect import currentframe, getframeinfo
 
 
 
@@ -246,3 +247,6 @@ def list2string(list):
 
 
 
+def linelog():
+	frameinfo = getframeinfo(currentframe())
+	print (frameinfo.filename, frameinfo.lineno)
