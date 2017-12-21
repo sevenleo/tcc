@@ -42,9 +42,13 @@ else:
 		if args.index(arg) == 0 or args.index(arg) == 1:
 			continue
 		predicts,similares,erros = checkinmodel(w2v,arg,erros)
+'''
+
+
 
 '''
 if len(sys.argv) < 3:
 	if len(words) > 0:
 		for word in words:
 			print(w2v.word_vec(word))
+'''
