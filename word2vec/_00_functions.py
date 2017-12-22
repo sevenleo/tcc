@@ -4,6 +4,7 @@ import os
 import wikipedia
 import pickle
 import re
+import random
 from nltk.corpus import stopwords
 from unicodedata import normalize
 from gensim.models import Word2Vec
