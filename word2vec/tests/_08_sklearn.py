@@ -67,7 +67,7 @@ for animal in animals:
 #Shuffle lists
 combined = list(zip(X, y))
 random.shuffle(combined)
-X,y= zip(*combined)
+X,y = zip(*combined)
 
 
 
