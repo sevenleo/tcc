@@ -24,7 +24,7 @@ nltk==3.2.5
 numpy==1.12.1
 oauthlib==1.0.3
 prettytable==0.7.2
-protobuf==3.3.0
+protobuf==3.18.3
 pyasn1==0.1.9
 PyBrain==0.3
 pycurl==7.43.0
