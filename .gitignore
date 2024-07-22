@@ -12,7 +12,7 @@ glove/
 *.model
 *.npy
 *.wiki
-wikipedia/
+#wikipedia/
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
@@ -124,4 +124,6 @@ modelo*/
 modelo*.zip
 modelo*.7z
 modelo*.tmp
+
+ptwiki*
 # End of https://www.gitignore.io/api/python
