@@ -10,6 +10,8 @@ from nltk.tokenize import word_tokenize
 import nltk
 import datetime
 from unicodedata import normalize
+import multiprocessing
+
 
 
 # Certifique-se de baixar os stopwords e o tokenizer
@@ -80,10 +82,20 @@ def load_and_preprocess_data(file_path):
 
 # Função para treinar ou continuar o modelo Word2Vec
 def train_or_continue_model(documents, model):
+    
+    # Detecta o número de núcleos lógicos
+    cpu_workers = multiprocessing.cpu_count()  
+    
+    # Cria um maximo de uso para seguranca de desempenho
+    if cpu_workers < 10:
+        cpu_workers = cpu_workers - 2
+    else :
+        cpu_workers = cpu_workers - 4
+
     global total_words_processed
     if model is None:
         logger.info('Treinando um novo modelo Word2Vec')
-        model = Word2Vec(sentences=[documents], vector_size=100, window=5, min_count=5, workers=4)
+        model = Word2Vec(sentences=[documents], vector_size=100, window=5, min_count=5, workers=cpu_workers)
     else:
         logger.info('Atualizando o modelo Word2Vec existente')
         model.build_vocab([documents], update=True)
