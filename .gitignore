@@ -117,4 +117,11 @@ venv.bak/
 # mypy
 .mypy_cache/
 
+#clueweb (32gb estoura o limit do git)
+/clueweb09-pt
+
+modelo*/
+modelo*.zip
+modelo*.7z
+modelo*.tmp
 # End of https://www.gitignore.io/api/python

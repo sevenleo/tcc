@@ -1,0 +1,8 @@
+usando uma matriz de 100 vetores
+
+cada arquivo .gzip do clueweb leva em media 7 minutos para ser processado
+
+ao todo temos 1150 arquivos para cobrir todo o clueweb
+
+o que nos da um processo interrupto de apeoximandamente 5 dias para processar tudo
+

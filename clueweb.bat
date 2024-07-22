@@ -1,0 +1,1 @@
+start .\venv\Scripts\activate_clueweb.bat

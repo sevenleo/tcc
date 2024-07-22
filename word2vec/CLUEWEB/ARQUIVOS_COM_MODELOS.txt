@@ -1,0 +1,17 @@
+DEVIDO AO TAMANHO DOS ARQUIVOS E A LIMITAÇÃO DO GITHUB
+CASO QUERIAM FAZER O DOWNLOAD DOS MODELOS ACESSEM O LINK ABAIXO.
+
+OS MODELOS ESTAO ORGANIZADOS EM ARQUIVOS/PASTAS COM AS SEGUINTES CARACTERISTICAS DE ACORDO COM O NOME:
+
+	- modelo - [quantidade de partes do clueweb computadas] - [carecteristicas de teste]
+
+
+EXEMPLO:
+
+	- modelo - 00313 -sem lematizador.7z (foram analisados 313/1151 arquivos do clueweb e nao foi aplicado o lematizador nas palavras)
+	- modelo - 00020 -com lematizador.7z (foram analisados 20/1151 arquivos do clueweb e foi aplicado o lematizador nas palavras)
+
+
+ LINK:
+
+ 	- drive.google.com/...
