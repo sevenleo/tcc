@@ -66,10 +66,16 @@ def load_and_preprocess_data(file_path):
     words = word_tokenize(text)
     
     # Filtra palavras
-    words_filtered = [word for word in words if word.isalpha() and word not in stop_words]
+    words = [word for word in words if word.isalpha() and word not in stop_words]
+
+    # Remove stopwords
+    words = [word for word in words if word not in stop_words]
     
+    # Remove palavras menores que 3 caracteres
+    words = [word for word in words if len(word) >= 3]
+
     # Estende a lista de documentos com as palavras limpas
-    documents.extend(words_filtered)
+    documents.extend(words)
     
     return documents
 
