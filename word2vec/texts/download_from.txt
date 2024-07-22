@@ -1,9 +1,0 @@
-Download wikipédia:
-https://dumps.wikimedia.org/
-
-
-Portugues:
-https://dumps.wikimedia.org/other/static_html_dumps/current/pt/wikipedia-pt-html.tar.7z
-
-https://dumps.wikimedia.org/ptwiki/latest/
-https://dumps.wikimedia.org/ptwiki/latest/ptwiki-latest-pages-articles.xml.bz2
