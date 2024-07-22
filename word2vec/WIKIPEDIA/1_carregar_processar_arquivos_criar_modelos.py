@@ -40,24 +40,36 @@ def load_and_preprocess_data(file_path):
     stop_words = set(stopwords.words('portuguese'))
     documents = []
     logger.info(f'Lendo o arquivo {file_path}')
-    with open(file_path, 'rt', encoding='utf-8') as f:
-        text = f.read().lower()
-        
-        # Remover acentos
-        text = normalize('NFKD', text).encode('ASCII', 'ignore').decode('ASCII')
-        
-        # Remove números e pontuação
-        text = re.sub(r'\d+', '', text)
-        text = re.sub(r'[^\w\s]', '', text)
-        
-        # Tokeniza o texto
-        words = word_tokenize(text)
-        
-        # Filtra palavras
-        words_filtered = [word for word in words if word.isalpha() and word not in stop_words]
-        
-        # Estende a lista de documentos com as palavras limpas
-        documents.extend(words_filtered)
+    
+    # Ler o arquivo em modo binário
+    with open(file_path, 'rb') as f:
+        raw_text = f.read()
+    
+    # Tentar decodificar o texto
+    try:
+        text = raw_text.decode('utf-8').lower()
+    except UnicodeDecodeError:
+        try:
+            text = raw_text.decode('latin-1').lower()
+        except UnicodeDecodeError as e:
+            logger.error(f"Erro ao decodificar o arquivo {file_path}: {e}")
+            return documents
+    
+    # Remover acentos
+    text = normalize('NFKD', text).encode('ASCII', 'ignore').decode('ASCII')
+    
+    # Remove números e pontuação
+    text = re.sub(r'\d+', '', text)
+    text = re.sub(r'[^\w\s]', '', text)
+    
+    # Tokeniza o texto
+    words = word_tokenize(text)
+    
+    # Filtra palavras
+    words_filtered = [word for word in words if word.isalpha() and word not in stop_words]
+    
+    # Estende a lista de documentos com as palavras limpas
+    documents.extend(words_filtered)
     
     return documents
 
@@ -149,7 +161,6 @@ def process_files(data_path):
     
     for root, dirs, files in os.walk(data_path):
         for file in files:
-            #if file.endswith('.txt'):
             file_path = os.path.join(root, file)
             
             # Verificar se o arquivo já foi processado
