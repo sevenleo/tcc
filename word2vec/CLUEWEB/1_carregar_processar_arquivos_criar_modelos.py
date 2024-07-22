@@ -12,8 +12,6 @@ import datetime
 from unicodedata import normalize
 import multiprocessing
 
-
-
 # Certifique-se de baixar os stopwords e o tokenizer
 nltk.download('punkt')
 nltk.download('stopwords')
@@ -41,56 +39,40 @@ total_words_processed = 0
 total_files_processed = 0
 
 # Função para carregar e limpar os dados
-#def load_and_preprocess_data(file_path):
-#    stop_words = set(stopwords.words('portuguese'))
-#    documents = []
-#    logger.info(f'Lendo o arquivo {file_path}')
-#    with gzip.open(file_path, 'rt', encoding='utf-8') as f:
-#        text = f.read().lower()
-#        text = re.sub(r'\d+', '', text)  # Remove números
-#        text = re.sub(r'\s+', ' ', text)  # Remove espaços extras
-#        words = word_tokenize(text)
-#        words = [word for word in words if word.isalpha() and word not in stop_words]
-#        documents.extend(words)
-#    return documents
-
-# Função para carregar e limpar os dados
 def load_and_preprocess_data(file_path):
     stop_words = set(stopwords.words('portuguese'))
     documents = []
     logger.info(f'Lendo o arquivo {file_path}')
     with gzip.open(file_path, 'rt', encoding='utf-8') as f:
         text = f.read().lower()
+        
+        # Remover acentos
+        text = normalize('NFKD', text).encode('ASCII', 'ignore').decode('ASCII')
+        
+        # Remove números e pontuação
+        text = re.sub(r'\d+', '', text)
+        text = re.sub(r'[^\w\s]', '', text)
+        
+        # Tokeniza o texto
         words = word_tokenize(text)
         
-        # Filtra palavras alfabéticas
-        words_alpha = [word for word in words if word.isalpha()]
-        
-        # Remove números e espaços extras
-        words_cleaned = [re.sub(r'\s+', ' ', re.sub(r'\d+', '', word)) for word in words_alpha]
-        
-        # Remove palavras de parada
-        words_no_stop = [word for word in words_cleaned if word not in stop_words]
-        
-        # Normaliza palavras para remover acentos e caracteres especiais
-        words_normalized = [normalize('NFKD', word).encode('ASCII', 'ignore').decode('ASCII') for word in words_no_stop]
+        # Filtra palavras
+        words_filtered = [word for word in words if word.isalpha() and word not in stop_words]
         
         # Estende a lista de documentos com as palavras limpas
-        documents.extend(words_normalized)
+        documents.extend(words_filtered)
     
     return documents
 
 # Função para treinar ou continuar o modelo Word2Vec
 def train_or_continue_model(documents, model):
+    cpu_workers = multiprocessing.cpu_count()
     
-    # Detecta o número de núcleos lógicos
-    cpu_workers = multiprocessing.cpu_count()  
-    
-    # Cria um maximo de uso para seguranca de desempenho
+    # Ajusta o número de workers para garantir desempenho
     if cpu_workers < 10:
-        cpu_workers = cpu_workers - 2
-    else :
-        cpu_workers = cpu_workers - 4
+        cpu_workers = max(1, cpu_workers - 2)
+    else:
+        cpu_workers = max(1, cpu_workers - 4)
 
     global total_words_processed
     if model is None:
@@ -99,11 +81,7 @@ def train_or_continue_model(documents, model):
     else:
         logger.info('Atualizando o modelo Word2Vec existente')
         model.build_vocab([documents], update=True)
-    
-    try:
         model.train([documents], total_examples=model.corpus_count, epochs=model.epochs)
-    except KeyboardInterrupt:
-        logger.info('Processamento interrompido pelo usuário. Salvando o progresso...')
     
     total_words_processed += len(documents)
     model.save(model_path)
