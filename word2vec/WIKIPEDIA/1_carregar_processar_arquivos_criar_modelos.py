@@ -87,7 +87,8 @@ def train_or_continue_model(documents, model):
     if model is None:
         if len(documents) > 0:
             logger.info('Treinando um novo modelo Word2Vec')
-            model = Word2Vec(sentences=[documents], vector_size=100, window=5, min_count=5, workers=cpu_workers)
+            #model = Word2Vec(sentences=[documents], vector_size=100, window=10, min_count=5, workers=cpu_workers)
+            model = Word2Vec(sentences=[documents], vector_size=300, window=30, min_count=10, workers=cpu_workers)
         else:
             logger.warning('Documento vazio. Ignorando.')
     else:
@@ -139,7 +140,7 @@ def save_word_matrix_and_vocab(model, matrix_path, vocab_path):
 
 # Função para salvar informações técnicas
 def save_info():
-    with open(info_path, 'w', encoding='utf-8') as info_file:
+    with open(info_path, 'a', encoding='utf-8') as info_file:
         info_file.write(f"Data de execução: {datetime.datetime.now()}\n")
         info_file.write(f"Número total de palavras processadas: {total_words_processed}\n")
         info_file.write(f"Número total de arquivos processados: {total_files_processed}\n")
@@ -159,18 +160,20 @@ def process_files(data_path):
     model = load_existing_model_and_matrix()
     processed_files = load_progress()
     
-    for root, dirs, files in os.walk(data_path):
-        for file in files:
-            file_path = os.path.join(root, file)
-            
-            # Verificar se o arquivo já foi processado
-            if file_path not in processed_files:
-                documents = load_and_preprocess_data(file_path)
-                model = train_or_continue_model(documents, model)
-                log_progress(file_path)
-                total_files_processed += 1
+    # Apenas processa arquivos diretamente no diretório especificado
+    files = [f for f in os.listdir(data_path) if os.path.isfile(os.path.join(data_path, f))]
     
-    save_info()
+    for file in files:
+        file_path = os.path.join(data_path, file)
+        
+        # Verificar se o arquivo já foi processado
+        if file_path not in processed_files:
+            documents = load_and_preprocess_data(file_path)
+            model = train_or_continue_model(documents, model)
+            log_progress(file_path)
+            total_files_processed += 1
+    
+            save_info()
 
 if __name__ == "__main__":
     process_files(data_path)
