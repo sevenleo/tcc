@@ -1,9 +1,7 @@
 import os
 import re
-import gzip
 import logging
 import numpy as np
-import gensim
 from gensim.models import Word2Vec
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
@@ -19,7 +17,6 @@ nltk.download('stopwords')
 # Configuração do logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
 
 data_path = '../../wikipedia-dumps'
 results_folder = 'modelo/'
@@ -76,17 +73,24 @@ def train_or_continue_model(documents, model):
 
     global total_words_processed
     if model is None:
-        logger.info('Treinando um novo modelo Word2Vec')
-        model = Word2Vec(sentences=[documents], vector_size=100, window=5, min_count=5, workers=cpu_workers)
+        if len(documents) > 0:
+            logger.info('Treinando um novo modelo Word2Vec')
+            model = Word2Vec(sentences=[documents], vector_size=100, window=5, min_count=5, workers=cpu_workers)
+        else:
+            logger.warning('Documento vazio. Ignorando.')
     else:
-        logger.info('Atualizando o modelo Word2Vec existente')
-        model.build_vocab([documents], update=True)
-        model.train([documents], total_examples=model.corpus_count, epochs=model.epochs)
+        if len(documents) > 0:
+            logger.info('Atualizando o modelo Word2Vec existente')
+            model.build_vocab([documents], update=True)
+            model.train([documents], total_examples=model.corpus_count, epochs=model.epochs)
+        else:
+            logger.warning('Documento vazio. Ignorando.')
     
-    total_words_processed += len(documents)
-    model.save(model_path)
-    save_word_matrix_and_vocab(model, matrix_path, vocab_path)
-    logger.info('Modelo Word2Vec treinado e salvo')
+    if model:
+        total_words_processed += len(documents)
+        model.save(model_path)
+        save_word_matrix_and_vocab(model, matrix_path, vocab_path)
+        logger.info('Modelo Word2Vec treinado e salvo')
     return model
 
 # Função para carregar o modelo existente
@@ -145,17 +149,17 @@ def process_files(data_path):
     
     for root, dirs, files in os.walk(data_path):
         for file in files:
-            if file.endswith('.txt'):
-                file_path = os.path.join(root, file)
-                
-                # Verificar se o arquivo já foi processado
-                if file_path not in processed_files:
-                    documents = load_and_preprocess_data(file_path)
-                    model = train_or_continue_model(documents, model)
-                    log_progress(file_path)
-                    total_files_processed += 1
+            #if file.endswith('.txt'):
+            file_path = os.path.join(root, file)
+            
+            # Verificar se o arquivo já foi processado
+            if file_path not in processed_files:
+                documents = load_and_preprocess_data(file_path)
+                model = train_or_continue_model(documents, model)
+                log_progress(file_path)
+                total_files_processed += 1
     
-            save_info()
+    save_info()
 
 if __name__ == "__main__":
     process_files(data_path)
