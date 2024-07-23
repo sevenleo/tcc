@@ -31,34 +31,18 @@ def calcular_similaridade(palavra1, palavra2, model):
         return None
 
 if __name__ == "__main__":
-    while True:
-        # Solicitar o tipo de pesquisa ao usuário
-        escolha = input("Digite 'CLUEWEB' para o modelo CLUEWEB, 'WIKIPEDIA' para o modelo WIKIPEDIA, 'COMPARAR' para comparar ambos ou 'SAIR' para finalizar: ").strip().upper()
-        
-        if escolha == 'SAIR':
-            break
-        
-        if escolha == 'CLUEWEB':
-            model = load_model(clueweb_model_path)
-        elif escolha == 'WIKIPEDIA':
-            model = load_model(wikipedia_model_path)
-        elif escolha == 'COMPARAR':
-            model_clueweb = load_model(clueweb_model_path)
-            model_wikipedia = load_model(wikipedia_model_path)
-        else:
-            print("Opção inválida. Por favor, escolha 'CLUEWEB', 'WIKIPEDIA', 'COMPARAR' ou 'SAIR'.")
-            continue
-
-        if escolha in ['CLUEWEB', 'WIKIPEDIA'] and model is None:
-            continue
-        if escolha == 'COMPARAR' and (model_clueweb is None or model_wikipedia is None):
-            continue
-
+    # Carregar ambos os modelos
+    model_clueweb = load_model(clueweb_model_path)
+    model_wikipedia = load_model(wikipedia_model_path)
+    
+    if model_clueweb is None or model_wikipedia is None:
+        print("Erro ao carregar os modelos. Certifique-se de que os caminhos estejam corretos.")
+    else:
         while True:
             # Solicitar as duas palavras ao usuário
-            entrada = input("Digite duas palavras separadas por espaço (ou 'voltar' para escolher outro modelo): ").strip()
+            entrada = input("Digite duas palavras separadas por espaço (ou 'sair' para finalizar): ").strip()
             
-            if entrada.lower() == 'voltar':
+            if entrada.lower() == 'sair':
                 break
             
             palavras = entrada.split()
@@ -68,25 +52,16 @@ if __name__ == "__main__":
             
             palavra1, palavra2 = palavras
             
-            if escolha == 'COMPARAR':
-                # Calcular a similaridade em ambos os modelos
-                similaridade_clueweb = calcular_similaridade(palavra1, palavra2, model_clueweb)
-                similaridade_wikipedia = calcular_similaridade(palavra1, palavra2, model_wikipedia)
-                
-                if similaridade_clueweb is not None and similaridade_wikipedia is not None:
-                    tabela = [
-                        ["Modelo", "Similaridade"],
-                        ["CLUEWEB", similaridade_clueweb],
-                        ["WIKIPEDIA", similaridade_wikipedia]
-                    ]
-                    print(tabulate(tabela, headers="firstrow", tablefmt="grid"))
-                else:
-                    print("Não foi possível calcular a similaridade em um ou ambos os modelos. Verifique se as palavras estão no vocabulário dos modelos.")
+            # Calcular a similaridade em ambos os modelos
+            similaridade_clueweb = calcular_similaridade(palavra1, palavra2, model_clueweb)
+            similaridade_wikipedia = calcular_similaridade(palavra1, palavra2, model_wikipedia)
+            
+            if similaridade_clueweb is not None and similaridade_wikipedia is not None:
+                tabela = [
+                    ["Palavras", "Modelo", "Similaridade"],
+                    [f"{palavra1} - {palavra2}", "CLUEWEB", similaridade_clueweb],
+                    [f"{palavra1} - {palavra2}", "WIKIPEDIA", similaridade_wikipedia]
+                ]
+                print(tabulate(tabela, headers="firstrow", tablefmt="grid"))
             else:
-                # Calcular a similaridade no modelo selecionado
-                similaridade = calcular_similaridade(palavra1, palavra2, model)
-                
-                if similaridade is not None:
-                    print(f"A similaridade entre '{palavra1}' e '{palavra2}' no modelo {escolha} é: {similaridade}")
-                else:
-                    print("Não foi possível calcular a similaridade. Verifique se as palavras estão no vocabulário do modelo.")
+                print("Não foi possível calcular a similaridade em um ou ambos os modelos. Verifique se as palavras estão no vocabulário dos modelos.")
