@@ -14,7 +14,7 @@ def write_latex_table(word, similar_words, model_name, output_file):
     """Gera o código LaTeX e escreve no arquivo especificado."""
     file_exists = os.path.isfile(output_file)
     
-    with open(output_file, 'a') as f:
+    with open(output_file, 'a', encoding='utf-8') as f:
     
         f.write(r'\begin{table}[H]' + '\n')
         f.write(r'\centering' + '\n')
@@ -48,7 +48,7 @@ def txt_similar_words(word, similar_words, model_name):
     output_file = f'predicts.{model_name}.txt'
     
     # Abre o arquivo para escrita
-    with open(output_file, 'a') as file:
+    with open(output_file, 'a', encoding='utf-8') as file:
         file.write(f'(Modelo: {model_name})\tPalavras similares a {word}:\n')
         for word_sim, similarity in similar_words:
             # Escreve os resultados no arquivo

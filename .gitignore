@@ -128,4 +128,6 @@ modelo*.tmp
 ptwiki*
 *.latex
 *.tex
+predicts*tex
+*tex
 # End of https://www.gitignore.io/api/python
