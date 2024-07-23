@@ -1,84 +1,75 @@
 import os
-import logging
 from gensim.models import Word2Vec
-from tabulate import tabulate
 
-# Configuração do logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+# Função para calcular a similaridade entre duas palavras
+def calcular_similaridade(modelo, palavra1, palavra2):
+    try:
+        similaridade = modelo.wv.similarity(palavra1, palavra2)
+    except KeyError as e:
+        print(f"Palavra não encontrada no modelo: {e}")
+        similaridade = None
+    return similaridade
 
-# Caminhos para os modelos Word2Vec
-clueweb_model_path = 'clueweb/modelo/word2vec.model'
-wikipedia_model_path = 'wikipedia/modelo/word2vec.model'
+# Função para gerar a tabela de comparação em formato LaTeX
+def gerar_tabela_latex(palavra1, palavra2, similaridade_clueweb, similaridade_wikipedia):
+    tabela_latex = f"""
+    \\begin{{table}}[h!]
+    \\centering
+    \\begin{{tabular}}{{|c |c | c|}} 
+     \\hline
+     Palavras & Modelo & Similaridade \\\\
+     \\hline
+     {palavra1} - {palavra2} & CLUEWEB & {similaridade_clueweb:.6f} \\\\
+     {palavra1} - {palavra2} & WIKIPEDIA & {similaridade_wikipedia:.6f} \\\\
+     \\hline
+    \\end{{tabular}}
+    \\caption{{Similaridade de cosseno entre as palavras {palavra1} \\& {palavra2}.}}
+    \\label{{table:1}}
+    \\end{{table}}
+    """
+    return tabela_latex
 
-# Caminhos para os arquivos de comparação
-comparacoes_txt_path = 'comparacoes.txt'
-comparacoes_latex_path = 'comparacoes.latex'
+# Função para salvar a tabela de comparação em formato texto e LaTeX
+def salvar_comparacao(palavra1, palavra2, similaridade_clueweb, similaridade_wikipedia):
+    comparacoes_txt = "comparacoes.txt"
+    comparacoes_latex = "comparacoes.latex"
 
-# Função para carregar o modelo
-def load_model(model_path):
-    if os.path.exists(model_path):
-        logger.info(f'Carregando o modelo Word2Vec de {model_path}')
-        model = Word2Vec.load(model_path)
-        return model
-    else:
-        logger.error(f'Modelo não encontrado em {model_path}')
-        return None
-
-# Função para calcular similaridade entre duas palavras
-def calcular_similaridade(palavra1, palavra2, model):
-    if palavra1 in model.wv.key_to_index and palavra2 in model.wv.key_to_index:
-        similaridade = model.wv.similarity(palavra1, palavra2)
-        return similaridade
-    else:
-        logger.error('Uma ou ambas as palavras não estão no vocabulário do modelo.')
-        return None
-
-# Função para salvar a tabela em um arquivo
-def salvar_tabela(tabela, txt_path, latex_path):
-    with open(txt_path, 'a', encoding='utf-8') as txt_file:
-        txt_file.write(tabulate(tabela, headers="firstrow", tablefmt="grid"))
-        txt_file.write('\n\n')
+    with open(comparacoes_txt, 'a', encoding='utf-8') as f_txt:
+        f_txt.write(f"{palavra1} - {palavra2} | CLUEWEB | {similaridade_clueweb:.6f}\n")
+        f_txt.write(f"{palavra1} - {palavra2} | WIKIPEDIA | {similaridade_wikipedia:.6f}\n")
     
-    with open(latex_path, 'a', encoding='utf-8') as latex_file:
-        latex_file.write(tabulate(tabela, headers="firstrow", tablefmt="latex"))
-        latex_file.write('\n\n')
+    tabela_latex = gerar_tabela_latex(palavra1, palavra2, similaridade_clueweb, similaridade_wikipedia)
+    
+    with open(comparacoes_latex, 'a', encoding='utf-8') as f_latex:
+        f_latex.write(tabela_latex)
+
+# Função principal para comparar palavras entre os modelos
+def comparar_modelos():
+    # Carregar os modelos
+    modelo_clueweb = Word2Vec.load("clueweb/modelo/word2vec.model")
+    modelo_wikipedia = Word2Vec.load("wikipedia/modelo/word2vec.model")
+
+    while True:
+        entrada = input("Digite duas palavras separadas por espaço (ou 'sair' para encerrar): ")
+        if entrada.lower() == 'sair':
+            break
+        
+        palavras = entrada.split()
+        if len(palavras) != 2:
+            print("Por favor, digite exatamente duas palavras.")
+            continue
+        
+        palavra1, palavra2 = palavras
+        similaridade_clueweb = calcular_similaridade(modelo_clueweb, palavra1, palavra2)
+        similaridade_wikipedia = calcular_similaridade(modelo_wikipedia, palavra1, palavra2)
+        
+        if similaridade_clueweb is not None and similaridade_wikipedia is not None:
+            print(f"Similaridade no modelo CLUEWEB: {similaridade_clueweb:.6f}")
+            print(f"Similaridade no modelo WIKIPEDIA: {similaridade_wikipedia:.6f}")
+            
+            salvar_comparacao(palavra1, palavra2, similaridade_clueweb, similaridade_wikipedia)
+        else:
+            print("Erro ao calcular similaridade. Verifique se as palavras existem nos modelos.")
 
 if __name__ == "__main__":
-    # Carregar ambos os modelos
-    model_clueweb = load_model(clueweb_model_path)
-    model_wikipedia = load_model(wikipedia_model_path)
-    
-    if model_clueweb is None or model_wikipedia is None:
-        print("Erro ao carregar os modelos. Certifique-se de que os caminhos estejam corretos.")
-    else:
-        while True:
-            # Solicitar as duas palavras ao usuário
-            entrada = input("Digite duas palavras separadas por espaço (ou 'sair' para finalizar): ").strip()
-            
-            if entrada.lower() == 'sair':
-                break
-            
-            palavras = entrada.split()
-            if len(palavras) != 2:
-                print("Por favor, digite exatamente duas palavras separadas por espaço.")
-                continue
-            
-            palavra1, palavra2 = palavras
-            
-            # Calcular a similaridade em ambos os modelos
-            similaridade_clueweb = calcular_similaridade(palavra1, palavra2, model_clueweb)
-            similaridade_wikipedia = calcular_similaridade(palavra1, palavra2, model_wikipedia)
-            
-            if similaridade_clueweb is not None and similaridade_wikipedia is not None:
-                tabela = [
-                    ["Palavras", "Modelo", "Similaridade"],
-                    [f"{palavra1} - {palavra2}", "CLUEWEB", similaridade_clueweb],
-                    [f"{palavra1} - {palavra2}", "WIKIPEDIA", similaridade_wikipedia]
-                ]
-                print(tabulate(tabela, headers="firstrow", tablefmt="grid"))
-                
-                # Salvar a tabela nos arquivos
-                salvar_tabela(tabela, comparacoes_txt_path, comparacoes_latex_path)
-            else:
-                print("Não foi possível calcular a similaridade em um ou ambos os modelos. Verifique se as palavras estão no vocabulário dos modelos.")
+    comparar_modelos()
