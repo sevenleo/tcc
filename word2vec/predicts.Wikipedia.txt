@@ -1,0 +1,42 @@
+(Modelo: Wikipedia)	Palavras similares a arroz:
+milho                     0.88368642
+acucar                    0.87322110
+mandioca                  0.86615664
+secas                     0.85888046
+encostas                  0.85642517
+
+(Modelo: Wikipedia)	Palavras similares a menino:
+beijo                     0.85545808
+alma                      0.85538101
+paixao                    0.85402870
+amor                      0.84824085
+coracao                   0.84781635
+
+(Modelo: Wikipedia)	Palavras similares a aluno:
+fundiramse                0.77000356
+tratores                  0.75067514
+estudante                 0.74922496
+munakata                  0.74580240
+tuberculose               0.74278599
+
+(Modelo: Wikipedia)	Palavras similares a azul:
+cores                     0.75479007
+dourado                   0.75405455
+branca                    0.74586731
+amarela                   0.74473751
+barra                     0.74191427
+
+(Modelo: Wikipedia)	Palavras similares a cachorro:
+misterioso                0.84654963
+ravensymone               0.83765703
+gato                      0.82441002
+ariadne                   0.79298854
+raptores                  0.79234380
+
+(Modelo: Wikipedia)	Palavras similares a andar:
+loggia                    0.80139971
+janela                    0.80083221
+parede                    0.79505306
+terreo                    0.77425849
+laterais                  0.76958936
+

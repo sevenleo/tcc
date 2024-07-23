@@ -1,0 +1,42 @@
+(Modelo: Clueweb)	Palavras similares a arroz:
+manteiga                  0.94217199
+frango                    0.93900764
+azeite                    0.93486339
+tomate                    0.93362331
+farinha                   0.93307203
+
+(Modelo: Clueweb)	Palavras similares a menino:
+mãe                       0.93447578
+menina                    0.92814094
+rapaz                     0.91702545
+debaixo                   0.89926046
+costas                    0.88364822
+
+(Modelo: Clueweb)	Palavras similares a aluno:
+introduza                 0.87917012
+bíblia                    0.85933793
+activação                 0.85783792
+dª                        0.85331988
+petismo                   0.85024941
+
+(Modelo: Clueweb)	Palavras similares a azul:
+amarelo                   0.89128190
+castanho                  0.88844985
+mangueira                 0.87331235
+cor                       0.87292111
+arvore                    0.86994278
+
+(Modelo: Clueweb)	Palavras similares a cachorro:
+loira                     0.89386928
+gorda                     0.87465793
+hein                      0.87422472
+foda                      0.86913460
+bruxa                     0.86624008
+
+(Modelo: Clueweb)	Palavras similares a andar:
+pronúncia                 0.84829921
+quarto                    0.83071935
+reator                    0.81823128
+barco                     0.81705332
+nortista                  0.81235725
+
