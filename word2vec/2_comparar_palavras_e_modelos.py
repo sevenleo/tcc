@@ -11,6 +11,10 @@ logger = logging.getLogger(__name__)
 clueweb_model_path = 'clueweb/modelo/word2vec.model'
 wikipedia_model_path = 'wikipedia/modelo/word2vec.model'
 
+# Caminhos para os arquivos de comparação
+comparacoes_txt_path = 'comparacoes.txt'
+comparacoes_latex_path = 'comparacoes.latex'
+
 # Função para carregar o modelo
 def load_model(model_path):
     if os.path.exists(model_path):
@@ -29,6 +33,16 @@ def calcular_similaridade(palavra1, palavra2, model):
     else:
         logger.error('Uma ou ambas as palavras não estão no vocabulário do modelo.')
         return None
+
+# Função para salvar a tabela em um arquivo
+def salvar_tabela(tabela, txt_path, latex_path):
+    with open(txt_path, 'a', encoding='utf-8') as txt_file:
+        txt_file.write(tabulate(tabela, headers="firstrow", tablefmt="grid"))
+        txt_file.write('\n\n')
+    
+    with open(latex_path, 'a', encoding='utf-8') as latex_file:
+        latex_file.write(tabulate(tabela, headers="firstrow", tablefmt="latex"))
+        latex_file.write('\n\n')
 
 if __name__ == "__main__":
     # Carregar ambos os modelos
@@ -63,5 +77,8 @@ if __name__ == "__main__":
                     [f"{palavra1} - {palavra2}", "WIKIPEDIA", similaridade_wikipedia]
                 ]
                 print(tabulate(tabela, headers="firstrow", tablefmt="grid"))
+                
+                # Salvar a tabela nos arquivos
+                salvar_tabela(tabela, comparacoes_txt_path, comparacoes_latex_path)
             else:
                 print("Não foi possível calcular a similaridade em um ou ambos os modelos. Verifique se as palavras estão no vocabulário dos modelos.")

@@ -126,4 +126,5 @@ modelo*.7z
 modelo*.tmp
 
 ptwiki*
+*.latex
 # End of https://www.gitignore.io/api/python
