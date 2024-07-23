@@ -1,0 +1,8 @@
+Resultado das Analogias
+Base            | Target          | Palavras Preditas                        | Acurácia da Analogias
+------------------------------------------------------------------------------------------
+rei             | rainha          | trono, monarca, rainha, governante, imperador, coroa, principe, duque, reinado, constantinopla | 1.0000
+gato            | felino          | beijo, cachorro, pedaco, cabelos, menino, salpicos, olhos, misterioso, binah, ceu | 0.0000
+escola          | professor       | estudante, colegio, faculdade, aulas, escolas, escolar, curso, aluna, aluno, professora | 0.0000
+
+Acurácia do modelo: 33.33%

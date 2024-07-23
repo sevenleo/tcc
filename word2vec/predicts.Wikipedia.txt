@@ -1,45 +1,9 @@
-(Modelo: Wikipedia)	Palavras similares a menino:
-beijo                     0.85545808
-alma                      0.85538101
-paixao                    0.85402870
-amor                      0.84824085
-coracao                   0.84781635
-menina                    0.84136564
-viver                     0.83330464
-
-(Modelo: Wikipedia)	Palavras similares a arroz:
-milho                     0.88368642
-acucar                    0.87322110
-mandioca                  0.86615664
-secas                     0.85888046
-encostas                  0.85642517
-graos                     0.85455650
-formando                  0.84657019
-
-(Modelo: Wikipedia)	Palavras similares a computador:
-software                  0.85018277
-conectividade             0.84964043
-computadores              0.83523500
-microcontrolador          0.83349830
-megabytes                 0.82931387
-videogames                0.82722884
-utiliza                   0.81674290
-
-(Modelo: Wikipedia)	Palavras similares a aluno:
-fundiramse                0.77000356
-tratores                  0.75067514
-estudante                 0.74922496
-munakata                  0.74580240
-tuberculose               0.74278599
-constatou                 0.73362100
-saco                      0.73102969
-
-(Modelo: Wikipedia)	Palavras similares a escola:
-estudante                 0.73377419
-colegio                   0.71455044
-faculdade                 0.68773448
-aulas                     0.68326074
-escolas                   0.68198514
-escolar                   0.66434401
-curso                     0.65989906
+(Modelo: Wikipedia)	Palavras similares a bolsonaro:
+jair                      0.81893593
+dilma                     0.67862183
+fake                      0.67554641
+inquerito                 0.67371958
+denuncia                  0.67226464
+impeachment               0.67164141
+stf                       0.66814542
 

@@ -1,45 +1,9 @@
-(Modelo: Clueweb)	Palavras similares a menino:
-mãe                       0.93447578
-menina                    0.92814094
-rapaz                     0.91702545
-debaixo                   0.89926046
-morre                     0.88360077
-garoto                    0.88146013
-bunda                     0.87942994
-
-(Modelo: Clueweb)	Palavras similares a arroz:
-manteiga                  0.94217199
-frango                    0.93900764
-azeite                    0.93486339
-tomate                    0.93362331
-farinha                   0.93307203
-fatias                    0.93244678
-colheres                  0.92873788
-
-(Modelo: Clueweb)	Palavras similares a computador:
-aparelho                  0.86634958
-wirelles                  0.82823908
-visual                    0.81746703
-externo                   0.81315386
-usando                    0.81221426
-instalar                  0.81046724
-arma                      0.79757017
-
-(Modelo: Clueweb)	Palavras similares a aluno:
-introduza                 0.85426348
-petismo                   0.83217585
-bíblia                    0.82775253
-salvarmos                 0.82659352
-couchsurfing              0.82413888
-dª                        0.82411444
-activação                 0.82341814
-
-(Modelo: Clueweb)	Palavras similares a escola:
-vila                      0.78504574
-academia                  0.76600093
-colégio                   0.76449960
-presidência               0.76297969
-palácio                   0.75701278
-escoteiro                 0.75618106
-paulista                  0.75571007
+(Modelo: Clueweb)	Palavras similares a bolsonaro:
+fantasista                0.48686022
+aidstylecolor             0.47377351
+nbhm                      0.47112015
+tdaz                      0.46086016
+woodshed                  0.44396496
+hjw                       0.44131967
+vnor                      0.44090453
 
