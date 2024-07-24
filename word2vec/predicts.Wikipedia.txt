@@ -1,9 +1,0 @@
-(Modelo: Wikipedia)	Palavras similares a bolsonaro:
-jair                      0.81893593
-dilma                     0.67862183
-fake                      0.67554641
-inquerito                 0.67371958
-denuncia                  0.67226464
-impeachment               0.67164141
-stf                       0.66814542
-

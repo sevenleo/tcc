@@ -1,9 +1,0 @@
-(Modelo: Clueweb)	Palavras similares a bolsonaro:
-fantasista                0.48686022
-aidstylecolor             0.47377351
-nbhm                      0.47112015
-tdaz                      0.46086016
-woodshed                  0.44396496
-hjw                       0.44131967
-vnor                      0.44090453
-
