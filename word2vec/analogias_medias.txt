@@ -1,5 +1,0 @@
-Resultado das Analogias
-Palavra Base    | Palavra Esperada | Palavras Preditas                        | Correto   
---------------------------------------------------------------------------------
-
-Acurácia do modelo: 0.00%
