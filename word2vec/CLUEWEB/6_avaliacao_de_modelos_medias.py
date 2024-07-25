@@ -46,6 +46,7 @@ def format_table_header():
 def format_table_row(base, target, result, similarity_sum, similarity_avg):
     """Formata uma linha da tabela com os resultados."""
     result_str = str(result)
+    result_str = result_str[:60]
     row = f"| {base:<14} | {target:<14} | {similarity_sum:>18.2f} | {similarity_avg:>18.2f} | {result_str:<48} |"
     return row
 
@@ -69,7 +70,8 @@ def evaluate_analogies(model, analogies, topn=TOPN):
             for word in words:
                 similarity = 0
                 similarity = model.wv.similarity(target, word)
-                words_str = words_str + word +" "+ str(similarity) + ", "
+                # words_str = words_str + word +" "+ str(similarity) + ", "
+                words_str = words_str + word + ", "
                 similarity_sum += similarity
             similarity_avg = similarity_sum / topn
             total_accuracy = total_accuracy + similarity_avg
