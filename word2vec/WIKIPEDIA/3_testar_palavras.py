@@ -55,24 +55,6 @@ def print_similar_words(model, word, topn=10):
         result += f"A palavra '{word}' não está no vocabulário.\n"
     return result
 
-def print_predictions(model, word, topn=10):
-    result = f"\n10 predições para '{word}':\n"
-    try:
-        predictions = model.wv.most_similar(word, topn=topn)
-        max_word_length = max(len(prediction) for prediction, _ in predictions)
-        max_similarity_length = max(len(f"{similarity:.4f}") for _, similarity in predictions)
-        
-        border = "+" + "-" * (max_word_length + 2) + "+" + "-" * (max_similarity_length + 2) + "+"
-        result += border + "\n"
-        result += f"| {'Palavra'.ljust(max_word_length)} | {'Similaridade'.rjust(max_similarity_length)} |\n"
-        result += border + "\n"
-        
-        for prediction, similarity in predictions:
-            result += f"| {prediction.ljust(max_word_length)} | {similarity:.4f}".rjust(max_similarity_length + 1) + " |\n"
-        result += border + "\n"
-    except KeyError:
-        result += f"A palavra '{word}' não está no vocabulário.\n"
-    return result
 
 def save_results(word, results, save_path):
     # Criar a pasta com o nome "resultados de [data de hoje]" se não existir
@@ -102,7 +84,6 @@ if __name__ == "__main__":
         
         # Mostrar palavras similares e predições
         results += print_similar_words(model, word)
-        results += print_predictions(model, word)
         
         # Exibir no terminal
         print(results)

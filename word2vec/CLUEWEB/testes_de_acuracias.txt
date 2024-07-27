@@ -1,9 +1,0 @@
-vector_size=100, window=5, min_count=5, partes_do_clueweb_analisadas=503
-teste de acuracia v4 (acuracia 5quartetos) 	= 5.66%
-teste de acuracia v5 (duplas )				= 1.94%
-teste de acuracia v6 (acuracia 6medias )	= 0.6227338179473815
-
-vector_size=500, window=30, min_count=10, partes_do_clueweb_analisadas=106
-teste de acuracia v4 (acuracia 5quartetos) 	= 0%
-teste de acuracia v5 (duplas )				= 0.98%
-teste de acuracia v6 (acuracia 6medias )	= 0.5109542323463728
